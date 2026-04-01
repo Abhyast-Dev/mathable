@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ABLE™ Smart Lab | Squares & Cubes</title>
+  <style>
+    :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
+    body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); }
+    header { background:var(--primary); color:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; }
+    header h1 { margin:0; font-size:1.5rem; }
+    nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
+    main { padding:30px; max-width:1000px; margin:auto; }
+    .tabs { display:flex; gap:15px; margin-bottom:20px; }
+    .tabs button { padding:10px 20px; border:none; border-radius:6px; cursor:pointer; background:#ddd; font-weight:bold; }
+    .tabs button.active { background:var(--accent); color:white; }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .lesson { background:white; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    .lesson h2 { color:var(--primary); }
+    .hint { color:var(--accent); }
+    .solution { color:var(--success); }
+     header { background:var(--primary); color:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; }
+    header img { height:50px; }
+    header h1 { margin:0; font-size:1.5rem; }
+    nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
+    main { padding:40px; max-width:1000px; margin:auto; }
+    h2 { color:var(--primary); }
+  </style>
+ 
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+<header>
+  <div style="display:flex; align-items:center; gap:15px;">
+    <a href="index.html"><img src="Logo.png" alt="ABLE™ Logo"></a>
+    <h1>ABLE™ Math Smart Lab - Squares & Cubes</h1>
+  </div>
+  
+  <nav>
+    <a href="index.html">Home</a>
+    
+  
+  </nav>
+</header>
+
+<main>
+  <div class="tabs">
+    <button class="active" onclick="showTab('lessons')">Lessons</button>
+    <button onclick="showTab('worksheet')">Worksheet</button>
+    <button onclick="showTab('solve')">Solve Lab</button>
+    <button onclick="showTab('real')">Real Life Lab</button>
+    <button onclick="showTab('calculator')">Calculator</button>
+
+  </div>
+
+  <div id="lessons" class="tab-content active"></div>
+  <div id="calculator" class="tab-content">
+  <h2>🧮 Square & Cube Calculator</h2>
+  <label>Start: <input id="calc-start" type="number" value="1"></label>
+  <label>End: <input id="calc-end" type="number" value="20"></label>
+  <button onclick="generateChart()">Generate Chart</button>
+  <div id="calc-output" style="margin-top:20px;"></div>
+</div>
+  <div id="solve" class="tab-content"><div id="solve-container"></div></div>
+  <div id="worksheet" class="tab-content"></div>
+  
+  <div id="real" class="tab-content"><div id="real-container"></div></div>
+</main>
+
+<script>
+  // Embedded JSON
+  const concept = {
+    "title": "Squares & Cubes",
+    "lessons": [
+      { "id":"sc1","name":"Square Numbers","badge":"Square Explorer","content":"Squares are numbers multiplied by themselves. Example: \\(5^2 = 25\\)."},
+      { "id":"sc2","name":"Square Roots","badge":"Root Finder","content":"The square root of a number is the value that, when squared, gives the original number. Example: \\(\\sqrt{49} = 7\\)."},
+      { "id":"sc3","name":"Cube Numbers","badge":"Cube Builder","content":"Cubes are numbers multiplied by themselves three times. Example: \\(3^3 = 27\\)."},
+      { "id":"sc4","name":"Cube Roots","badge":"Root Ranger","content":"The cube root of a number is the value that, when cubed, gives the original number. Example: \\(\\sqrt[3]{64} = 4\\)."},
+      { "id":"sc_final","name":"Final Self-Assessment","badge":null,"content":"☑ Explain squares and square roots<br>☑ Explain cubes and cube roots<br>☑ Solve problems<br>☑ Reflect on strengths and areas for practice"}
+    ],
+    "worksheet": {
+      "description":"Practice problems on squares, cubes, and their roots."
+    }
+  };
+
+  // Render Lessons
+  const lessonDiv = document.getElementById("lessons");
+  concept.lessons.forEach(l => {
+    const block = document.createElement("div");
+    block.className = "lesson";
+    block.innerHTML = `<h2>${l.name}</h2><p>${l.content}</p><p><b>Badge:</b> ${l.badge || "None"}</p>`;
+    lessonDiv.appendChild(block);
+  });
+
+  // Worksheet
+  const worksheetDiv = document.getElementById("worksheet");
+  worksheetDiv.innerHTML = `
+    <h2>📄 Worksheet</h2>
+    <label>Number of Questions: 
+      <input id="worksheet-count" type="number" value="5" min="1" max="20">
+    </label>
+    <button onclick="generateWorksheet()">Generate Worksheet</button>
+    <div id="worksheet-container"></div>
+  `;
+
+  function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function toggleAnswer(i) {
+    const ansDiv = document.getElementById("answer-" + i);
+    ansDiv.style.display = ansDiv.style.display === "none" ? "block" : "none";
+  }
+  
+
+function isPerfectSquare(n) {
+  return Number.isInteger(Math.sqrt(n));
+}
+
+function isPerfectCube(n) {
+  return Number.isInteger(Math.cbrt(n));
+}
+
+function explainSquare(n) {
+  if (isPerfectSquare(n)) {
+    const root = Math.sqrt(n);
+    return `${n} is a perfect square because it equals ${root}².`;
+  }
+  return "-";
+}
+
+function explainCube(n) {
+  if (isPerfectCube(n)) {
+    const root = Math.cbrt(n);
+    return `${n} is a perfect cube because it equals ${root}³.`;
+  }
+  return "-";
+}
+
+function generateChart() {
+  const start = parseInt(document.getElementById("calc-start").value);
+  const end = parseInt(document.getElementById("calc-end").value);
+  const out = document.getElementById("calc-output");
+
+  let table = `
+    <table border="1" cellpadding="8" style="border-collapse:collapse; text-align:center;">
+      <tr style="background:#eee;">
+        <th>Number</th>
+        <th>Square</th>
+        <th>Cube</th>
+        <th>Perfect Square?</th>
+        <th>Perfect Cube?</th>
+        <th>Explanation</th>
+      </tr>
+  `;
+
+  for (let i = start; i <= end; i++) {
+    const square = i * i;
+    const cube = i * i * i;
+    table += `
+      <tr>
+        <td>${i}</td>
+        <td>${square}</td>
+        <td>${cube}</td>
+        <td>${isPerfectSquare(i) ? "✅ Yes" : "❌ No"}</td>
+        <td>${isPerfectCube(i) ? "✅ Yes" : "❌ No"}</td>
+        <td>
+          ${explainSquare(i) !== "-" ? explainSquare(i) : explainCube(i)}
+        </td>
+      </tr>
+    `;
+  }
+
+  table += "</table>";
+  out.innerHTML = table;
+}
+
+  function generateWorksheet() {
+    const worksheetContainer = document.getElementById("worksheet-container");
+    const count = parseInt(document.getElementById("worksheet-count").value) || 5;
+
+    let questions = [];
+    let answers = [];
+
+    for (let i = 0; i < count; i++) {
+      const base = rand(2, 12);
+      const square = base * base;
+      const cube = base * base * base;
+
+      let q = "", a = "";
+      const templateIndex = Math.floor(Math.random() * 4);
+
+      switch (templateIndex) {
+        case 0: q = `Evaluate: \\(${base}^2\\)`; a = `\\(${square}\\)`; break;
+        case 1: q = `Evaluate: \\(${base}^3\\)`; a = `\\(${cube}\\)`; break;
+        case 2: q = `Find: \\(\\sqrt{${square}}\\)`; a = `\\(${base}\\)`; break;
+        case 3: q = `Find: \\(\\sqrt[3]{${cube}}\\)`; a = `\\(${base}\\)`; break;
+      }
+
+      questions.push(q);
+      answers.push(a);
+    }
+
+    worksheetContainer.innerHTML =
+      "<ol>" +
+      questions.map((q, i) => `
+        <li>
+          ${q}
+          <button onclick="toggleAnswer(${i})">Show Answer</button>
+          <div id="answer-${i}" style="display:none; color:green;">
+            ${answers[i]}
+          </div>
+        </li>
+      `).join("") +
+      "</ol>" +
+      `<button onclick="generateWorksheet()">🔄 New Worksheet</button>`;
+
+    MathJax.typesetPromise();
+  }
+
+function loadSolveLab() {
+
+
+
+  const container = document.getElementById("solve-container");
+  const level = getDifficultyLevel();
+
+  const base = rand(level.min, level.max);
+  const type = Math.random() > 0.5 ? "square" : "cube";
+
+  let number, q, answer;
+
+  if (type === "square") {
+    number = base * base;
+    answer = base;
+    q = `Find: \\(\\sqrt{${number}}\\)`;
+  } else {
+    number = base * base * base;
+    answer = base;
+    q = `Find: \\(\\sqrt[3]{${number}}\\)`;
+  }
+
+    window.currentNumber = number;
+    window.currentAnswer = answer;
+    window.currentType = type;
+
+
+  container.innerHTML = `
+    <h2>🧠 Solve Lab</h2>
+    <p>${q}</p>
+
+    <!-- STEP 1 -->
+    <div id="step1">
+      <p><b>Step 1:</b> Identify the type</p>
+      <select id="rule-select">
+        <option value="">Select</option>
+        <option>Square Root</option>
+        <option>Cube Root</option>
+      </select>
+      <button onclick="checkRule('${type === "square" ? "Square Root" : "Cube Root"}')">Check</button>
+      <div id="rule-feedback"></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" style="display:none;">
+      <p><b>Step 2:</b> Choose method</p>
+      <button onclick="showMethod('prime', ${number}, '${type}')">🔢 Prime Factorization</button>
+      <button onclick="showMethod('division', ${number}, '${type}')">📏 Division Method</button>
+      <div id="method-output"></div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" style="display:none;">
+      <p><b>Step 3:</b> Try Yourself</p>
+      <input id="final-answer">
+      <button onclick="checkFinalAnswer(${answer})">Check</button>
+      <div id="final-feedback"></div>
+      <button onclick="showExplanation()">💡 Explain</button>
+      <button onclick="loadSolveLab()">➡ Next</button>
+    </div>
+  `;
+
+  MathJax.typesetPromise();
+}
+
+function interactiveSolveSquare(n) {
+
+  return `
+    <h3>✏️ Try Yourself</h3>
+
+    <p>Find √${n}</p>
+
+    <div id="interactive-step1">
+      <p>Step 1: Group digits</p>
+      <input id="group-answer" placeholder="e.g. 1 | 44">
+      <button onclick="checkGroup('${n}')">Check</button>
+      <div id="group-feedback"></div>
+    </div>
+
+    <div id="interactive-step2" style="display:none;">
+      <p>Step 2: Final Answer</p>
+      <input id="final-answer">
+      <button onclick="checkFinalAnswer(${Math.sqrt(n)})">Check</button>
+      <div id="final-feedback"></div>
+    </div>
+  `;
+}
+
+function checkGroup(n) {
+  const correct = n.toString().replace(/(\d)(?=(\d{2})+$)/g, "$1 | ");
+  const user = document.getElementById("group-answer").value;
+
+  if (user.replace(/\s/g,"") === correct.replace(/\s/g,"")) {
+    document.getElementById("group-feedback").innerHTML = "✅ Correct!";
+    document.getElementById("interactive-step2").style.display = "block";
+  } else {
+    document.getElementById("group-feedback").innerHTML = "💡 Try grouping from right";
+  }
+}
+
+
+function getDifficultyLevel() {
+  const level = localStorage.getItem("math_level") || "6";
+
+  const config = {
+    "6": { min: 2, max: 10 },
+    "7": { min: 5, max: 15 },
+    "8": { min: 8, max: 20 },
+    "9": { min: 10, max: 25 },
+    "10": { min: 12, max: 30 }
+  };
+
+  return config[level];
+}
+
+function checkRule(correctRule) {
+  const val = document.getElementById("rule-select").value;
+  const feedback = document.getElementById("rule-feedback");
+
+  if (val === correctRule) {
+    feedback.innerHTML = "✅ Correct!";
+    document.getElementById("step2").style.display = "block";
+  } else {
+    feedback.innerHTML = "💡 Think again!";
+  }
+}
+
+
+function checkFinalAnswer(correctAnswer) {
+
+  const userInput = document.getElementById("final-answer").value;
+  const user = parseFloat(userInput);
+
+  const correct = window.currentAnswer;
+  const num = window.currentNumber;
+  const type = window.currentType;
+
+  const feedback = document.getElementById("final-feedback");
+
+  if (user === correct) {
+    feedback.innerHTML = "✅ Correct!";
+    feedback.style.color = "green";
+    return;
+  }
+
+  let message = "❌ Not quite. ";
+
+  if (type === "square") {
+
+    if (user * 2 === correct) {
+      message += `You halved it. ${user}² = ${user*user}, not ${num}`;
+    }
+    else if (Math.abs(user - correct) === 1) {
+      message += `Very close! ${user}² = ${user*user}`;
+    }
+    else {
+      message += `Check: ${user} × ${user} = ${user*user}`;
+    }
+
+  }
+
+  if (type === "cube") {
+
+    if (user * user === num) {
+      message += `You used square instead of cube`;
+    }
+    else if (Math.abs(user - correct) === 1) {
+      message += `Close! ${user}³ = ${user**3}`;
+    }
+    else {
+      message += `Check: ${user}³ = ${user**3}`;
+    }
+
+  }
+
+  feedback.innerHTML = message;
+  feedback.style.color = "red";
+}
+
+
+function showMethod(method, number, type) {
+
+  const output = document.getElementById("method-output");
+
+  if (method === "prime") {
+
+    let n = number;
+    let factors = [];
+
+    let i = 2;
+    while (n > 1) {
+      if (n % i === 0) {
+        factors.push(i);
+        n /= i;
+      } else i++;
+    }
+
+    let grouped = "";
+
+    if (type === "square") {
+      for (let i = 0; i < factors.length; i += 2) {
+        grouped += `(${factors[i]} × ${factors[i+1]}) `;
+      }
+    } else {
+      for (let i = 0; i < factors.length; i += 3) {
+        grouped += `(${factors[i]} × ${factors[i+1]} × ${factors[i+2]}) `;
+      }
+    }
+
+    output.innerHTML = `
+      <div style="background:#eef3fb;padding:10px;border-radius:8px;">
+        Factors: ${factors.join(" × ")}<br>
+        Grouping: ${grouped}<br>
+        Answer = ${Math.round(type === "square" ? Math.sqrt(number) : Math.cbrt(number))}
+      </div>
+    `;
+  }
+
+  if (method === "division") {
+
+    if (type === "square") {
+    output.innerHTML = renderSquareRootDivisionVisual(number);
+  } else {
+    output.innerHTML = renderCubeRootDivisionVisual(number);
+  }
+
+  }
+
+  document.getElementById("step3").style.display = "block";
+}
+
+
+function renderSquareRootDivisionVisual(num) {
+
+  const str = num.toString();
+
+  // Step 1: Group digits
+  let groups = [];
+  let i = str.length;
+  while (i > 0) {
+    groups.unshift(str.substring(Math.max(0, i - 2), i));
+    i -= 2;
+  }
+
+  let remainder = 0;
+  let root = "";
+  let visualSteps = "";
+  let explanationSteps = "";
+
+  groups.forEach((g, index) => {
+
+    let current = remainder * 100 + Number(g);
+
+    let x = 0;
+    while ((x + 1) * (x + 1) <= current) x++;
+
+    let subtract = x * x;
+    remainder = current - subtract;
+
+    root += x;
+
+    // VISUAL (division look)
+    visualSteps += `
+      <div style="margin-left:${index * 20}px;">
+        ${current}<br>
+        − ${subtract}<br>
+        <span style="border-top:1px solid #000;">${remainder}</span>
+      </div>
+    `;
+
+    // EXPLANATION (step reasoning)
+    explanationSteps += `
+      <li>
+        Bring down → ${current}<br>
+        Largest square ≤ ${current} is <b>${x}² = ${subtract}</b><br>
+        Subtract → remainder = <b>${remainder}</b><br>
+        Root becomes → <b>${root}</b>
+      </li>
+    `;
+  });
+
+  return `
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+      <!-- LEFT: VISUAL -->
+      <div style="font-family:monospace; background:white; padding:15px; border-radius:8px;">
+        <b>📏 Division Method (Visual)</b><br><br>
+
+        <div style="display:flex;">
+          <div style="margin-right:10px;">
+            <div style="border-bottom:2px solid black; text-align:center;">
+              ${root}
+            </div>
+            <div>√ ${num}</div>
+          </div>
+
+          <div>${visualSteps}</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: STEPS -->
+      <div style="background:#f9fbff; padding:15px; border-radius:8px;">
+        <b>🧠 Step-by-Step Thinking</b>
+        <ol>${explanationSteps}</ol>
+        <b>✅ Final Answer = ${root}</b>
+      </div>
+
+    </div>
+  `;
+}
+
+
+function renderCubeRootDivisionVisual(num) {
+
+  const str = num.toString();
+
+  let groups = [];
+  let i = str.length;
+
+  while (i > 0) {
+    groups.unshift(str.substring(Math.max(0, i - 3), i));
+    i -= 3;
+  }
+
+  let remainder = 0;
+  let root = "";
+  let visualSteps = "";
+  let explanationSteps = "";
+
+  groups.forEach((g, index) => {
+
+    let current = remainder * 1000 + Number(g);
+
+    let x = 0;
+    while ((x + 1) ** 3 <= current) x++;
+
+    let subtract = x ** 3;
+    remainder = current - subtract;
+
+    root += x;
+
+    visualSteps += `
+      <div style="margin-left:${index * 20}px;">
+        ${current}<br>
+        − ${subtract}<br>
+        <span style="border-top:1px solid #000;">${remainder}</span>
+      </div>
+    `;
+
+    explanationSteps += `
+      <li>
+        Bring down → ${current}<br>
+        Largest cube ≤ ${current} is <b>${x}³ = ${subtract}</b><br>
+        Subtract → remainder = <b>${remainder}</b><br>
+        Root becomes → <b>${root}</b>
+      </li>
+    `;
+  });
+
+  return `
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+      <!-- VISUAL -->
+      <div style="font-family:monospace; background:white; padding:15px; border-radius:8px;">
+        <b>📦 Division Method (Visual)</b><br><br>
+
+        <div style="display:flex;">
+          <div style="margin-right:10px;">
+            <div style="border-bottom:2px solid black; text-align:center;">
+              ${root}
+            </div>
+            <div>∛ ${num}</div>
+          </div>
+
+          <div>${visualSteps}</div>
+        </div>
+      </div>
+
+      <!-- EXPLANATION -->
+      <div style="background:#eef3fb; padding:15px; border-radius:8px;">
+        <b>🧠 Step-by-Step Thinking</b>
+        <ol>${explanationSteps}</ol>
+        <b>✅ Final Answer = ${root}</b>
+      </div>
+
+    </div>
+  `;
+}
+function showExplanation() {
+
+  const num = window.currentNumber;
+  const ans = window.currentAnswer;
+  const type = window.currentType;
+
+  let text = "";
+
+  if (type === "square") {
+    text = `${ans} × ${ans} = ${num}`;
+  } else {
+    text = `${ans} × ${ans} × ${ans} = ${num}`;
+  }
+
+  document.getElementById("final-feedback").innerHTML += `
+    <div style="margin-top:10px;background:#eef3fb;padding:10px;">
+      ${text}
+    </div>
+  `;
+}
+
+
+function loadRealLifeLab() {
+  const container = document.getElementById("real-container");
+
+  const scenarios = [
+    {
+      title: "🏟️ Stadium Seating",
+      story: "Seats arranged in a perfect square grid.",
+      question: "If the stadium has 10,000 seats, how many seats per side?",
+      steps: ["side² = total seats","side = √10,000","√10,000 = 100"],
+      final: "100 seats per side",
+      note: "10,000 is a perfect square because it equals 100².",
+      practice: { q: "Hall has 1,600 chairs in square layout. How many per row?", a: "√1,600 = 40 chairs" }
+    },
+    {
+      title: "📦 Shipping Box Volume",
+      story: "A cube‑shaped box has volume 27 m³.",
+      question: "What is the side length?",
+      steps: ["Volume = side³","side = ∛27","∛27 = 3"],
+      final: "3 meters per side",
+      practice: { q: "Cube volume 64 m³. Find side length.", a: "∛64 = 4 meters" }
+    },
+    
+
+  {
+    title: "🧱 Tiling a Floor",
+    story: "A square floor has area 2,500 m².",
+    question: "What is the length of one side?",
+    steps: ["side² = 2500","side = √2500","√2500 = 50"],
+    final: "50 meters",
+    note: "2,500 is a perfect square because it equals 50².",
+    practice: { q: "Find side of square area 3,600 m²", a: "√3600 = 60 meters" }
+  },
+
+  
+  {
+    title: "🧊 Ice Cube Stack",
+    story: "A large cube is made of 125 small cubes.",
+    question: "How many cubes on one edge?",
+    steps: ["Total cubes = side³","side = ∛125","∛125 = 5"],
+    final: "5 cubes per edge",
+    practice: { q: "Cube made of 216 cubes. Find edge.", a: "∛216 = 6" }
+  },
+
+  // 🟨 SQUARES
+  {
+    title: "🏃 Running Track",
+    story: "A square park has side 20 m.",
+    question: "What is the total area?",
+    steps: ["Area = side²","= 20²","= 400"],
+    final: "400 m²",
+    practice: { q: "Find area if side = 15 m", a: "15² = 225 m²" }
+  },
+
+  {
+    title: "📱 Pixel Grid",
+    story: "A square image has 64 pixels on one side.",
+    question: "Total pixels?",
+    steps: ["Total = side²","= 64²","= 4096"],
+    final: "4096 pixels",
+    practice: { q: "Side = 50 pixels. Total pixels?", a: "50² = 2500" }
+  },
+
+  // 🟥 CUBES
+  {
+    title: "🎁 Gift Box",
+    story: "A cube-shaped gift box has side 4 cm.",
+    question: "What is its volume?",
+    steps: ["Volume = side³","= 4³","= 64"],
+    final: "64 cm³",
+    practice: { q: "Side = 5 cm. Volume?", a: "5³ = 125 cm³" }
+  },
+
+  {
+    title: "🏗️ Building Blocks",
+    story: "A cube structure has side 6 units.",
+    question: "Total unit cubes?",
+    steps: ["Total = 6³","= 216"],
+    final: "216 cubes",
+    practice: { q: "Side = 3 units. Total cubes?", a: "3³ = 27" }
+  },
+
+  // 🟩 TRIANGULAR NUMBERS
+  {
+    title: "🎳 Bowling Pins",
+    story: "Pins are arranged in a triangle.",
+    question: "If there are 5 rows, how many pins?",
+    steps: ["Total = n(n+1)/2","= 5×6/2","= 15"],
+    final: "15 pins",
+    practice: { q: "7 rows → total pins?", a: "7×8/2 = 28" }
+  },
+
+  {
+    title: "🪙 Coin Arrangement",
+    story: "Coins arranged in triangular pattern.",
+    question: "If 6 rows, how many coins?",
+    steps: ["Total = 6×7/2","= 21"],
+    final: "21 coins",
+    practice: { q: "10 rows → total coins?", a: "10×11/2 = 55" }
+  },
+
+  // 🟧 PERFECT NUMBERS
+  {
+    title: "🔢 Perfect Number Check",
+    story: "A number is perfect if sum of its factors equals the number.",
+    question: "Is 28 a perfect number?",
+    steps: ["Factors: 1,2,4,7,14","Sum = 28","Matches number"],
+    final: "Yes, 28 is a perfect number",
+    practice: { q: "Check 6", a: "1+2+3 = 6 → Perfect number" }
+  },
+
+  {
+    title: "🧠 Number Puzzle",
+    story: "Find if 12 is a perfect number.",
+    question: "Is 12 perfect?",
+    steps: ["Factors: 1,2,3,4,6","Sum = 16","≠ 12"],
+    final: "No, 12 is not a perfect number",
+    practice: { q: "Check 496", a: "Yes, 496 is perfect" }
+  }
+
+];
+
+
+
+  const random = scenarios[Math.floor(Math.random() * scenarios.length)];
+
+  container.innerHTML = `
+    <h2>🌍 Real Life Lab (Solved Case Study)</h2>
+    <h3>${random.title}</h3>
+    <p>${random.story}</p>
+    <p><b>Problem:</b> ${random.question}</p>
+    <div style="margin-top:15px; padding:15px; background:#f9fbff; border-radius:8px;">
+      <p><b>🧠 Solution Steps:</b></p>
+      <ol>${random.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+    </div>
+    <div style="margin-top:15px; padding:10px; background:#eafaf1; border-radius:8px;">
+      <b>✅ Final Answer:</b> ${random.final}
+    </div>
+    <div style="margin-top:20px; padding:15px; background:#fff8e1; border-radius:8px;">
+      <p><b>✏️ Try It Yourself:</b></p>
+      <p>${random.practice.q}</p>
+      <button onclick="document.getElementById('practice-answer').style.display='block'">Show Answer</button>
+      <div id="practice-answer" style="display:none; color:green; margin-top:10px;">
+        ${random.practice.a}
+      </div>
+    </div>
+    <br><button onclick="loadRealLifeLab()">➡ Next Case Study</button>
+  `;
+  MathJax.typesetPromise();
+}
+
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+
+  if (id === "solve") loadSolveLab();
+  if (id === "real") loadRealLifeLab();
+}
+</script>
+
+</body>
+</html>

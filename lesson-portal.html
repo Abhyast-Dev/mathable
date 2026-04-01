@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ABLE™ Math Smart Lab – Lesson Portal</title>
+  <style>
+    :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
+    body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); display:flex; height:100vh; }
+    nav { width:250px; background:#1a3668; color:white; padding:20px; overflow-y:auto; }
+    nav h2 { margin-bottom:10px; }
+    nav button { width:100%; text-align:left; padding:10px; margin:5px 0; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:5px; cursor:pointer; }
+    nav button.active { background:var(--accent); font-weight:bold; }
+    main { flex:1; padding:30px; overflow-y:auto; }
+    .lesson { display:none; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); margin-bottom:20px; }
+    .active { display:block; }
+    #progress-container { margin:15px 0; padding:10px; background:rgba(255,255,255,0.05); border-radius:8px; }
+    #progress-track { background:#444; border-radius:10px; height:10px; width:100%; overflow:hidden; }
+    #progress-bar { background:var(--success); height:100%; width:0%; transition:0.5s; }
+    #progress-text { font-size:0.75rem; margin-top:8px; text-align:center; color:#fff; }
+    #badge-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:6000; align-items:center; justify-content:center; }
+    .badge-card { background:white; padding:30px; border-radius:12px; text-align:center; width:300px; animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275); }
+    @keyframes popIn { from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .badge-icon { font-size:4rem; margin-bottom:10px; color:var(--accent); }
+    footer { text-align:center; font-size:0.8rem; color:#777; margin-top:20px; }
+    .lesson h3 {
+  margin-top: 15px;
+  padding: 12px;
+  background: #eef3fb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 0.95rem;
+}
+
+.lesson h3:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* Optional: active state */
+.lesson h3.active-section {
+  background: var(--accent);
+  color: white;
+}
+
+header {
+  width: 100%;
+  background: var(--primary);   /* deep blue background */
+  color: white;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  position: fixed;   /* keeps header at top */
+  top: 0;
+  left: 0;
+  z-index: 5000;
+}
+
+header img {
+  height: 50px;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+header nav {
+  display: flex;
+  gap: 10px;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+header nav a:hover {
+  background: var(--accent);   /* orange hover */
+  color: #fff;
+}
+main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+
+  margin-top: 80px; /* 👈 ADD THIS */
+}
+
+
+  </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  
+<header>
+  <div style="display:flex; align-items:center; gap:15px;">
+    <a href="index.html"><img src="Logo.png" alt="ABLE™ Logo"></a>
+    <h1>ABLE™ Math Smart Lab - Exponents and Power</h1>
+  </div>
+  
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Concepts</a>
+    
+  </nav>
+</header>
+
+
+<nav>
+  <h2 id="lesson-title">Concept Lessons</h2>
+  <div id="progress-container">
+    <div id="progress-track"><div id="progress-bar"></div></div>
+    <span id="progress-text">0/0 Completed</span>
+  </div>
+  <div id="badge-area" style="font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;"></div>
+  <div id="lesson-buttons"></div>
+  <hr style="border:0.5px solid rgba(255,255,255,0.1); margin:15px 0;">
+        <label for="worksheet-count" style="color:white; font-size:0.9rem;">Number of Questions:</label>
+        <input id="worksheet-count" type="number" min="1" max="20" value="5" style="width:60px; margin:5px 0; padding:5px; border-radius:4px; border:none;">
+        <button onclick="generateWorksheet()" style="padding:12px; background:var(--accent); color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">
+        📄 Generate Worksheet
+        </button>
+
+</nav>
+
+<main id="lesson-area">
+  <div style="margin-bottom:20px;">
+  <button onclick="showTab('lessons')" id="tab-lessons" class="active-tab">📘 Lessons</button>
+  <button onclick="showTab('worksheet')" id="tab-worksheet">📄 Worksheet</button>
+  <button onclick="showTab('solve')" id="tab-solve">🧠 Solve Lab</button>
+  <button onclick="showTab('real')" id="tab-real">🌍 Real Life Lab</button>
+</div>
+
+<div id="lesson-container"></div>
+<div id="worksheet-container" style="display:none;"></div>
+  <!-- Lessons will be injected here -->
+   
+    <div id="content-area">
+    <!-- Lessons will come here -->
+  </div>
+  <div id="solve-container" style="display:none;"></div>
+  <div id="real-container" style="display:none;"></div>
+  
+   
+
+  <footer>
+    <p>Powered by the 8-Step Framework – THINK → ASK → KNOW → ENGAGE → CONFIRM → ASSESS → REFLECT → EVALUATE</p>
+    <p>© 2026 Abhyast Private Limited | Director: Chetna Khanna</p>
+  </footer>
+</main>
+
+<!-- Badge Modal 
+<div id="badge-modal">
+  <div class="badge-card">
+    <div class="badge-icon">🏅</div>
+    <h2 id="badge-name">Badge Name</h2>
+    <p>Awesome job! You've mastered this concept.</p>
+    <button onclick="closeBadgeModal()">Keep Learning</button>
+  </div>
+</div>-->
+
+<script>
+  let completedLessons = [];
+  let badges = [];
+  let currentConcept = "";
+  let totalLessons = 0;
+  let conceptData = {};
+
+  // -------------------------
+  // Load Concepts JSON
+  // -------------------------
+  async function loadConcepts() {
+    const res = await fetch("concepts.json");
+    conceptData = await res.json();
+    initPortal();
+  }
+
+ function getConceptFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("concept");
+}
+
+window.onload = async () => {
+  const concept = getConceptFromURL();
+  if (concept) {
+    // Wait for the data to actually arrive before building the UI
+    await loadConcepts(); 
+  }
+};
+
+function toggleVisibility(id, lessonId) {
+
+  const el = document.getElementById(id);
+  const isOpen = el.style.display === "block";
+
+  const sections = ["think","ask","know","engage","confirm","assess","reflect","evaluate"];
+
+  sections.forEach(sec => {
+    const secEl = document.getElementById(`${lessonId}-${sec}`);
+    if (secEl) secEl.style.display = "none";
+  });
+
+  document.querySelectorAll(`#${lessonId} h3`).forEach(h => h.classList.remove("active-section"));
+
+  if (!isOpen) {
+    el.style.display = "block";
+
+    const header = document.querySelector(`[onclick*="${id}"]`);
+    if (header) header.classList.add("active-section");
+  }
+}
+  function initPortal() {
+    currentConcept = getConceptFromURL();
+    if (currentConcept && conceptData[currentConcept]) {
+      const concept = conceptData[currentConcept];
+      totalLessons = concept.lessons.length;
+      document.getElementById("lesson-title").innerText = concept.title;
+
+      // Build sidebar buttons
+      const btnArea = document.getElementById("lesson-buttons");
+      btnArea.innerHTML = "";
+      concept.lessons.forEach((lesson, idx) => {
+        const btn = document.createElement("button");
+        btn.id = "btn-" + lesson.id;
+        btn.innerText = "Lesson " + (idx+1) + ": " + lesson.name;
+        btn.onclick = () => showLesson(lesson.id);
+        btnArea.appendChild(btn);
+      });
+
+    
+// Build lesson blocks
+const lessonArea = document.getElementById("lesson-container");
+lessonArea.innerHTML = "";
+concept.lessons.forEach(lesson => {
+  const div = document.createElement("div");
+  div.id = lesson.id;
+  div.className = "lesson";
+
+  div.innerHTML = `
+    <h1>${lesson.name}</h1>
+    <h3 onclick="toggleVisibility('${lesson.id}-think','${lesson.id}')">💭 THINK</h3>
+    <div id="${lesson.id}-think" style="display:none;">
+      <p>${lesson.think || ""}</p>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-ask','${lesson.id}')">❓ ASK</h3>
+    <div id="${lesson.id}-ask" style="display:none;">
+      <ul>
+        ${(lesson.ask || []).map(q => `<li>\\(${q}\\)</li>`).join("")}
+      </ul>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-know','${lesson.id}')">📘 KNOW</h3>
+    <div id="${lesson.id}-know" style="display:none;">
+      <p>${lesson.know || lesson.content || ""}</p>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-engage','${lesson.id}')">🎯 ENGAGE</h3>
+    <div id="${lesson.id}-engage" style="display:none;">
+      <p><b>${lesson.engage?.activity || ""}</b></p>
+      <p>${lesson.engage?.description || ""}</p>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-confirm','${lesson.id}')">✅ CONFIRM</h3>
+    <div id="${lesson.id}-confirm" style="display:none;">
+      <p>${lesson.confirm || ""}</p>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-assess','${lesson.id}')">📝 ASSESS</h3>
+    <div id="${lesson.id}-assess" style="display:none;">
+      <ul>
+        ${(lesson.assess || []).map(q => `<li>\\(${q}\\)</li>`).join("")}
+      </ul>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-reflect','${lesson.id}')">🔍 REFLECT</h3>
+    <div id="${lesson.id}-reflect" style="display:none;">
+      <p>${lesson.reflect || ""}</p>
+    </div>
+
+    <h3 onclick="toggleVisibility('${lesson.id}-evaluate','${lesson.id}')">📊 EVALUATE</h3>
+    <div id="${lesson.id}-evaluate" style="display:none;">
+      <p>${lesson.evaluate || ""}</p>
+    </div>
+  `;
+
+  lessonArea.appendChild(div);
+});
+
+// After injecting lessons, trigger MathJax to render LaTeX
+MathJax.typesetPromise();
+
+   // Show first lesson
+      showLesson(concept.lessons[0].id);
+    }
+
+    // Load saved data
+    loadSavedData(currentConcept);
+  }
+
+  // -------------------------
+  // Progress & Badges
+  // -------------------------
+  function loadSavedData(concept) {
+    completedLessons = JSON.parse(localStorage.getItem(concept + "_completed")) || [];
+    badges = JSON.parse(localStorage.getItem(concept + "_badges")) || [];
+    updateProgress();
+    //displayBadges();
+  }
+
+  function completeLesson(lessonId) {
+    if (!completedLessons.includes(lessonId)) {
+      completedLessons.push(lessonId);
+      localStorage.setItem(currentConcept + "_completed", JSON.stringify(completedLessons));
+      awardBadge(lessonId);
+      updateProgress();
+      const btn = document.getElementById('comp-' + lessonId);
+      if (btn) {
+        btn.innerText = "Lesson Completed! ✅";
+        btn.style.background = "#95a5a6";
+      }
+    }
+  }
+
+  function awardBadge(lessonId) {
+    const lessons = conceptData[currentConcept].lessons;
+    const lesson = lessons.find(l => l.id === lessonId);
+    if (lesson && lesson.badge && !badges.includes(lesson.badge)) {
+      badges.push(lesson.badge);
+      localStorage.setItem(currentConcept + "_badges", JSON.stringify(badges));
+      displayBadges();
+      showBadgeModal(lesson.badge);
+    }
+  }
+
+  function updateProgress() {
+    const percent = totalLessons ? (completedLessons.length / totalLessons) * 100 : 0;
+    document.getElementById("progress-bar").style.width = percent + "%";
+    document.getElementById("progress-text").innerText = `${completedLessons.length}/${totalLessons} Completed`;
+  }
+
+  /*function displayBadges() {
+    const area = document.getElementById("badge-area");
+    if (badges.length === 0) {
+      area.innerHTML = "<b style='color:var(--accent)'>🏅 EARNED BADGES</b><div>No badges yet</div>";
+    } else {
+      area.innerHTML = "<b style='color:var(--accent)'>🏅 EARNED BADGES</b>" +
+        badges.map(b => `<div style="margin-top:5px; padding:5px; background:rgba(255,255,255,0.1); border-radius:4px;">${b}</div>`).join("");
+    }
+  }
+
+  // -------------------------
+  // Badge Modal
+  // -------------------------
+  function showBadgeModal(name) {
+    document.getElementById("badge-name").innerText = name;
+    document.getElementById("badge-modal").style.display = "flex";
+  }
+  function closeBadgeModal() {
+    document.getElementById("badge-modal").style.display = "none";
+  } */
+
+  // -------------------------
+  // Lesson Navigation
+  // -------------------------
+ function showLesson(id) {
+
+  // Always go back to lessons tab
+  showTab('lessons');
+
+  document.querySelectorAll('.lesson').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+  const lesson = document.getElementById(id);
+  if (lesson) lesson.classList.add('active');
+
+  const btn = document.getElementById('btn-' + id);
+  if (btn) btn.classList.add('active');
+}
+  function generateWorksheet() {
+  const lessonArea = document.getElementById("worksheet-area");
+    showTab('worksheet');
+    const worksheetContainer = document.getElementById("worksheet-container");
+
+
+  const concept = conceptData[currentConcept];
+  const count = parseInt(document.getElementById("worksheet-count").value) || 5;
+
+  if (!concept.worksheet) {
+    lessonArea.innerHTML = "<p>No worksheet available for this concept.</p>";
+    return;
+  }
+
+  const { parameters } = concept.worksheet;
+  let questions = [];
+  let answers = [];
+
+  for (let i = 0; i < count; i++) {
+
+    const base = rand(parameters.base_range[0], parameters.base_range[1]);
+    const exp1 = rand(parameters.exp_range[0], parameters.exp_range[1]);
+    const exp2 = rand(parameters.exp_range[0], parameters.exp_range[1]);
+    const exp = rand(parameters.exp_range[0], parameters.exp_range[1]);
+    const large_number = rand(parameters.large_number_range[0], parameters.large_number_range[1]);
+
+    let q = "";
+    let a = "";
+
+    const templateIndex = Math.floor(Math.random() * 6);
+
+    switch (templateIndex) {
+
+      case 0:
+        q = `Simplify: \\(${base}^{${exp1}} \\times ${base}^{${exp2}}\\)`;
+        a = `\\(${base}^{${exp1 + exp2}}\\)`;
+        break;
+
+      case 1:
+        q = `Evaluate: \\(${base}^{${exp}}\\)`;
+        a = `\\(${Math.pow(base, exp)}\\)`;
+        break;
+
+      case 2:
+        const expForm = large_number.toExponential(1);
+        const [num, expVal] = expForm.split("e");
+        q = `Write in standard form: \\(${large_number}\\)`;
+        a = `\\(${num} \\times 10^{${parseInt(expVal)}}\\)`;
+        break;
+
+      case 3:
+        q = `Simplify: \\((${base}^{${exp1}})^{${exp2}}\\)`;
+        a = `\\(${base}^{${exp1 * exp2}}\\)`;
+        break;
+
+      case 4:
+        q = `Evaluate: \\(${base}^{-${exp}}\\)`;
+        a = `\\(\\frac{1}{${Math.pow(base, exp)}}\\)`;
+        break;
+
+      case 5:
+        const root = Math.sqrt(base);
+        q = `Find: \\(${base}^{1/2}\\)`;
+        a = Number.isInteger(root)
+          ? `\\(${root}\\)`
+          : `\\(\\sqrt{${base}}\\)`;
+        break;
+    }
+
+    // Safety fallback
+    if (!q) q = "Error generating question";
+    if (!a) a = "Solution not available";
+
+    questions.push(q);
+    answers.push(a);
+  }
+
+ worksheetContainer.innerHTML  =
+    "<h2>📄 Worksheet</h2>" +
+    "<button onclick='initPortal()' style='margin-bottom:15px;'>⬅ Back to Lessons</button>" +
+    "<ol>" +
+    questions.map((q, i) => `
+      <li>
+        ${q}
+        <button onclick="toggleAnswer(${i})">Show Answer</button>
+        <div id="answer-${i}" style="display:none; color:green;">
+          ${answers[i]}
+        </div>
+      </li>
+    `).join("") +
+    "</ol>" +
+    `<button onclick="generateWorksheet()">🔄 New Worksheet</button>
+     <button onclick="downloadWorksheet()">📥 Download PDF</button>`;
+
+  MathJax.typesetPromise();
+}
+
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function solveQuestion(q, base, exp1, exp2, exp, large_number) {
+  try {
+    if (q.includes("×") && q.includes("^")) {
+        return `\\(${base}^{${exp1}} \\times ${base}^{${exp2}} = ${base}^{${exp1+exp2}}\\)`;
+        }
+        if (q.includes("Evaluate:")) {
+        return `\\(${base}^{${exp}} = ${Math.pow(base, exp)}\\)`;
+        }
+        if (q.includes("standard form")) {
+        const expForm = large_number.toExponential(1);
+        const [num, expVal] = expForm.split("e");
+        return `\\(${large_number} = ${num} \\times 10^{${parseInt(expVal)}}\\)`;
+        }
+        if (q.includes(")^{")) {
+        return `\\((${base}^{${exp1}})^{${exp2}} = ${base}^{${exp1*exp2}}\\)`;
+        }
+        if (q.includes("^-")) {
+        return `\\(${base}^{-${exp}} = \\frac{1}{${Math.pow(base, exp)}}\\)`;
+        }
+        if (q.includes("1/2")) {
+        return `\\(${base}^{1/2} = \\sqrt{${base}} = ${Math.sqrt(base)}\\)`;
+        }
+  } catch {
+    return "Solution not available";
+  }
+}
+
+function toggleAnswer(index) {
+  const ansDiv = document.getElementById("answer-" + index);
+  ansDiv.style.display = ansDiv.style.display === "none" ? "block" : "none";
+}
+
+function showTab(tab) {
+  const lessonContainer = document.getElementById("lesson-container");
+  const worksheetContainer = document.getElementById("worksheet-container");
+  const solveContainer = document.getElementById("solve-container");
+  const realContainer = document.getElementById("real-container"); // ✅ FIX
+
+  document.getElementById("tab-lessons").classList.remove("active-tab");
+  document.getElementById("tab-worksheet").classList.remove("active-tab");
+  document.getElementById("tab-solve").classList.remove("active-tab");
+  document.getElementById("tab-real").classList.remove("active-tab"); // ✅ ADD THIS
+
+  lessonContainer.style.display = "none";
+  worksheetContainer.style.display = "none";
+  solveContainer.style.display = "none";
+  realContainer.style.display = "none"; // ✅ ADD THIS
+
+  if (tab === "lessons") {
+    lessonContainer.style.display = "block";
+    document.getElementById("tab-lessons").classList.add("active-tab");
+    
+  } 
+  else if (tab === "worksheet") {
+    worksheetContainer.style.display = "block";
+    document.getElementById("tab-worksheet").classList.add("active-tab");
+  } 
+  else if (tab === "solve") {
+    solveContainer.style.display = "block";
+    document.getElementById("tab-solve").classList.add("active-tab");
+    loadSolveLab();
+  }
+  else if (tab === "real") {
+    realContainer.style.display = "block"; // ✅ NOW WORKS
+    document.getElementById("tab-real").classList.add("active-tab");
+    loadRealLifeLab();
+  }
+}
+function loadRealLifeLab() {
+
+  const container = document.getElementById("real-container");
+
+  const scenarios = [
+
+    {
+      title: "📱 Viral Social Media Growth",
+      story: "A reel is shared, and each person shares it with 3 others every hour.",
+      question: "If it starts with 1 person, how many people after 5 hours?",
+      steps: [
+        "Each hour → multiply by 3",
+        "Total growth = \\(3^5\\)",
+        "Calculate: \\(3^5 = 243\\)"
+      ],
+      final: "243 people"
+    },
+
+    {
+      title: "🦠 Virus Spread",
+      story: "A virus doubles every day.",
+      question: "Starting with 2 people, how many after 6 days?",
+      steps: [
+        "Doubling means multiply by 2 each day",
+        "Total = \\(2 \\times 2^6\\)",
+        "Calculate: \\(2 \\times 64 = 128\\)"
+      ],
+      final: "128 people"
+    },
+
+    {
+      title: "💰 Compound Interest",
+      story: "₹1000 is invested at 10% annually for 3 years.",
+      question: "What is the final amount?",
+      steps: [
+        "Use formula: \\(A = P(1+r)^t\\)",
+        "Substitute: \\(1000(1.1)^3\\)",
+        "Calculate: \\(1000 \\times 1.331 = 1331\\)"
+      ],
+      final: "₹1331"
+    },
+
+    {
+      title: "💻 Data Storage Growth",
+      story: "Storage doubles with every upgrade.",
+      question: "Starting at 1 GB, what after 10 upgrades?",
+      steps: [
+        "Doubling → \\(2^{10}\\)",
+        "Calculate: \\(2^{10} = 1024\\)"
+      ],
+      final: "1024 GB"
+    },
+
+    {
+      title: "🔬 Bacteria Growth",
+      story: "A bacteria splits into 2 every hour.",
+      question: "Starting with 1, how many after 8 hours?",
+      steps: [
+        "Growth pattern → \\(2^8\\)",
+        "Calculate: \\(2^8 = 256\\)"
+      ],
+      final: "256 bacteria"
+    },
+
+    {
+      title: "📱 Viral Social Media Growth",
+      story: "A reel is shared, and each person shares it with 3 others every hour.",
+      question: "If it starts with 1 person, how many people after 5 hours?",
+      steps: [
+        "Each hour → multiply by 3",
+        "Total growth = \\(3^5\\)",
+        "Calculate: \\(3^5 = 243\\)"
+      ],
+      final: "243 people"
+    },
+
+    {
+      title: "🦠 Virus Spread",
+      story: "A virus doubles every day.",
+      question: "Starting with 2 people, how many after 6 days?",
+      steps: [
+        "Doubling means multiply by 2 each day",
+        "Total = \\(2 \\times 2^6\\)",
+        "Calculate: \\(2 \\times 64 = 128\\)"
+      ],
+      final: "128 people"
+    },
+
+    {
+      title: "💰 Compound Interest",
+      story: "₹1000 is invested at 10% annually for 3 years.",
+      question: "What is the final amount?",
+      steps: [
+        "Use formula: \\(A = P(1+r)^t\\)",
+        "Substitute: \\(1000(1.1)^3\\)",
+        "Calculate: \\(1000 \\times 1.331 = 1331\\)"
+      ],
+      final: "₹1331"
+    },
+
+    {
+      title: "💻 Data Storage Growth",
+      story: "Storage doubles with every upgrade.",
+      question: "Starting at 1 GB, what after 10 upgrades?",
+      steps: [
+        "Doubling → \\(2^{10}\\)",
+        "Calculate: \\(2^{10} = 1024\\)"
+      ],
+      final: "1024 GB"
+    },
+
+    {
+      title: "🔬 Bacteria Growth",
+      story: "A bacteria splits into 2 every hour.",
+      question: "Starting with 1, how many after 8 hours?",
+      steps: [
+        "Growth pattern → \\(2^8\\)",
+        "Calculate: \\(2^8 = 256\\)"
+      ],
+      final: "256 bacteria"
+    },
+
+    // ✅ NEW CASE STUDIES BELOW
+
+    {
+      title: "🎮 Game Level Rewards",
+      story: "Points double at every level.",
+      question: "Starting with 10 points, what after 7 levels?",
+      steps: [
+        "Doubling pattern → \\(10 \\times 2^6\\)",
+        "Calculate: \\(2^6 = 64\\)",
+        "Final: \\(10 \\times 64 = 640\\)"
+      ],
+      final: "640 points"
+    },
+
+    {
+      title: "🌱 Plant Growth",
+      story: "Leaves double every week.",
+      question: "Starting with 6 leaves, how many after 4 weeks?",
+      steps: [
+        "Growth → \\(6 \\times 2^4\\)",
+        "Calculate: \\(2^4 = 16\\)",
+        "Final: \\(6 \\times 16 = 96\\)"
+      ],
+      final: "96 leaves"
+    },
+
+    {
+      title: "📶 Network Signal Expansion",
+      story: "Signal coverage doubles each upgrade.",
+      question: "Starting at 1 km, what after 8 upgrades?",
+      steps: [
+        "Doubling → \\(2^8\\)",
+        "Calculate: \\(2^8 = 256\\)"
+      ],
+      final: "256 km"
+    },
+
+    {
+      title: "💡 Light Intensity Decay",
+      story: "Light intensity halves every second.",
+      question: "Starting at 128 units, what after 5 seconds?",
+      steps: [
+        "Halving → \\(128 \\times (1/2)^5\\)",
+        "Calculate: \\((1/2)^5 = 1/32\\)",
+        "Final: \\(128 ÷ 32 = 4\\)"
+      ],
+      final: "4 units"
+    },
+
+    {
+      title: "🧬 DNA Replication",
+      story: "DNA doubles every cycle.",
+      question: "Starting with 1 strand, how many after 10 cycles?",
+      steps: [
+        "Doubling → \\(2^{10}\\)",
+        "Calculate: \\(2^{10} = 1024\\)"
+      ],
+      final: "1024 strands"
+    },
+
+    {
+      title: "🏦 Investment Growth",
+      story: "₹2000 invested at 5% for 4 years.",
+      question: "Find the final amount.",
+      steps: [
+        "Formula → \\(A = P(1+r)^t\\)",
+        "Substitute → \\(2000(1.05)^4\\)",
+        "Calculate → \\(2000 \\times 1.2155 ≈ 2431\\)"
+      ],
+      final: "₹2431 (approx)"
+    },
+
+    {
+      title: "📦 Population Growth",
+      story: "A town's population grows by factor of 2 every decade.",
+      question: "Starting with 500 people, what after 3 decades?",
+      steps: [
+        "Growth → \\(500 \\times 2^3\\)",
+        "Calculate → \\(2^3 = 8\\)",
+        "Final → \\(500 × 8 = 4000\\)"
+      ],
+      final: "4000 people"
+    }
+
+  ];
+
+  const random = scenarios[Math.floor(Math.random() * scenarios.length)];
+
+ 
+  container.innerHTML = `
+    <h2>🌍 Real Life Lab (Solved Case Study)</h2>
+
+    <h3>${random.title}</h3>
+    <p>${random.story}</p>
+
+    <p><b>Problem:</b> ${random.question}</p>
+
+    <div style="margin-top:15px; padding:15px; background:#f9fbff; border-radius:8px;">
+      <p><b>🧠 Solution Steps:</b></p>
+      <ol>
+        ${random.steps.map(step => `<li>${step}</li>`).join("")}
+      </ol>
+    </div>
+
+    <div style="margin-top:15px; padding:10px; background:#eafaf1; border-radius:8px;">
+      <b>✅ Final Answer:</b> ${random.final}
+    </div>
+
+    <br>
+    <button onclick="loadRealLifeLab()">➡ Next Case Study</button>
+  `;
+
+  MathJax.typesetPromise();
+}
+
+
+function normalizeInput(input) {
+  return input
+    .replace(/\s/g, "")        // remove spaces
+    .replace(/×/g, "*")
+    .replace(/x/g, "*")
+    .replace(/\^/g, "**");     // JS exponent
+}
+
+function extractValueFromLatex(latex) {
+  // Remove \( \)
+  let clean = latex.replace(/\\\(|\\\)/g, "");
+
+  // Handle fractions
+  if (clean.includes("\\frac")) {
+    const match = clean.match(/\\frac{(\d+)}{(\d+)}/);
+    if (match) {
+      return Number(match[1]) / Number(match[2]);
+    }
+  }
+
+  // Handle standard form (a × 10^n)
+  if (clean.includes("\\times")) {
+    const match = clean.match(/([\d.]+)\s*\\times\s*10\^{(-?\d+)}/);
+    if (match) {
+      return Number(match[1]) * Math.pow(10, Number(match[2]));
+    }
+  }
+
+  // Default: evaluate
+  try {
+    return eval(clean.replace(/\^/g, "**"));
+  } catch {
+    return clean;
+  }
+}
+
+function validateAnswer(userInput, correctLatex) {
+
+  const user = normalizeInput(userInput);
+
+  let correctValue = extractValueFromLatex(correctLatex);
+
+  let userValue;
+
+  try {
+    userValue = eval(user);
+  } catch {
+    userValue = user;
+  }
+
+  // Compare numerically if possible
+  if (!isNaN(userValue) && !isNaN(correctValue)) {
+    return Math.abs(userValue - correctValue) < 0.0001;
+  }
+
+  // fallback string compare
+  return user === correctValue;
+}
+
+function showHint(step) {
+
+  if (step === "rule") {
+    document.getElementById("rule-feedback").innerHTML =
+      "💡 Look at the expression: Are bases same? Is power applied again?";
+  }
+
+  if (step === "operation") {
+    document.getElementById("operation-feedback").innerHTML =
+      "💡 Think: Do exponents combine, repeat, or reverse?";
+  }
+}
+
+function revealStepAnswer(step, correct) {
+
+  if (step === "rule") {
+    document.getElementById("rule-feedback").innerHTML =
+      `✅ Correct Rule: <b>${correct}</b>`;
+    document.getElementById("step2").style.display = "block";
+  }
+
+  if (step === "operation") {
+    document.getElementById("operation-feedback").innerHTML =
+      `✅ Correct Action: <b>${correct}</b>`;
+    document.getElementById("step3").style.display = "block";
+  }
+}
+
+
+
+
+
+function loadSolveLab() {
+  const container = document.getElementById("solve-container");
+
+  const base = rand(2, 5);
+  const exp1 = rand(2, 4);
+  const exp2 = rand(2, 4);
+  const exp = rand(2, 4);
+  const large_number = rand(1000, 100000);
+
+  const templateIndex = Math.floor(Math.random() * 6);
+
+  let q = "";
+  let correctAnswer = "";
+  let correctRule = "";
+  let correctOperation = "";
+
+switch (templateIndex) {
+
+  case 0:
+    q = `Simplify: \\(${base}^{${exp1}} \\times ${base}^{${exp2}}\\)`;
+    correctAnswerValue = Math.pow(base, exp1 + exp2);
+    correctAnswerLatex = `\\(${base}^{${exp1 + exp2}}\\)`;
+    correctRule = "Product Rule";
+    correctOperation = "Add exponents";
+    break;
+
+  case 1:
+    q = `Evaluate: \\(${base}^{${exp}}\\)`;
+    correctAnswerValue = Math.pow(base, exp);
+    correctAnswerLatex = `\\(${Math.pow(base, exp)}\\)`;
+    correctRule = "Evaluate Power";
+    correctOperation = "Multiply repeatedly"; // ❗ FIXED
+    break;
+
+  case 2:
+    const expForm = large_number.toExponential(1);
+    const [num, expVal] = expForm.split("e");
+
+    q = `Write in standard form: \\(${large_number}\\)`;
+
+    correctAnswerValue = Number(large_number);
+    correctAnswerLatex = `\\(${num} \\times 10^{${parseInt(expVal)}}\\)`;
+
+    correctRule = "Standard Form";
+    correctOperation = "Move decimal";
+    break;
+
+  case 3:
+    q = `Simplify: \\((${base}^{${exp1}})^{${exp2}}\\)`;
+    correctAnswerValue = Math.pow(base, exp1 * exp2);
+    correctAnswerLatex = `\\(${base}^{${exp1 * exp2}}\\)`;
+    correctRule = "Power of Power";
+    correctOperation = "Multiply exponents";
+    break;
+
+  case 4:
+    q = `Evaluate: \\(${base}^{-${exp}}\\)`;
+    correctAnswerValue = 1 / Math.pow(base, exp);
+    correctAnswerLatex = `\\(\\frac{1}{${Math.pow(base, exp)}}\\)`;
+    correctRule = "Negative Power";
+    correctOperation = "Take reciprocal";
+    break;
+
+  case 5:
+    q = `Find: \\(${base}^{1/2}\\)`;
+    correctAnswerValue = Math.sqrt(base);
+    correctAnswerLatex = `\\(${Math.sqrt(base)}\\)`;
+    correctRule = "Fractional Power";
+    correctOperation = "Find root";
+    break;
+}
+  container.innerHTML = `
+    <h2>🧠 Solve Lab</h2>
+
+    <p>${q}</p>
+
+    <!-- STEP 1: RULE SELECTION -->
+    <div id="step1">
+      <p><b>Step 1:</b> Which rule applies?</p>
+      <select id="rule-select">
+        <option value="">Select</option>
+        <option>Product Rule</option>
+        <option>Power of Power</option>
+        <option>Negative Power</option>
+        <option>Fractional Power</option>
+        <option>Standard Form</option>
+        <option>Evaluate Power</option>
+      </select>
+       <button onclick="checkRule('${correctRule}')">Check</button>
+      <button onclick="showHint('rule')">💡 Hint</button>
+      <button onclick="revealStepAnswer('rule','${correctRule}')">🔓 Show Answer</button>
+
+      <div id="rule-feedback"></div>
+     
+    </div>
+
+    <div id="step2" style="display:none;">
+  <p><b>Step 2:</b> What should you do?</p>
+
+  <select id="operation-select">
+    <option value="">Select</option>
+    <option>Add exponents</option>
+    <option>Multiply exponents</option>
+    <option>Take reciprocal</option>
+    <option>Find root</option>
+    <option>Move decimal</option>
+    <option>Multiply repeatedly</option>
+  </select>
+
+  <button onclick="checkOperation('${correctOperation}')">Check</button>
+  <button onclick="showHint('operation')">💡 Hint</button>
+  <button onclick="revealStepAnswer('operation','${correctOperation}')">🔓 Show Answer</button>
+
+  <div id="operation-feedback"></div>
+</div>
+    <!-- STEP 3: FINAL ANSWER -->
+    <div id="step3" style="display:none;">
+      <p><b>Step 3:</b> Enter final answer</p>
+      <input id="final-answer">
+      <button onclick='checkFinalAnswer(${correctAnswerValue})'>Check</button>
+      <div id="final-feedback"></div>
+      <button onclick='revealSolution(${JSON.stringify(q)}, ${JSON.stringify(correctAnswerLatex)})'>🔓 Reveal</button>
+      <button onclick="loadSolveLab()">➡ Next Question</button>
+    </div>
+  `;
+
+
+
+
+  
+
+  MathJax.typesetPromise();
+}
+
+function checkRule(correctRule) {
+  const val = document.getElementById("rule-select").value;
+  const feedback = document.getElementById("rule-feedback");
+
+  if (val === correctRule) {
+    feedback.innerHTML = "✅ Correct!";
+    document.getElementById("step2").style.display = "block";
+  } else {
+    feedback.innerHTML = "💡 Look at the structure carefully.";
+  }
+}
+
+
+function checkOperation(correctOperation) {
+  const val = document.getElementById("operation-select").value;
+  const feedback = document.getElementById("operation-feedback");
+
+  if (val === correctOperation) {
+    feedback.innerHTML = "✅ Good!";
+    document.getElementById("step3").style.display = "block";
+  } else {
+    feedback.innerHTML = "💡 Think about what happens to the exponents.";
+  }
+}
+
+
+
+function checkFinalAnswer(correctAnswer) {
+
+  const userInput = document.getElementById("final-answer").value;
+  const feedback = document.getElementById("final-feedback");
+
+  let userVal, correctVal;
+
+  try {
+    userVal = eval(normalizeInput(userInput));
+  } catch {
+    userVal = userInput;
+  }
+
+  try {
+    correctVal = eval(normalizeInput(correctAnswer));
+  } catch {
+    correctVal = correctAnswer;
+  }
+
+  // ✅ Numeric comparison
+  if (!isNaN(userVal) && !isNaN(correctVal)) {
+    if (Math.abs(userVal - correctVal) < 0.0001) {
+      feedback.innerHTML = "✅ Correct!";
+      feedback.style.color = "green";
+      return;
+    }
+  }
+
+  // ✅ Accept equivalent expressions (like 4^5)
+  if (normalizeInput(userInput) === normalizeInput(correctAnswer)) {
+    feedback.innerHTML = "✅ Correct!";
+    feedback.style.color = "green";
+  } else {
+    feedback.innerHTML = "❌ Try again or use hint";
+    feedback.style.color = "red";
+  }
+}
+
+
+function stripLatex(str) {
+  return str.replace(/\\\\\(|\\\\\)/g, "");
+}
+
+
+function revealSolution(q, ans) {
+  document.getElementById("final-feedback").innerHTML += `
+    <div style="margin-top:10px; padding:10px; background:#f4f4f4;">
+      <b>Solution:</b><br>
+      ${q} = \\\\(${ans}\\\\)
+    </div>
+  `;
+  MathJax.typesetPromise();
+}
+
+
+
+function downloadWorksheet() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("Exponents & Powers Worksheet", 10, 20);
+
+ const questions = document.querySelectorAll("#worksheet-container ol li");
+  let y = 30;
+
+  questions.forEach((q, i) => {
+    const text = q.innerText.replace("Show Answer", "").trim();
+    doc.setFontSize(12);
+    doc.text(`${i+1}. ${text}`, 10, y);
+    y += 10;
+
+    const ansDiv = document.getElementById("answer-" + i);
+    if (ansDiv && ansDiv.style.display === "block") {
+      doc.setFontSize(11);
+      doc.setTextColor(0, 128, 0);
+      doc.text(`Answer: ${ansDiv.innerText}`, 15, y);
+      doc.setTextColor(0, 0, 0);
+      y += 10;
+    }
+
+    if (y > 270) {
+      doc.addPage();
+      y = 20;
+    } 
+  });
+
+  doc.save("worksheet.pdf");
+}
+
+  // -------------------------
+  // Init
+  // -------------------------
+  loadConcepts();
+</script>
+</body>
+</html>
