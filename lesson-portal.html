@@ -134,9 +134,14 @@ main {
 <main id="lesson-area">
   <div style="margin-bottom:20px;">
   <button onclick="showTab('lessons')" id="tab-lessons" class="active-tab">📘 Lessons</button>
-  <button onclick="showTab('worksheet')" id="tab-worksheet">📄 Worksheet</button>
+  <button onclick="showTab('exp-formulas')" id="tab-formulas">📑 Formulas</button>
   <button onclick="showTab('solve')" id="tab-solve">🧠 Solve Lab</button>
+  <button onclick="showTab('worksheet')" id="tab-worksheet">📄 Worksheet</button>
+  
+
+
   <button onclick="showTab('real')" id="tab-real">🌍 Real Life Lab</button>
+
 </div>
 
 <div id="lesson-container"></div>
@@ -148,6 +153,21 @@ main {
   </div>
   <div id="solve-container" style="display:none;"></div>
   <div id="real-container" style="display:none;"></div>
+  <div id="exp-formulas" class="tab-content" style="display:none; text-align:center;">
+  <h3>Exponent Formulas</h3>
+  
+  <!-- ✅ This is required -->
+  <div id="formula-card" 
+       style="margin:20px auto; padding:20px; border:2px solid #ccc; border-radius:10px; width:60%; background:#f9f9f9; font-size:1.2rem;">
+    <!-- Formula will be injected here -->
+  </div>
+
+  <div style="margin-top:15px;">
+    <button onclick="prevFormula()">⬅ Previous</button>
+    <button onclick="nextFormula()">Next ➡</button>
+   
+  </div>
+</div>
   
    
 
@@ -173,7 +193,39 @@ main {
   let currentConcept = "";
   let totalLessons = 0;
   let conceptData = {};
+  const exponentFormulas = [
+  { title: "Product Rule", formula: "\\(a^m \\cdot a^n = a^{m+n}\\)" },
+  { title: "Quotient Rule", formula: "\\(\\frac{a^m}{a^n} = a^{m-n}\\)" },
+  { title: "Power Rule", formula: "\\((a^m)^n = a^{mn}\\)" },
+  { title: "Zero Exponent", formula: "\\(a^0 = 1\\) (for \\(a \\neq 0\\))" },
+  { title: "Negative Exponent", formula: "\\(a^{-n} = \\frac{1}{a^n}\\)" },
+  { title: "Fractional Exponent", formula: "\\(a^{\\frac{1}{n}} = \\sqrt[n]{a}\\)" },
+  { title: "Standard Form", formula: "\\(m \\times 10^n\\), where \\(1 \\leq m < 10\\)" },
+  { title: "Exponents in Algebra", formula: "\\(x^m \\cdot x^n = x^{m+n}, (x^m)^n = x^{mn}, \\frac{x^m}{x^n} = x^{m-n}\\)" }
+];
 
+let currentFormulaIndex = 0;
+
+function loadExponentsFormulas() {
+  showFormula(currentFormulaIndex);
+}
+
+function showFormula(index) {
+  const card = document.getElementById("formula-card");
+  const f = exponentFormulas[index];
+  card.innerHTML = `<h4>${f.title}</h4><p>${f.formula}</p>`;
+  MathJax.typesetPromise();
+}
+
+function nextFormula() {
+  currentFormulaIndex = (currentFormulaIndex + 1) % exponentFormulas.length;
+  showFormula(currentFormulaIndex);
+}
+
+function prevFormula() {
+  currentFormulaIndex = (currentFormulaIndex - 1 + exponentFormulas.length) % exponentFormulas.length;
+  showFormula(currentFormulaIndex);
+}
   // -------------------------
   // Load Concepts JSON
   // -------------------------
@@ -522,17 +574,24 @@ function showTab(tab) {
   const lessonContainer = document.getElementById("lesson-container");
   const worksheetContainer = document.getElementById("worksheet-container");
   const solveContainer = document.getElementById("solve-container");
-  const realContainer = document.getElementById("real-container"); // ✅ FIX
+  const realContainer = document.getElementById("real-container"); // ✅ 
+  const formulasContainer = document.getElementById("exp-formulas"); // The outer wrapper
 
   document.getElementById("tab-lessons").classList.remove("active-tab");
   document.getElementById("tab-worksheet").classList.remove("active-tab");
   document.getElementById("tab-solve").classList.remove("active-tab");
   document.getElementById("tab-real").classList.remove("active-tab"); // ✅ ADD THIS
+  document.getElementById("tab-formulas").classList.remove("active-tab"); // ✅ NEW
 
-  lessonContainer.style.display = "none";
-  worksheetContainer.style.display = "none";
-  solveContainer.style.display = "none";
-  realContainer.style.display = "none"; // ✅ ADD THIS
+
+ // Check if each exists before touching .style to prevent crashes
+  if (lessonContainer) lessonContainer.style.display = "none";
+  if (worksheetContainer) worksheetContainer.style.display = "none";
+  if (solveContainer) solveContainer.style.display = "none";
+  if (realContainer) realContainer.style.display = "none";
+  if (formulasContainer) formulasContainer.style.display = "none";
+  
+
 
   if (tab === "lessons") {
     lessonContainer.style.display = "block";
@@ -553,6 +612,12 @@ function showTab(tab) {
     document.getElementById("tab-real").classList.add("active-tab");
     loadRealLifeLab();
   }
+  else if (tab === "formulas" || tab === "exp-formulas") {
+    formulasContainer.style.display = "block";
+    document.getElementById("tab-formulas").classList.add("active-tab");
+    loadExponentsFormulas();
+  }
+
 }
 function loadRealLifeLab() {
 
