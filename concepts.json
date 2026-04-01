@@ -1,0 +1,313 @@
+{
+  "exponents": {
+    "title": "Exponents & Powers",
+    "framework": ["Think","Ask","Know","Engage","Confirm","Assess","Reflect","Evaluate"],
+    "lessons": [
+      {
+        "id": "l1",
+        "name": "Why Exponents Exist",
+        "badge": "Exponent Explorer",
+        "think": "Write: \\(2 \\times 2 \\times 2 \\times 2\\). Is there a shorter way?",
+        "ask": ["What pattern do you see?", "Why might we need a shortcut?"],
+        "know": "Exponents are shorthand for repeated multiplication. Example: \\(2^4 = 16\\).",
+        "engage": { "activity": "Paper Fold Challenge", "description": "Fold paper repeatedly and count layers." },
+        "confirm": "What does \\(3^4\\) represent?",
+        "assess": ["Convert: \\(5 \\times 5 \\times 5\\)", "Evaluate: \\(2^6\\)"],
+        "reflect": "What surprised you about how fast the numbers grew?",
+        "evaluate": "☐ I understand ☐ I need practice ☐ I am confused",
+        "content": "Exponents are shorthand for repeated multiplication.",
+        "hint": "Think of exponents as repeated multiplication.",
+        "solution": "2 × 2 × 2 × 2 = 16, written as \\(2^4\\)."
+      },
+      {
+        "id": "l2",
+        "name": "Laws of Exponents",
+        "badge": "Law Master",
+        "think": "Expand: \\(2^3 \\times 2^2\\)",
+        "ask": ["What happens when we combine the same base?", "Do we multiply or add something?"],
+        "know": "Product rule: \\(a^m \\times a^n = a^{m+n}\\). Other rules follow similar patterns.",
+        "engage": { "activity": "Stack & Merge", "description": "Use blocks to build \\(2^3\\) and \\(2^2\\), then combine them physically." },
+        "confirm": "Explain why exponents are added when multiplying same bases.",
+        "assess": ["Simplify: \\(x^3 \\times x^5\\)", "Simplify: \\(a^7 \\div a^2\\)"],
+        "reflect": "Did you discover the rule or memorize it?",
+        "evaluate": "☐ I discovered the rule ☐ I memorized it ☐ I am unsure",
+        "hint": "When multiplying powers with the same base, add exponents.",
+        "solution": "\\(2^3 \\times 2^2 = 2^5 = 32\\)."
+      },
+      {
+        "id": "l3",
+        "name": "Zero & Negative Powers",
+        "badge": "Zero Hero",
+        "think": "Observe: \\(2^3 = 8, 2^2 = 4, 2^1 = 2, 2^0 = ?\\)",
+        "ask": ["What is happening each step?", "What should come next?"],
+        "know": "\\(a^0 = 1\\). Negative powers represent reciprocals: \\(a^{-1} = 1/a\\).",
+        "engage": { "activity": "Step Forward–Step Back", "description": "Walk forward to multiply, backward to divide." },
+        "confirm": "Why is any number to the power 0 equal to 1?",
+        "assess": ["Evaluate: \\(5^0\\)", "Evaluate: \\(2^{-3}\\)"],
+        "reflect": "How does this connect to division?",
+        "evaluate": "☐ I understand the pattern ☐ I memorized it ☐ I need help",
+        "hint": "Divide by the base repeatedly until you reach exponent 0.",
+        "solution": "\\(2^0 = 1, 2^{-1} = 1/2\\)."
+      },
+      {
+        "id": "l4",
+        "name": "Standard Form",
+        "badge": "Form Finder",
+        "think": "Write 4,500,000 in a shorter form.",
+        "ask": ["How can we reduce large numbers?", "What role does 10 play?"],
+        "know": "Standard form expresses numbers as \\(a \\times 10^n\\).",
+        "engage": { "activity": "Place Value Stretch", "description": "Students physically space digits and compress into standard form." },
+        "confirm": "What makes a number valid standard form?",
+        "assess": ["Convert: \\(4500000\\)", "Convert: \\(0.00032\\)"],
+        "reflect": "Where do we see such numbers in real life?",
+        "evaluate": "☐ I can convert ☐ I need practice ☐ I am confused",
+        "hint": "Move the decimal until one non-zero digit remains before it.",
+        "solution": "\\(4,500,000 = 4.5 \\times 10^6\\)."
+      },
+      {
+        "id": "l5",
+        "name": "Fractional Powers",
+        "badge": "Root Ranger",
+        "think": "What number squared gives 9?",
+        "ask": ["How are roots related to powers?", "Can we rewrite roots as exponents?"],
+        "know": "Fractional powers represent roots: \\(a^{1/2} = \\sqrt{a}\\).",
+        "engage": { "activity": "Cut & Build", "description": "Fold paper into equal parts to represent roots." },
+        "confirm": "Explain why \\(9^{1/2} = 3\\).",
+        "assess": ["Evaluate: \\(9^{1/2}\\)", "Evaluate: \\(27^{1/3}\\)"],
+        "reflect": "How does this help in solving equations?",
+        "evaluate": "☐ I understand roots ☐ I need practice ☐ I am unsure",
+        "hint": "Exponent 1/2 means square root.",
+        "solution": "\\(16^{1/2} = 4\\)."
+      },
+      {
+        "id": "l6",
+        "name": "Exponents in Algebra",
+        "badge": "Algebra Ace",
+        "think": "Simplify: \\((x^2)^3\\)",
+        "ask": ["What happens when a power is raised again?", "What changes?"],
+        "know": "\\((a^m)^n = a^{mn}\\)",
+        "engage": { "activity": "Variable Tiles", "description": "Use tiles labeled x to build powers and combine them." },
+        "confirm": "Why do we multiply exponents here?",
+        "assess": ["Simplify: \\((y^3)^2\\)", "Solve: \\(2^x = 16\\)"],
+        "reflect": "Where can this be applied in algebra?",
+        "evaluate": "☐ I can apply ☐ I need practice ☐ I am confused",
+        "hint": "Multiply exponents when raising a power to another power.",
+        "solution": "\\((y^3)^2 = y^6\\)."
+      },
+      {
+        "id": "final",
+        "name": "Final Self-Assessment",
+        "badge": null,
+        "think": "Review all concepts covered.",
+        "ask": ["Which concept felt easiest?", "Which one was challenging?"],
+        "know": "Exponents help simplify repeated multiplication and power relationships.",
+        "engage": { "activity": "Peer Teaching", "description": "Explain one concept to a classmate." },
+        "confirm": "Can you explain a rule without looking at notes?",
+        "assess": ["Solve mixed problems", "Explain one rule in words"],
+        "reflect": "Which area do you feel most confident in?",
+        "evaluate": "☐ Confident ☐ Improving ☐ Need revision",
+        "hint": "Review each law and apply it to new examples.",
+        "solution": "Self-reflection based."
+      }
+    ],
+    "worksheet": {
+      "description": "Generate random practice problems for Exponents & Powers.",
+      "question_templates": [
+        "Simplify: \\({base}^{exp1} \\times {base}^{exp2}\\)",
+        "Evaluate: \\({base}^{exp}\\)",
+        "Write in standard form: \\({large_number}\\)",
+        "Simplify: \\(({base}^{exp1})^{exp2}\\)",
+        "Evaluate: \\({base}^{-exp}\\)",
+        "Find: \\({base}^{1/2}\\)"
+      ],
+      "parameters": {
+        "base_range": [2, 9],
+        "exp_range": [1, 6],
+        "large_number_range": [1000, 1000000]
+      }
+    }
+  },
+
+
+  "squares_cubes": {
+    "title": "Squares & Cubes",
+    
+    "lessons": [
+
+      {
+        "id": "sc1",
+        "name": "Understanding Squares",
+        "think": "If you multiply a number by itself, what pattern do you notice?",
+        "ask": [
+          "What does 4 × 4 represent?",
+          "Why is it called a square?"
+        ],
+        "know": "A square means multiplying a number by itself: \\(a^2 = a \\times a\\). Example: \\(5^2 = 25\\).",
+        "engage": {
+          "activity": "Quick Pattern",
+          "description": "Find squares of numbers from 1 to 10 and observe the pattern."
+        },
+        "confirm": "Square = number × same number.",
+        "assess": [
+          "Find \\(7^2\\)",
+          "Find \\(12^2\\)"
+        ],
+        "reflect": "Where do we see squares in real life (areas, tiles)?",
+        "evaluate": "Explain why \\(9^2\\) is not equal to \\(9 × 2\\).",
+        "hint": "Square means multiply the number by itself.",
+        "solution": "\\(7^2 = 49, 12^2 = 144\\)",
+        "badge": "Square Master 🟦"
+      },
+
+      {
+        "id": "sc2",
+        "name": "Understanding Cubes",
+        "think": "What happens when you multiply a number three times?",
+        "ask": [
+          "What does 3 × 3 × 3 represent?",
+          "Why is it called a cube?"
+        ],
+        "know": "A cube means multiplying a number three times: \\(a^3 = a × a × a\\). Example: \\(3^3 = 27\\).",
+        "engage": {
+          "activity": "Build a Cube",
+          "description": "Visualize a 3×3×3 cube using blocks."
+        },
+        "confirm": "Cube = number × number × number.",
+        "assess": [
+          "Find \\(4^3\\)",
+          "Find \\(5^3\\)"
+        ],
+        "reflect": "Where do cubes appear in real life (boxes, storage)?",
+        "evaluate": "Explain why \\(2^3\\) is not equal to \\(2 × 3\\).",
+        "hint": "Cube means multiply the number three times.",
+        "solution": "\\(4^3 = 64, 5^3 = 125\\)",
+        "badge": "Cube Explorer 🧊"
+      },
+
+      {
+        "id": "sc3",
+        "name": "Squares vs Cubes",
+        "think": "How are squares and cubes different?",
+        "ask": [
+          "Compare \\(3^2\\) and \\(3^3\\)",
+          "Which grows faster?"
+        ],
+        "know": "Squares grow slower than cubes. Example: \\(3^2 = 9\\), \\(3^3 = 27\\).",
+        "engage": {
+          "activity": "Compare Growth",
+          "description": "List values of \\(n^2\\) and \\(n^3\\) for n = 1 to 5."
+        },
+        "confirm": "Cubes increase faster than squares.",
+        "assess": [
+          "Compare \\(4^2\\) and \\(4^3\\)",
+          "Which is larger: \\(5^2\\) or \\(5^3\\)?"
+        ],
+        "reflect": "Why do cubes grow faster?",
+        "evaluate": "Explain with an example how cubes outpace squares.",
+        "hint": "Cubes multiply one extra time.",
+        "solution": "\\(4^2 = 16, 4^3 = 64\\)",
+        "badge": "Growth Analyst 📈"
+      }
+
+    ],
+
+    "worksheet": {
+      "parameters": {
+        "base_range": [2, 20]
+      }
+    },
+
+    "solve_lab_templates": [
+
+      {
+        "type": "square",
+        "question": "Evaluate: \\(${base}^2\\)",
+        "correctRule": "Square",
+        "correctOperation": "Multiply twice",
+        "answer": "Math.pow(base,2)"
+      },
+
+      {
+        "type": "cube",
+        "question": "Evaluate: \\(${base}^3\\)",
+        "correctRule": "Cube",
+        "correctOperation": "Multiply three times",
+        "answer": "Math.pow(base,3)"
+      },
+
+      {
+        "type": "compare",
+        "question": "Which is greater: \\(${base}^2\\) or \\(${base}^3\\)?",
+        "correctRule": "Comparison",
+        "correctOperation": "Evaluate both",
+        "answer": "base^3"
+      }
+
+    ],
+
+    "real_life": [
+
+      {
+        "title": "🏠 Area of a Square Room",
+        "story": "A square room has side length 6 m.",
+        "question": "What is the area?",
+        "steps": [
+          "Area of square = \\(side^2\\)",
+          "Substitute: \\(6^2\\)",
+          "Calculate: \\(6 × 6 = 36\\)"
+        ],
+        "final": "36 m²"
+      },
+
+      {
+        "title": "📦 Volume of a Cube Box",
+        "story": "A cube box has side 4 cm.",
+        "question": "What is the volume?",
+        "steps": [
+          "Volume of cube = \\(side^3\\)",
+          "Substitute: \\(4^3\\)",
+          "Calculate: \\(64\\)"
+        ],
+        "final": "64 cm³"
+      },
+
+      {
+        "title": "🎲 Dice Stacking",
+        "story": "You stack cubes in a 3×3×3 arrangement.",
+        "question": "How many cubes are used?",
+        "steps": [
+          "Total cubes = \\(3^3\\)",
+          "Calculate: \\(27\\)"
+        ],
+        "final": "27 cubes"
+      }
+
+    ]
+
+  },
+  
+  "algebra": {
+    "title": "Algebra",
+    "lessons": [
+      { "id": "a1", "name": "Variables", "badge": "Variable Voyager" },
+      { "id": "a2", "name": "Equations", "badge": "Equation Expert" },
+      { "id": "a3", "name": "Quadratics", "badge": "Quadratic Queen/King" }
+    ]
+  },
+  "geometry": {
+    "title": "Geometry",
+    "lessons": [
+      { "id": "g1", "name": "Angles", "badge": "Angle Analyst" },
+      { "id": "g2", "name": "Triangles", "badge": "Triangle Tactician" },
+      { "id": "g3", "name": "Circles", "badge": "Circle Sage" }
+    ]
+  },
+  "trigonometry": {
+    "title": "Trigonometry",
+    "lessons": [
+      { "id": "t1", "name": "Ratios", "badge": "Ratio Ranger" },
+      { "id": "t2", "name": "Identities", "badge": "Identity Innovator" },
+      { "id": "t3", "name": "Applications", "badge": "Application Ace" }
+    ]
+  }
+}
