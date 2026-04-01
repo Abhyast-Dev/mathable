@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ABLE™ Math Smart Lab</title>
+  <style>
+    :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
+    body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); }
+    header { background:var(--primary); color:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; }
+    header img { height:50px; }
+    header h1 { margin:0; font-size:1.5rem; }
+    nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
+    main { padding:40px; max-width:1000px; margin:auto; }
+    h2 { color:var(--primary); }
+    .concept-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-top:15px; }
+    .concept-grid button { padding:20px; background:white; border:2px solid var(--primary); border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
+    .concept-grid button:hover { background:var(--primary); color:white; }
+    footer { background:#eee; text-align:center; padding:20px; margin-top:40px; font-size:0.85rem; }
+    
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .concept-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .concept-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
+
+  .concept-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+  }
+
+  .concept-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary);
+  }
+
+  .concept-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 8px;
+  }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex; align-items:center; gap:15px;">
+    <img src="Logo.png" alt="ABLE™ Logo">
+    <h1>ABLE™ Math Smart Lab</h1>
+  </div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Concepts</a>
+    <a href="#">Progress</a>
+    <a href="#">Badges</a>
+  </nav>
+</header>
+
+<main>
+  
+  <!-- Concept Selector -->
+ <section id="concept-selector">
+  <h2>Select Concept</h2>
+  <div class="concept-grid">
+    <div class="concept-card" onclick="openLessonPortal('exponents')">
+      <div class="concept-icon">✖️</div>
+      <h3>Exponents & Powers</h3>
+      <p>Master repeated multiplication and its rules.</p>
+    </div>
+    
+   <a href="lesson-portal-squares.html" style="text-decoration:none; color:inherit;">
+  <div class="concept-card">
+    <div class="concept-icon">⬜</div>
+    <h3>Squares and Cubes</h3>
+    <p>Explore perfect squares and cubes.</p>
+  </div>
+</a>
+
+    <div class="concept-card" onclick="openLessonPortal('algebra')">
+      <div class="concept-icon">🔢</div>
+      <h3>Algebra</h3>
+      <p>Work with variables, equations, and quadratics.</p>
+    </div>
+    <div class="concept-card" onclick="openLessonPortal('geometry')">
+      <div class="concept-icon">📐</div>
+      <h3>Geometry</h3>
+      <p>Explore shapes, angles, and circles.</p>
+    </div>
+    <div class="concept-card" onclick="openLessonPortal('trigonometry')">
+      <div class="concept-icon">📏</div>
+      <h3>Trigonometry</h3>
+      <p>Understand ratios, identities, and applications.</p>
+    </div>
+  </div>
+</section>
+
+  <!-- Display Area -->
+  <section id="concept-display"></section>
+</main>
+
+<footer>
+  <p>Powered by the 8-Step Framework – THINK → ASK → KNOW → ENGAGE → CONFIRM → ASSESS → REFLECT → EVALUATE</p>
+  <p>© 2026 Abhyast Private Limited | Director: Chetna Khanna</p>
+</footer>
+
+<script>
+ 
+
+  function openLessonPortal(concept) {
+    window.location.href = `lesson-portal.html?concept=${concept}`;
+  }
+</script>
+
+</body>
+</html>
