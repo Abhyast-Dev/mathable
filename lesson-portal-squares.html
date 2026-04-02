@@ -17,6 +17,13 @@
     .tab-content.active { display:block; }
     .lesson { background:white; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
     .lesson h2 { color:var(--primary); }
+    .lesson-card {
+      background: white; border-radius: 15px; padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px;
+      border-left: 5px solid var(--primary);
+    }
+    .lesson-card h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+
     .hint { color:var(--accent); }
     .solution { color:var(--success); }
      header { background:var(--primary); color:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; }
@@ -75,12 +82,32 @@
   const concept = {
     "title": "Squares & Cubes",
     "lessons": [
-      { "id":"sc1","name":"Square Numbers","badge":"Square Explorer","content":"Squares are numbers multiplied by themselves. Example: \\(5^2 = 25\\)."},
-      { "id":"sc2","name":"Square Roots","badge":"Root Finder","content":"The square root of a number is the value that, when squared, gives the original number. Example: \\(\\sqrt{49} = 7\\)."},
-      { "id":"sc3","name":"Cube Numbers","badge":"Cube Builder","content":"Cubes are numbers multiplied by themselves three times. Example: \\(3^3 = 27\\)."},
-      { "id":"sc4","name":"Cube Roots","badge":"Root Ranger","content":"The cube root of a number is the value that, when cubed, gives the original number. Example: \\(\\sqrt[3]{64} = 4\\)."},
-      { "id":"sc_final","name":"Final Self-Assessment","badge":null,"content":"☑ Explain squares and square roots<br>☑ Explain cubes and cube roots<br>☑ Solve problems<br>☑ Reflect on strengths and areas for practice"}
-    ],
+  { 
+    "id":"sc1",
+    "name":"Square Numbers",
+ 
+    "content":"Squares are numbers multiplied by themselves. Example: \\(5^2 = 25\\).<br><br><b>Pattern:</b> Consecutive squares differ by odd numbers (1, 3, 5, 7...).<br><b>Quick Practice:</b> What is \\(7^2\\)? What is \\(12^2\\)?<br><b>Applications:</b> Squares are used to calculate areas of squares and in algebra."
+  },
+  { 
+    "id":"sc2",
+    "name":"Square Roots",
+   
+    "content":"The square root of a number is the value that, when squared, gives the original number. Example: \\(\\sqrt{49} = 7\\).<br><br><b>Note:</b> Not all numbers have whole number square roots (e.g., \\(\\sqrt{2}\\)).<br><b>Quick Practice:</b> Find \\(\\sqrt{81}\\). Estimate \\(\\sqrt{20}\\).<br><b>Applications:</b> Square roots are used in solving quadratic equations and in geometry."
+  },
+  { 
+    "id":"sc3",
+    "name":"Cube Numbers",
+   
+    "content":"Cubes are numbers multiplied by themselves three times. Example: \\(3^3 = 27\\).<br><br><b>Pattern:</b> Cubes grow faster than squares (e.g., \\(2^3=8\\), \\(5^3=125\\)).<br><b>Quick Practice:</b> What is \\(4^3\\)? What is \\(10^3\\)?<br><b>Applications:</b> Cubes are used to calculate volumes of cubes and in higher algebra."
+  },
+  { 
+    "id":"sc4",
+    "name":"Cube Roots",
+  
+    "content":"The cube root of a number is the value that, when cubed, gives the original number. Example: \\(\\sqrt[3]{64} = 4\\).<br><br><b>Note:</b> Cube roots can be irrational (e.g., \\(\\sqrt[3]{2}\\)).<br><b>Quick Practice:</b> Find \\(\\sqrt[3]{27}\\). Estimate \\(\\sqrt[3]{50}\\).<br><b>Applications:</b> Cube roots are used in scaling problems and in physics."
+  },
+  
+],
     "worksheet": {
       "description":"Practice problems on squares, cubes, and their roots."
     }
