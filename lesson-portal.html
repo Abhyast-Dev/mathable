@@ -6,93 +6,65 @@
   <style>
     :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
     body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); display:flex; height:100vh; }
-    nav { width:250px; background:#1a3668; color:white; padding:20px; overflow-y:auto; }
-    nav h2 { margin-bottom:10px; }
-    nav button { width:100%; text-align:left; padding:10px; margin:5px 0; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:5px; cursor:pointer; }
-    nav button.active { background:var(--accent); font-weight:bold; }
-    main { flex:1; padding:30px; overflow-y:auto; }
-    .lesson { display:none; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); margin-bottom:20px; }
-    .active { display:block; }
-    #progress-container { margin:15px 0; padding:10px; background:rgba(255,255,255,0.05); border-radius:8px; }
-    #progress-track { background:#444; border-radius:10px; height:10px; width:100%; overflow:hidden; }
-    #progress-bar { background:var(--success); height:100%; width:0%; transition:0.5s; }
-    #progress-text { font-size:0.75rem; margin-top:8px; text-align:center; color:#fff; }
-    #badge-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:6000; align-items:center; justify-content:center; }
-    .badge-card { background:white; padding:30px; border-radius:12px; text-align:center; width:300px; animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275); }
-    @keyframes popIn { from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
-    .badge-icon { font-size:4rem; margin-bottom:10px; color:var(--accent); }
-    footer { text-align:center; font-size:0.8rem; color:#777; margin-top:20px; }
-    .lesson h3 {
-  margin-top: 15px;
-  padding: 12px;
-  background: #eef3fb;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 0.95rem;
-}
+    
+    /* Header Styles */
+    header {
+      width: 100%; background: var(--primary); color: white; padding: 8px 15px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2); position: fixed; top: 0; left: 0; z-index: 5000;
+    }
+    header img { height: 50px; }
+    header h1 { font-size: 1.4rem; margin: 0; }
+    header nav { display: flex; gap: 10px; }
+    header nav a { color: white; text-decoration: none; font-size: 0.95rem; padding: 6px 10px; border-radius: 5px; transition: background 0.3s; }
+    header nav a:hover { background: var(--accent); color: #fff; }
 
-.lesson h3:hover {
-  background: var(--primary);
-  color: white;
-}
+    /* Main Content Area */
+    main { flex: 1; padding: 30px; overflow-y: auto; margin-top: 80px; }
 
-/* Optional: active state */
-.lesson h3.active-section {
-  background: var(--accent);
-  color: white;
-}
+    /* Tab Buttons */
+    .tab-nav { margin-bottom: 25px; display: flex; gap: 10px; }
+    .tab-nav button {
+      padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer;
+      font-weight: bold; background: #ddd; transition: 0.3s;
+    }
+    .active-tab { background: var(--accent) !important; color: white; }
 
-header {
-  width: 100%;
-  background: var(--primary);   /* deep blue background */
-  color: white;
-  padding: 8px 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  position: fixed;   /* keeps header at top */
-  top: 0;
-  left: 0;
-  z-index: 5000;
-}
+    /* Card Styling for Lessons */
+    .lesson-card {
+      background: white; border-radius: 15px; padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px;
+      border-left: 5px solid var(--primary);
+    }
+    .lesson-card h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+    
+    /* 8-Step Headers inside cards */
+    .step-header {
+      margin-top: 15px; padding: 15px; background: #f8fbff;
+      border-radius: 10px; cursor: pointer; transition: 0.3s;
+      font-size: 1rem; font-weight: bold; color: var(--primary);
+      display: flex; justify-content: space-between; align-items: center;
+      border: 1px solid #eef2f8;
+    }
+    .step-header:hover { background: #eef3fb; transform: translateX(5px); }
+    .active-section { background: var(--primary) !important; color: white !important; }
 
-header img {
-  height: 50px;
-}
+    .step-content {
+      padding: 20px; background: #fff; border: 1px solid #f0f0f0;
+      border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+      line-height: 1.6; color: #444;
+    }
 
-header h1 {
-  font-size: 1.4rem;
-  margin: 0;
-}
+    /* Rule Box */
+    .rule-box {
+      background: #fff8e1; border-left: 5px solid var(--accent);
+      padding: 20px; margin: 20px 0; border-radius: 8px;
+      font-size: 1.05rem; line-height: 1.5;
+    }
 
-header nav {
-  display: flex;
-  gap: 10px;
-}
-
-header nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 0.95rem;
-  padding: 6px 10px;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-
-header nav a:hover {
-  background: var(--accent);   /* orange hover */
-  color: #fff;
-}
-main {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
-
-  margin-top: 80px; /* 👈 ADD THIS */
-}
-
+    /* Lab Containers */
+    .tab-content { display: none; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -114,25 +86,10 @@ main {
 </header>
 
 
-<nav>
-  <h2 id="lesson-title">Concept Lessons</h2>
-  <div id="progress-container">
-    <div id="progress-track"><div id="progress-bar"></div></div>
-    <span id="progress-text">0/0 Completed</span>
-  </div>
-  <div id="badge-area" style="font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;"></div>
-  <div id="lesson-buttons"></div>
-  <hr style="border:0.5px solid rgba(255,255,255,0.1); margin:15px 0;">
-        <label for="worksheet-count" style="color:white; font-size:0.9rem;">Number of Questions:</label>
-        <input id="worksheet-count" type="number" min="1" max="20" value="5" style="width:60px; margin:5px 0; padding:5px; border-radius:4px; border:none;">
-        <button onclick="generateWorksheet()" style="padding:12px; background:var(--accent); color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">
-        📄 Generate Worksheet
-        </button>
-
-</nav>
 
 <main id="lesson-area">
   <div style="margin-bottom:20px;">
+  
   <button onclick="showTab('lessons')" id="tab-lessons" class="active-tab">📘 Lessons</button>
   <button onclick="showTab('exp-formulas')" id="tab-formulas">📑 Formulas</button>
   <button onclick="showTab('solve')" id="tab-solve">🧠 Solve Lab</button>
@@ -144,16 +101,62 @@ main {
 
 </div>
 
-<div id="lesson-container"></div>
-<div id="worksheet-container" style="display:none;"></div>
+<div id="lesson-container" class="lesson-card">
+
+ <h2>1. Basics of Exponents</h2>
+<p>Exponents are shorthand for repeated multiplication. They help us express very large or very small numbers in a compact way.</p>
+
+<!-- Card 1: Base and Power -->
+<div class="rule-box">
+  <h3>Base and Power</h3>
+  <p>
+    In \(a^n\), <b>a</b> is the <b>base</b> and <b>n</b> is the <b>power</b> (exponent).  
+    Example: \(2^5 = 2 \times 2 \times 2 \times 2 \times 2 = 32\).
+  </p>
+</div>
+
+<!-- Card 2: Standard Form -->
+<div class="rule-box">
+  <h3>Standard Form (Scientific Notation)</h3>
+  <p>
+    Very large or small numbers are written as \(m \times 10^n\), where \(1 \leq m < 10\).  
+    Examples:  
+    <ul>
+    <li> \(3,600,000 = 3.6 \times 10^6\)</li>  
+    <li> \(0.00042 = 4.2 \times 10^{-4}\)</li>
+    </ul>
+  </p>
+
+  <h3>Why 3.6 and not 36 or 0.36?</h3>
+  <p>
+    In standard form, the first number (mantissa) must always be between 1 and 10.  
+    <ul>
+    <li> \(36 \times 10^5\) ❌ (mantissa too large)</li>
+    <li>\(0.36 \times 10^7\) ❌ (mantissa too small)  </li>
+    <li> \(3.6 \times 10^6\) ✅ (mantissa between 1 and 10, correct standard form)</li>
+    </ul>
+  </p>
+</div>
+
+<!-- Card 4: Why It Matters -->
+<div class="rule-box">
+  <h3>Why It Matters</h3>
+  <p>
+    This rule ensures every number has a unique representation, makes comparison easier, 
+    and keeps calculations neat in science, engineering, and finance.
+  </p>
+</div>
+    </div>
+<div id="worksheet-container" class="lesson-card" style="display:none;">
+    
   <!-- Lessons will be injected here -->
-   
+   </div>
     <div id="content-area">
     <!-- Lessons will come here -->
   </div>
-  <div id="solve-container" style="display:none;"></div>
-  <div id="real-container" style="display:none;"></div>
-  <div id="exp-formulas" class="tab-content" style="display:none; text-align:center;">
+  <div id="solve-container" class="lesson-card" style="display:none;"></div>
+  <div id="real-container" class="lesson-card" style="display:none;"></div>
+  <div id="exp-formulas" class="lesson-card" style="display:none; text-align:center;">
   <h3>Exponent Formulas</h3>
   
   <!-- ✅ This is required -->
@@ -172,20 +175,10 @@ main {
    
 
   <footer>
-    <p>Powered by the 8-Step Framework – THINK → ASK → KNOW → ENGAGE → CONFIRM → ASSESS → REFLECT → EVALUATE</p>
-    <p>© 2026 Abhyast Private Limited | Director: Chetna Khanna</p>
+    <p>Powered by the 8-Step Framework – TAKECARE™ </p>
+    <p>© 2026 Abhyast Private Limited 
   </footer>
 </main>
-
-<!-- Badge Modal 
-<div id="badge-modal">
-  <div class="badge-card">
-    <div class="badge-icon">🏅</div>
-    <h2 id="badge-name">Badge Name</h2>
-    <p>Awesome job! You've mastered this concept.</p>
-    <button onclick="closeBadgeModal()">Keep Learning</button>
-  </div>
-</div>-->
 
 <script>
   let completedLessons = [];
@@ -229,25 +222,8 @@ function prevFormula() {
   // -------------------------
   // Load Concepts JSON
   // -------------------------
-  async function loadConcepts() {
-    const res = await fetch("concepts.json");
-    conceptData = await res.json();
-    initPortal();
-  }
 
- function getConceptFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("concept");
-}
-
-window.onload = async () => {
-  const concept = getConceptFromURL();
-  if (concept) {
-    // Wait for the data to actually arrive before building the UI
-    await loadConcepts(); 
-  }
-};
-
+ 
 function toggleVisibility(id, lessonId) {
 
   const el = document.getElementById(id);
@@ -269,193 +245,25 @@ function toggleVisibility(id, lessonId) {
     if (header) header.classList.add("active-section");
   }
 }
-  function initPortal() {
-    currentConcept = getConceptFromURL();
-    if (currentConcept && conceptData[currentConcept]) {
-      const concept = conceptData[currentConcept];
-      totalLessons = concept.lessons.length;
-      document.getElementById("lesson-title").innerText = concept.title;
 
-      // Build sidebar buttons
-      const btnArea = document.getElementById("lesson-buttons");
-      btnArea.innerHTML = "";
-      concept.lessons.forEach((lesson, idx) => {
-        const btn = document.createElement("button");
-        btn.id = "btn-" + lesson.id;
-        btn.innerText = "Lesson " + (idx+1) + ": " + lesson.name;
-        btn.onclick = () => showLesson(lesson.id);
-        btnArea.appendChild(btn);
-      });
 
-    
-// Build lesson blocks
-const lessonArea = document.getElementById("lesson-container");
-lessonArea.innerHTML = "";
-concept.lessons.forEach(lesson => {
-  const div = document.createElement("div");
-  div.id = lesson.id;
-  div.className = "lesson";
-
-  div.innerHTML = `
-    <h1>${lesson.name}</h1>
-    <h3 onclick="toggleVisibility('${lesson.id}-think','${lesson.id}')">💭 THINK</h3>
-    <div id="${lesson.id}-think" style="display:none;">
-      <p>${lesson.think || ""}</p>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-ask','${lesson.id}')">❓ ASK</h3>
-    <div id="${lesson.id}-ask" style="display:none;">
-      <ul>
-        ${(lesson.ask || []).map(q => `<li>\\(${q}\\)</li>`).join("")}
-      </ul>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-know','${lesson.id}')">📘 KNOW</h3>
-    <div id="${lesson.id}-know" style="display:none;">
-      <p>${lesson.know || lesson.content || ""}</p>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-engage','${lesson.id}')">🎯 ENGAGE</h3>
-    <div id="${lesson.id}-engage" style="display:none;">
-      <p><b>${lesson.engage?.activity || ""}</b></p>
-      <p>${lesson.engage?.description || ""}</p>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-confirm','${lesson.id}')">✅ CONFIRM</h3>
-    <div id="${lesson.id}-confirm" style="display:none;">
-      <p>${lesson.confirm || ""}</p>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-assess','${lesson.id}')">📝 ASSESS</h3>
-    <div id="${lesson.id}-assess" style="display:none;">
-      <ul>
-        ${(lesson.assess || []).map(q => `<li>\\(${q}\\)</li>`).join("")}
-      </ul>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-reflect','${lesson.id}')">🔍 REFLECT</h3>
-    <div id="${lesson.id}-reflect" style="display:none;">
-      <p>${lesson.reflect || ""}</p>
-    </div>
-
-    <h3 onclick="toggleVisibility('${lesson.id}-evaluate','${lesson.id}')">📊 EVALUATE</h3>
-    <div id="${lesson.id}-evaluate" style="display:none;">
-      <p>${lesson.evaluate || ""}</p>
-    </div>
-  `;
-
-  lessonArea.appendChild(div);
-});
-
-// After injecting lessons, trigger MathJax to render LaTeX
-MathJax.typesetPromise();
-
-   // Show first lesson
-      showLesson(concept.lessons[0].id);
-    }
-
-    // Load saved data
-    loadSavedData(currentConcept);
-  }
-
-  // -------------------------
-  // Progress & Badges
-  // -------------------------
-  function loadSavedData(concept) {
-    completedLessons = JSON.parse(localStorage.getItem(concept + "_completed")) || [];
-    badges = JSON.parse(localStorage.getItem(concept + "_badges")) || [];
-    updateProgress();
-    //displayBadges();
-  }
-
-  function completeLesson(lessonId) {
-    if (!completedLessons.includes(lessonId)) {
-      completedLessons.push(lessonId);
-      localStorage.setItem(currentConcept + "_completed", JSON.stringify(completedLessons));
-      awardBadge(lessonId);
-      updateProgress();
-      const btn = document.getElementById('comp-' + lessonId);
-      if (btn) {
-        btn.innerText = "Lesson Completed! ✅";
-        btn.style.background = "#95a5a6";
-      }
-    }
-  }
-
-  function awardBadge(lessonId) {
-    const lessons = conceptData[currentConcept].lessons;
-    const lesson = lessons.find(l => l.id === lessonId);
-    if (lesson && lesson.badge && !badges.includes(lesson.badge)) {
-      badges.push(lesson.badge);
-      localStorage.setItem(currentConcept + "_badges", JSON.stringify(badges));
-      displayBadges();
-      showBadgeModal(lesson.badge);
-    }
-  }
-
-  function updateProgress() {
-    const percent = totalLessons ? (completedLessons.length / totalLessons) * 100 : 0;
-    document.getElementById("progress-bar").style.width = percent + "%";
-    document.getElementById("progress-text").innerText = `${completedLessons.length}/${totalLessons} Completed`;
-  }
-
-  /*function displayBadges() {
-    const area = document.getElementById("badge-area");
-    if (badges.length === 0) {
-      area.innerHTML = "<b style='color:var(--accent)'>🏅 EARNED BADGES</b><div>No badges yet</div>";
-    } else {
-      area.innerHTML = "<b style='color:var(--accent)'>🏅 EARNED BADGES</b>" +
-        badges.map(b => `<div style="margin-top:5px; padding:5px; background:rgba(255,255,255,0.1); border-radius:4px;">${b}</div>`).join("");
-    }
-  }
-
-  // -------------------------
-  // Badge Modal
-  // -------------------------
-  function showBadgeModal(name) {
-    document.getElementById("badge-name").innerText = name;
-    document.getElementById("badge-modal").style.display = "flex";
-  }
-  function closeBadgeModal() {
-    document.getElementById("badge-modal").style.display = "none";
-  } */
-
-  // -------------------------
-  // Lesson Navigation
-  // -------------------------
- function showLesson(id) {
-
-  // Always go back to lessons tab
-  showTab('lessons');
-
-  document.querySelectorAll('.lesson').forEach(l => l.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-
-  const lesson = document.getElementById(id);
-  if (lesson) lesson.classList.add('active');
-
-  const btn = document.getElementById('btn-' + id);
-  if (btn) btn.classList.add('active');
-}
+  const parameters = {
+  base_range: [2, 9],
+  exp_range: [1, 5],
+  large_number_range: [1000, 100000]
+};
+  
   function generateWorksheet() {
   const lessonArea = document.getElementById("worksheet-area");
-    showTab('worksheet');
+   
     const worksheetContainer = document.getElementById("worksheet-container");
 
 
-  const concept = conceptData[currentConcept];
-  const count = parseInt(document.getElementById("worksheet-count").value) || 5;
-
-  if (!concept.worksheet) {
-    lessonArea.innerHTML = "<p>No worksheet available for this concept.</p>";
-    return;
-  }
-
-  const { parameters } = concept.worksheet;
+  
   let questions = [];
   let answers = [];
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 5; i++) {
 
     const base = rand(parameters.base_range[0], parameters.base_range[1]);
     const exp1 = rand(parameters.exp_range[0], parameters.exp_range[1]);
@@ -601,6 +409,7 @@ function showTab(tab) {
   else if (tab === "worksheet") {
     worksheetContainer.style.display = "block";
     document.getElementById("tab-worksheet").classList.add("active-tab");
+    generateWorksheet()
   } 
   else if (tab === "solve") {
     solveContainer.style.display = "block";
@@ -1202,7 +1011,7 @@ function downloadWorksheet() {
   // -------------------------
   // Init
   // -------------------------
-  loadConcepts();
+
 </script>
 </body>
 </html>
