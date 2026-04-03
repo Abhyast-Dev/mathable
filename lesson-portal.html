@@ -15,10 +15,20 @@
     
     /* Header Styles */
     header {
-      width: 100%; background: var(--primary); color: white; padding: 8px 15px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2); position: fixed; top: 0; left: 0; z-index: 5000;
-    }
+  width: 100%; 
+  box-sizing: border-box; /* CRITICAL: Includes padding in the width calculation */
+  background: var(--primary); 
+  color: white; 
+  padding: 8px 20px;
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  z-index: 5000;
+}
     header img { height: 50px; }
     header h1 { font-size: 1.4rem; margin: 0; }
     header nav { display: flex; gap: 10px; }
@@ -99,8 +109,7 @@
   
   <nav>
     <a href="index.html">Home</a>
-    <a href="#">Concepts</a>
-    
+  
   </nav>
 </header>
 
