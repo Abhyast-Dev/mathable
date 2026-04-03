@@ -5,7 +5,13 @@
   <title>ABLE™ Math Smart Lab – Lesson Portal</title>
   <style>
     :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
-    body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg);flex-direction: column; height:100vh; }
+   body { 
+  font-family: 'Segoe UI', sans-serif; 
+  margin: 0; 
+  background: var(--bg); 
+  display: block; /* Change from flex to block to stop the column behavior */
+  min-height: 100vh; 
+}
     
     /* Header Styles */
     header {
@@ -20,7 +26,12 @@
     header nav a:hover { background: var(--accent); color: #fff; }
 
     /* Main Content Area */
-    main { flex: 1; padding: 30px; overflow-y: auto; margin-top: 80px; }
+    main { 
+  display: block; 
+  padding: 30px; 
+  margin-top: 80px; /* Space for the fixed header */
+  min-height: calc(100vh - 200px); /* Ensures main takes up space so footer stays down */
+}
 
     /* Tab Buttons */
     .tab-nav { margin-bottom: 25px; display: flex; gap: 10px; }
