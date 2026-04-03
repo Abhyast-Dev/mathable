@@ -65,8 +65,16 @@
     /* Lab Containers */
     .tab-content { display: none; animation: fadeIn 0.4s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
   </style>
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      }
+    };
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -175,8 +183,8 @@
    
 
   <footer>
-    <p>Powered by the 8-Step Framework – TAKECARE™ </p>
-    <p>© 2026 Abhyast Private Limited 
+     <p>ABLE™ Powered by the 8-Step Framework –TAKECARE™/p>
+  <p>© 2026 Abhyast Private Limited </p>
   </footer>
 </main>
 
@@ -882,12 +890,6 @@ switch (templateIndex) {
       <button onclick="loadSolveLab()">➡ Next Question</button>
     </div>
   `;
-
-
-
-
-  
-
   MathJax.typesetPromise();
 }
 
@@ -961,17 +963,16 @@ function stripLatex(str) {
   return str.replace(/\\\\\(|\\\\\)/g, "");
 }
 
-
 function revealSolution(q, ans) {
-  document.getElementById("final-feedback").innerHTML += `
+  // Use a template literal with double backslashes so the browser receives \( and \)
+  document.getElementById("final-feedback").innerHTML = `
     <div style="margin-top:10px; padding:10px; background:#f4f4f4;">
       <b>Solution:</b><br>
-      ${q} = \\\\(${ans}\\\\)
+      ${q} = ${ans}
     </div>
   `;
   MathJax.typesetPromise();
 }
-
 
 
 function downloadWorksheet() {
