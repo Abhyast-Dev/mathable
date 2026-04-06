@@ -1,0 +1,156 @@
+
+/* ============================================================
+   RESPONSIVE DESIGN (MOBILE / TABLET)
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header h1 {
+    font-size: 1rem;
+  }
+
+  header img {
+    height: 40px;
+  }
+
+  header nav {
+    width: 100%;
+  }
+
+  .tab-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tab-nav button {
+    width: 100%;
+  }
+
+  main {
+    padding: 12px;
+  }
+
+  .lesson-card {
+    padding: 15px;
+  }
+
+  
+
+  
+}
+
+
+/* ============================================================
+   PRINT STYLES (PDF ENGINE)
+   ============================================================ */
+
+@media print {
+
+  /* Reset */
+  html, body {
+    height: auto !important;
+  }
+
+  * {
+    overflow: visible !important;
+  }
+
+  body {
+    background: white !important;
+    display: block !important;
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  #worksheet-container {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide UI */
+  header, nav, .tab-nav, button, footer, .no-print {
+    display: none !important;
+  }
+
+  /* Show print elements */
+  .print-only {
+    display: block !important;
+  }
+
+  .student-info {
+    display: flex !important;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .print-only-header {
+    display: block !important;
+    margin-bottom: 20px;
+  }
+
+  /* Questions (print-safe 2-column) */
+  .question-grid {
+    display: block !important;
+  }
+
+  .question-item {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 25px;
+
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .math-q {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: black !important;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  /* Answer key */
+  .answer-key-section {
+    display: block !important;
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .answer-grid {
+    column-count: 2;
+    column-gap: 30px;
+  }
+
+  .answer-grid div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 10px;
+  }
+}
+
+
+/* ============================================================
+   PAGE SETUP
+   ============================================================ */
+
+@page {
+  margin: 2cm 1.5cm;
+}
