@@ -7,7 +7,7 @@
     :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
     body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); }
     header { background:var(--primary); color:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; }
-    header h1 { margin:0; font-size:1.5rem; }
+   
     nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
     main { padding:30px; max-width:1000px; margin:auto; }
     .tabs { display:flex; gap:15px; margin-bottom:20px; }
@@ -16,26 +16,29 @@
     .tab-content { display:none; }
     .tab-content.active { display:block; }
     .lesson { background:white; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-    .lesson h2 { color:var(--primary); }
-    .lesson-card {
-      background: white; border-radius: 15px; padding: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px;
-      border-left: 5px solid var(--primary);
-    }
-    .lesson-card h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+    
 
     .hint { color:var(--accent); }
     .solution { color:var(--success); }
-     header { background:var(--primary); color:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; }
+     
     header img { height:50px; }
     header h1 { margin:0; font-size:1.5rem; }
     nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
     main { padding:40px; max-width:1000px; margin:auto; }
     h2 { color:var(--primary); }
+    
+    .answer-key-section {
+        display: none !important;
+       
+    }
+   
+
   </style>
- 
+  <link rel="stylesheet" href="print.css">
+  <link rel="stylesheet" href="style.css">
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="worksheet.js"></script>
 </head>
 <body>
 
@@ -43,7 +46,7 @@
 <header>
   <div style="display:flex; align-items:center; gap:15px;">
     <a href="index.html"><img src="Logo.png" alt="ABLE™ Logo"></a>
-    <h1>ABLE™ Math Smart Lab - Squares & Cubes</h1>
+    <h1>ABLE™ -> MathABLE - Squares & Cubes</h1>
   </div>
   
   <nav>
@@ -63,50 +66,30 @@
 
   </div>
 
-  <div id="lessons" class="tab-content active"></div> 
-  <div id="calculator" class="tab-content">
+  <div id="lessons" class="lesson-card tab-content active"></div>
+  <div id="calculator" class="lesson-card tab-content">
   <h2>🧮 Square & Cube Calculator</h2>
   <label>Start: <input id="calc-start" type="number" value="1"></label>
   <label>End: <input id="calc-end" type="number" value="20"></label>
   <button onclick="generateChart()">Generate Chart</button>
   <div id="calc-output" style="margin-top:20px;"></div>
 </div>
-  <div id="solve" class="tab-content"><div id="solve-container"></div></div>
-  <div id="worksheet" class="tab-content"></div>
+  <div id="solve" class="lesson-card tab-content"><div id="solve-container"></div></div>
+  <div id="worksheet" class="lesson-card tab-content">
+    <div id="worksheet-container"></div>
+</div>
   
-  <div id="real" class="tab-content"><div id="real-container"></div></div>
+  <div id="real" class="lesson-card tab-content"><div id="real-container"></div></div>
 </main>
-<footer style="background:#f9f9f9; border-top:1px solid #ccc; padding:20px;">
-  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; max-width:1000px; margin:auto;">
-    
-    <!-- Left column -->
-    <div style="flex:1; min-width:250px; margin:10px; text-align:left;">
-      <h4 style="margin-bottom:10px;">Contact for Institutional Accounts</h4>
-      <p style="margin:5px 0;">For schools and bulk parent analytics:</p>
-      
-      <a href="mailto:contact@abhyast.in" 
-         style="display:block; margin:6px 0; color:#2a4d8f; font-weight:bold; text-decoration:none;">
-        📧 contact@abhyast.in
-      </a>
-      
-      <a href="https://wa.me/919910686080?text=I%20am%20interested%20in%20an%20ABLE%20Institutional%20Account" 
-         target="_blank" 
-         style="display:block; margin:6px 0; color:#2a4d8f; font-weight:bold; text-decoration:none;">
-        💬 WhatsApp
-      </a>
-    </div>
-    
-    <!-- Right column -->
-    <div style="flex:1; min-width:250px; margin:10px; text-align:right; font-size:0.9rem; color:#555;">
-      <p><b>ABLE™</b> Powered by the 8-Step Framework – TAKECARE™</p>
-      <p>© 2026 Abhyast Private Limited</p>
-    </div>
-    
-  </div>
-</footer>
-  
+
 <script>
   // Embedded JSON
+
+
+
+
+
+
   const concept = {
     "title": "Squares & Cubes",
     "lessons": [
@@ -152,14 +135,7 @@
 
   // Worksheet
   const worksheetDiv = document.getElementById("worksheet");
-  worksheetDiv.innerHTML = `
-    <h2>📄 Worksheet</h2>
-    <label>Number of Questions: 
-      <input id="worksheet-count" type="number" value="5" min="1" max="20">
-    </label>
-    <button onclick="generateWorksheet()">Generate Worksheet</button>
-    <div id="worksheet-container"></div>
-  `;
+  
 
   function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -234,47 +210,117 @@ function generateChart() {
 }
 
   function generateWorksheet() {
+    // 1. Reference the container where the worksheet will be displayed on the screen
     const worksheetContainer = document.getElementById("worksheet-container");
-    const count = parseInt(document.getElementById("worksheet-count").value) || 5;
+    
+    // 2. Get the number of questions the user wants (from the input field). Default to 5 if not found.
+    const count = document.getElementById("qCount")?.value || 5;
 
+    // 3. Initialize empty arrays to store our generated data
     let questions = [];
     let answers = [];
 
+    // 4. Loop to generate the random math problems based on the requested count
     for (let i = 0; i < count; i++) {
-      const base = rand(2, 12);
-      const square = base * base;
-      const cube = base * base * base;
+        const base = rand(2, 12); // Generate a random number between 2 and 12
+        const square = base * base; // Calculate the square
+        const cube = base * base * base; // Calculate the cube
 
-      let q = "", a = "";
-      const templateIndex = Math.floor(Math.random() * 4);
+        let q = "", a = "";
+        const templateIndex = Math.floor(Math.random() * 4); // Randomly choose one of 4 types of questions
 
-      switch (templateIndex) {
-        case 0: q = `Evaluate: \\(${base}^2\\)`; a = `\\(${square}\\)`; break;
-        case 1: q = `Evaluate: \\(${base}^3\\)`; a = `\\(${cube}\\)`; break;
-        case 2: q = `Find: \\(\\sqrt{${square}}\\)`; a = `\\(${base}\\)`; break;
-        case 3: q = `Find: \\(\\sqrt[3]{${cube}}\\)`; a = `\\(${base}\\)`; break;
-      }
+        // 5. Define the question templates using LaTeX formatting
+        switch (templateIndex) {
+            case 0: q = `Evaluate: \\(${base}^2\\)`; a = `\\(${square}\\)`; break;
+            case 1: q = `Evaluate: \\(${base}^3\\)`; a = `\\(${cube}\\)`; break;
+            case 2: q = `Find: \\(\\sqrt{${square}}\\)`; a = `\\(${base}\\)`; break;
+            case 3: q = `Find: \\(\\sqrt[3]{${cube}}\\)`; a = `\\(${base}\\)`; break;
+        }
 
-      questions.push(q);
-      answers.push(a);
+        // 6. Push the generated strings into our tracking arrays
+        questions.push(q);
+        answers.push(a);
     }
 
-    worksheetContainer.innerHTML =
-      "<ol>" +
-      questions.map((q, i) => `
-        <li>
-          ${q}
-          <button onclick="toggleAnswer(${i})">Show Answer</button>
-          <div id="answer-${i}" style="display:none; color:green;">
-            ${answers[i]}
-          </div>
-        </li>
-      `).join("") +
-      "</ol>" +
-      `<button onclick="generateWorksheet()">🔄 New Worksheet</button>`;
+    // --- FIX START: Generating the HTML strings that were previously "undefined" ---
+
+    // 7. Create the HTML for the Question Page (visible for the student)
+
+    // --- CHANGE 1: Build the Questions List (includes the 'Show Answer' Toggle for online use) ---
+    const questionsListHtml = questions.map((q, i) => `
+         <ol class="question-item">
+            <div class="math-q">
+             <strong>Qs${i + 1}.</strong> ${q}
+             </div>
+            <button class="no-print" onclick="toggleAnswer(${i})" style="margin-top:5px; font-size:0.8rem;">Show Answer</button>
+            <div id="answer-${i}" class="answer-div" style="display:none; color:var(--success); font-weight:bold; margin-top:5px; border-left:3px solid var(--success); padding-left:10px;">
+                Answer: ${answers[i]}
+            </div>
+          </ol>
+        
+    `).join("");
+
+    // --- CHANGE 2: Build the Answer Key (This is the section that prints automatically) ---
+    const keyListHtml = answers.map((a, i) => `
+        <div style="padding:10px; border-bottom:1px dashed #ddd;">
+            <strong>Q${i + 1}:</strong> ${a}
+        </div>
+    `).join("");
+
+    // 9. Inject the final HTML structure into the worksheet container
+    worksheetContainer.innerHTML = `
+        <div class="print-only-header" style="display:none;">
+            <table style="width:100%; border-bottom:2px solid #2a4d8f; margin-top:20px; margin-bottom:20px;">
+                <tr>
+                    <td>
+                        <h1 style="color:#2a4d8f; margin:0;">${document.querySelector('h1').innerText}</h1>
+                        <p style="margin:0;"></p>
+                    </td>
+                    <td style="text-align:right;"><img src="Logo.png" style="height:50px;"></td>
+                </tr>
+            </table>
+        </div>
+
+        <h2 class="no-print">📄 Worksheet (Assess)</h2>
+
+        <div class="no-print" style="margin-bottom:20px; background:#f8fbff; padding:15px; border-radius:10px; border:1px solid #e1e8f0;">
+            <label>Number of Questions: </label>
+            <input type="number" id="qCount" value="${count}" min="1" max="25" style="width:60px; padding:5px; border-radius:5px;">
+            <button onclick="generateWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; margin-left:10px;">Update</button>
+            <button onclick=" downloadWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px;  border-radius:5px; cursor:pointermargin-left:10px;">
+                📥 Download
+            </button>
+            </div>
+        <div class="print-only student-info">
+          <div><b>Name:</b> __________________</div>
+          <div><b>Date:</b> __________________</div>
+          <div><b>Class:</b> __________________</div>
+        </div>
+        <div class="question-grid">
+          ${questionsListHtml}
+        </div>
+
+        <div class="answer-key-section">
+            <h2>🔑 Answer Key</h2>
+            <div class="answer-grid">
+              ${keyListHtml}
+            </div>
+        </div>
+        
+       <div class="no-print download-section">
+            <button onclick=" downloadWorksheet()" style="background:var(--accent); color:white; padding:12px 30px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1.1rem;">
+                📥 Download PDF with Answer Key
+            </button>
+        </div>
+    `;
 
     MathJax.typesetPromise();
-  }
+      }
+
+// Ensure the downloadWorksheet function calls the new utility
+function downloadWorksheet() {
+    ABLE_PDF.download();
+}
 
 function loadSolveLab() {
 
@@ -844,6 +890,7 @@ function showTab(id) {
 
   if (id === "solve") loadSolveLab();
   if (id === "real") loadRealLifeLab();
+  if (id === "worksheet") generateWorksheet(); // <-- ADD THIS LINE
 }
 </script>
 
