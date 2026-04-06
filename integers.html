@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ABLE™ Smart Lab | Integers</title>
   <style>
     :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
@@ -16,13 +17,7 @@
     .tabs button.active { background:var(--accent); color:white; }
     .tab-content { display:none; }
     .tab-content.active { display:block; }
-    .lesson { background:white; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-    .lesson h2 { color:var(--primary); border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
-    .rule-box { background: #fff8e1; border-left: 5px solid var(--accent); padding: 15px; margin: 10px 0; border-radius: 4px; }
-    .number-line { background: white; padding: 20px; border-radius: 8px; text-align: center; font-family: monospace; overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-    th { background: #eee; }
+    
     .nl-container {
   position: relative;
   height: 80px;
@@ -65,11 +60,15 @@
   background: #f0f4f8;
   border-radius: 8px;
 }
-
-
-
+.answer-key-section {
+        display: none !important;
+       
+    }
 
   </style>
+  <link rel ="stylesheet" href = "print.css">
+    <link rel ="stylesheet" href = "style.css">
+  <script src ="worksheet.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -91,8 +90,8 @@
     <button onclick="showTab('worksheet',this)">Worksheet</button>
   </div>
 
-  <div id="lessons" class="tab-content active">
-   <div class="lesson">
+  <div id="lessons" class="lesson-card tab-content active">
+   <div class="lesson-card">
   <h2>1. Introduction to Integers</h2>
   <p>Integers are a collection of <b>Whole Numbers</b> and <b>Negative Numbers</b>.</p>
   
@@ -126,7 +125,7 @@
     </div>
   </div>
 
-<div id="rules" class="tab-content">
+<div id="rules" class="lesson-card tab-content">
   <div class="lesson">
     <h2>✨ Interactive Sign Rules Lab</h2>
     <p>Choose two signs for <b>Multiplication/Division</b> and predict the result:</p>
@@ -163,7 +162,7 @@
   </div>
 </div>
 
-  <div id="solve" class="tab-content">
+  <div id="solve" class="lesson-card tab-content">
     <div id="solve-container" class="lesson">
       <h2>🧠 Step-by-Step Solve Lab</h2>
       <button onclick="generateIntegerProblem()">Generate Problem</button>
@@ -171,48 +170,15 @@
     </div>
   </div>
 
-  <div id="real" class="tab-content">
+  <div id="real" class="lesson-card tab-content">
     <div id="real-container"></div>
   </div>
 
-  <div id="worksheet" class="tab-content">
-    <div class="lesson">
-      <h2>📄 Integer Practice Sheet</h2>
-      <label>Questions: <input id="int-ws-count" type="number" value="5" min="1"></label>
-      <button onclick="generateIntegerWorksheet()">Generate</button>
-      <div id="int-ws-container"></div>
-    </div>
-  </div>
+  <div id="worksheet" class="lesson-card tab-content">
+    <div id="worksheet-container"></div>
+</div>
 </main>
 
-<footer style="background:#f9f9f9; border-top:1px solid #ccc; padding:20px;">
-  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; max-width:1000px; margin:auto;">
-    
-    <!-- Left column -->
-    <div style="flex:1; min-width:250px; margin:10px; text-align:left;">
-      <h4 style="margin-bottom:10px;">Contact for Institutional Accounts</h4>
-      <p style="margin:5px 0;">For schools and bulk parent analytics:</p>
-      
-      <a href="mailto:contact@abhyast.in" 
-         style="display:block; margin:6px 0; color:#2a4d8f; font-weight:bold; text-decoration:none;">
-        📧 contact@abhyast.in
-      </a>
-      
-      <a href="https://wa.me/919910686080?text=I%20am%20interested%20in%20an%20ABLE%20Institutional%20Account" 
-         target="_blank" 
-         style="display:block; margin:6px 0; color:#2a4d8f; font-weight:bold; text-decoration:none;">
-        💬 WhatsApp
-      </a>
-    </div>
-    
-    <!-- Right column -->
-    <div style="flex:1; min-width:250px; margin:10px; text-align:right; font-size:0.9rem; color:#555;">
-      <p><b>ABLE™</b> Powered by the 8-Step Framework – TAKECARE™</p>
-      <p>© 2026 Abhyast Private Limited</p>
-    </div>
-    
-  </div>
-</footer>
 <script>
   function showTab(id, btn) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -226,7 +192,20 @@
   if (id === 'real') {
     loadIntegerRealLife();
   }
+  if (id === "worksheet") generateWorksheet(); // <-- ADD THIS LINE
 }
+
+
+/* --- MARKED CHANGE: Added missing toggleAnswer function --- */
+function toggleAnswer(i) {
+  const ansDiv = document.getElementById("answer-" + i);
+  if (ansDiv) {
+    ansDiv.style.display = ansDiv.style.display === "none" ? "block" : "none";
+  }
+}
+
+
+
 
  function initIntroNumberLine() {
   const container = document.getElementById('intro-nl');
@@ -475,20 +454,57 @@ window.onload = () => initIntroNumberLine();
         step: "(-5) + 12 = 7",
         ans: "7°C"
       },
-      {
-        title: "⚓ Submarine Depth",
-        story: "A submarine is 500m below sea level (-500). it descends 200m more.",
-        prob: "New position?",
-        step: "(-500) + (-200) = -700",
-        ans: "700m below sea level"
-      },
+      
       {
         title: "💰 Profit and Loss",
         story: "A shopkeeper had a loss of ₹100 on Monday and profit of ₹150 on Tuesday.",
         prob: "Net result?",
         step: "(-100) + 150 = 50",
         ans: "Profit of ₹50"
-      }
+      },
+
+  {
+    title: "🏔️ Mountain Climb",
+    story: "A hiker is at 1200m above sea level. She climbs 350m higher.",
+    prob: "New altitude?",
+    step: "1200 + 350 = 1550",
+    ans: "1550m above sea level"
+  },
+  {
+    title: "🌊 Diving Expedition",
+    story: "A diver is 20m below sea level (-20). He descends 15m more.",
+    prob: "Final depth?",
+    step: "(-20) + (-15) = -35",
+    ans: "35m below sea level"
+  },
+  {
+    title: "🚤 Boat and Submarine",
+    story: "A boat floats 5m above sea level. A submarine is 200m below sea level.",
+    prob: "Vertical distance between them?",
+    step: "5 - (-200) = 205",
+    ans: "205m apart"
+  },
+  {
+    title: "🛩️ Aircraft Descent",
+    story: "An aircraft is 300m above sea level. It descends 500m.",
+    prob: "Final position?",
+    step: "300 + (-500) = -200",
+    ans: "200m below sea level"
+  },
+  {
+    title: "🐠 Coral Reef",
+    story: "A coral reef is 50m below sea level (-50). A diver rises 20m.",
+    prob: "New position?",
+    step: "(-50) + 20 = -30",
+    ans: "30m below sea level"
+  }
+
+
+
+
+
+
+
     ];
     const s = scenarios[Math.floor(Math.random() * scenarios.length)];
     container.innerHTML = `
@@ -506,13 +522,18 @@ window.onload = () => initIntroNumberLine();
     `;
   }
 
- let wsAnswers = [];
-
-function generateIntegerWorksheet() {
-  const container = document.getElementById('int-ws-container');
-  const count = document.getElementById('int-ws-count').value;
-  let html = "<h3>Questions</h3><ol>";
-  wsAnswers = []; // reset answers
+ let answers = [];
+/* --- MARKED CHANGE: Fixed ID Case Sensitivity and Null Handling --- */
+function generateWorksheet() {
+  // 1. Correct the target container name to match your variable
+  const worksheetContainer = document.getElementById('worksheet-container');
+  
+  // 2. Use 'qCount' (Capital C) to match the HTML below. 
+  // Use ?.value to default to 5 if the input doesn't exist yet.
+  const count = document.getElementById('qCount')?.value || 5;
+    
+  let questions = [];
+  let answers = []; // Corrected to lowercase to match logic below
 
   for (let i = 1; i <= count; i++) {
     const a = Math.floor(Math.random() * 30) - 15;
@@ -523,31 +544,84 @@ function generateIntegerWorksheet() {
     if (op === '+') ans = a + b;
     else if (op === '-') ans = a - b;
     else ans = a * b;
-
-    html += `<li>\( (${a}) ${op} (${b}) = \_\_\_\_ \</li>`;
-    wsAnswers.push(ans);
+    
+    questions.push(`Evaluate: \\( (${a}) ${op} (${b}) = \\_\\_\\_\\_ \\)`);
+    answers.push(ans);
   }
 
-  html += "</ol>";
-  html += `<button onclick="toggleAnswerKey()">Show Answer Key</button>
-           <div id="ws-answer-key" style="display:none;"></div>`;
+  // 3. Build Question HTML for Screen
+  const questionsListHtml = questions.map((q, i) => `
+    <ol class="question-item">
+        <div class="math-q">
+             <strong>Qs${i + 1}.</strong> ${q}
+             </div>
+        <button class="no-print" onclick="toggleAnswer(${i})" style="margin-top:5px; font-size:0.8rem;">Show Answer</button>
+        <div id="answer-${i}" class="answer-div" style="display:none; color:var(--success); font-weight:bold; margin-top:5px; border-left:3px solid var(--success); padding-left:10px;">
+            Answer: ${answers[i]}
+        </div>
+    </ol>
+  `).join("");
 
-  container.innerHTML = html;
+  // 4. Build Answer Key for PDF
+  const keyListHtml = answers.map((a, i) => `
+    <div style="padding:10px; border-bottom:1px dashed #ddd;">
+        <strong>Qs${i + 1}:</strong> ${a}
+    </div>
+  `).join("");
+
+  // 5. Inject structure (Fixed worksheetContainer reference)
+  worksheetContainer.innerHTML = `
+    <div class="print-only-header" style="display:none;">
+        <table style="width:100%; border-bottom:2px solid #2a4d8f; margin-top:20px; margin-bottom:20px;">
+            <tr>
+                <td>
+                    <h1 style="color:#2a4d8f; margin:0;">ABLE™ Smart Lab</h1>
+                    <p style="margin:0;">Integers practice</p>
+                </td>
+                <td style="text-align:right;"><img src="Logo.png" style="height:50px;"></td>
+            </tr>
+        </table>
+    </div>
+
+    <h2 class="no-print">📄 Worksheet (Assess)</h2>
+
+    <div class="no-print" style="margin-bottom:20px; background:#f8fbff; padding:15px; border-radius:10px; border:1px solid #e1e8f0;">
+        <label>Number of Questions: </label>
+        <input type="number" id="qCount" value="${count}" min="1" max="25" style="width:60px; padding:5px; border-radius:5px;">
+        <button onclick="generateWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; margin-left:10px;">Update</button>
+         <button onclick=" downloadWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px;  border-radius:5px; cursor:pointermargin-left:10px;">
+                📥 Download
+            </button>
+        </div>
+    <div class="print-only student-info">
+          <div><b>Name:</b> __________________</div>
+          <div><b>Date:</b> __________________</div>
+          <div><b>Class:</b> __________________</div>
+        </div>
+    <ol class="question-grid">
+    ${questionsListHtml}
+</ol>
+
+    <div class="answer-key-section">
+  <h2>🔑 Answer Key</h2>
+  <div class="answer-grid">
+    ${keyListHtml}
+  </div>
+</div>
+   <div class="no-print">
+        <button onclick="downloadWorksheet()" style="background:var(--accent); color:white; padding:12px 30px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1.1rem;">
+            📥 Download PDF with Answer Key
+        </button>
+    </div>
+  `;
+
   MathJax.typesetPromise();
 }
-
-function toggleAnswerKey() {
-  const keyDiv = document.getElementById('ws-answer-key');
-  if (keyDiv.style.display === "none") {
-    let ansHtml = "<h3>Answer Key</h3><ol>";
-    wsAnswers.forEach(ans => ansHtml += `<li>${ans}</li>`);
-    ansHtml += "</ol>";
-    keyDiv.innerHTML = ansHtml;
-    keyDiv.style.display = "block";
-  } else {
-    keyDiv.style.display = "none";
-  }
+// Ensure the downloadWorksheet function calls the new utility
+function downloadWorksheet() {
+    ABLE_PDF.download();
 }
+
 </script>
 
 </body>
