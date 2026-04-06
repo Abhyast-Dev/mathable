@@ -94,20 +94,12 @@
     .print-only {
       display: none;
     }
+  <
   </style>
-   <link rel="stylesheet" href="print.css">
-    <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['\\(', '\\)']],
-        displayMath: [['\\[', '\\]']]
-      }
-    };
-  </script>
-  <script src="worksheet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="print.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="worksheet.js"></script>
 </head>
 <body>
   
@@ -119,7 +111,8 @@
   
   <nav>
     <a href="index.html">Home</a>
-  
+   
+    
   </nav>
 </header>
 
@@ -128,7 +121,7 @@
 <main id="lesson-area">
   <div style="margin-bottom:20px;">
   
-  <button onclick="showTab('lessons')" id="tab-lessons" class="active-tab">📘 Lessons</button>
+  <button onclick="showTab('lessons')" id="tab-lessons" >📘 Lessons</button>
   <button onclick="showTab('exp-formulas')" id="tab-formulas">📑 Formulas</button>
   <button onclick="showTab('solve')" id="tab-solve">🧠 Solve Lab</button>
   <button onclick="showTab('worksheet')" id="tab-worksheet">📄 Worksheet</button>
@@ -198,7 +191,7 @@
   <h3>Exponent Formulas</h3>
   
   <!-- ✅ This is required -->
-  <div id="formula-card" 
+  <div id="lesson-card" 
        style="margin:20px auto; padding:20px; border:2px solid #ccc; border-radius:10px; width:60%; background:#f9f9f9; font-size:1.2rem;">
     <!-- Formula will be injected here -->
   </div>
@@ -209,43 +202,21 @@
    
   </div>
 </div>
-</main> 
+  
+   
 
-<footer style="background:#f9f9f9; border-top:1px solid #ccc; padding:20px;">
-  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; max-width:1000px; margin:auto;">
-    
-    <!-- Left column -->
-    <div style="flex:1; min-width:250px; margin:10px; text-align:left;">
-      <h4 style="margin-bottom:10px;">Contact for Institutional Accounts</h4>
-      <p style="margin:5px 0;">For schools and bulk parent analytics:</p>
-      
-      <a href="mailto:contact@abhyast.in" 
-         style="display:block; margin:6px 0; color:#2a4d8f; font-weight:bold; text-decoration:none;">
-        📧 contact@abhyast.in
-      </a>
-      
-      <a href="https://wa.me/919910686080?text=I%20am%20interested%20in%20an%20ABLE%20Institutional%20Account" 
-         target="_blank" 
-         style="display:block; margin:6px 0; color:#2a4d8f; font-weight:bold; text-decoration:none;">
-        💬 WhatsApp
-      </a>
-    </div>
-    
-    <!-- Right column -->
-    <div style="flex:1; min-width:250px; margin:10px; text-align:right; font-size:0.9rem; color:#555;">
-      <p><b>ABLE™</b> Powered by the 8-Step Framework – TAKECARE™</p>
-      <p>© 2026 Abhyast Private Limited</p>
-    </div>
-    
-  </div>
-</footer>
+  <footer>
+    <p>Powered by the 8-Step Framework – TAKECARE™ </p>
+    <p>© 2026 Abhyast Private Limited 
+  </footer>
+</main>
 
-  <script>
+<script>
   let completedLessons = [];
   let badges = [];
   let currentConcept = "";
-  let totalLessons = 0; 
-  let conceptData = {}; 
+  let totalLessons = 0;
+  let conceptData = {};
   const exponentFormulas = [
   { title: "Product Rule", formula: "\\(a^m \\cdot a^n = a^{m+n}\\)" },
   { title: "Quotient Rule", formula: "\\(\\frac{a^m}{a^n} = a^{m-n}\\)" },
@@ -446,8 +417,10 @@ const questionsListHtml = questions.map((q, i) => `
 
 // Ensure the downloadWorksheet function calls the new utility
 function downloadWorksheet() {
-       window.print();
+    ABLE_PDF.download();
 }
+
+
 
 function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -513,11 +486,12 @@ function showTab(tab) {
     document.getElementById("tab-lessons").classList.add("active-tab");
     
   } 
+
   else if (tab === "worksheet") {
-    worksheetContainer.style.display = "block";
+    worksheetContainer.style.display = "block"; // Show the container first
     document.getElementById("tab-worksheet").classList.add("active-tab");
-    generateWorksheet()
-  } 
+    generateWorksheet(); // Use the correct function call
+  }
   else if (tab === "solve") {
     solveContainer.style.display = "block";
     document.getElementById("tab-solve").classList.add("active-tab");
@@ -989,6 +963,12 @@ switch (templateIndex) {
       <button onclick="loadSolveLab()">➡ Next Question</button>
     </div>
   `;
+
+
+
+
+  
+
   MathJax.typesetPromise();
 }
 
@@ -1062,16 +1042,17 @@ function stripLatex(str) {
   return str.replace(/\\\\\(|\\\\\)/g, "");
 }
 
+
 function revealSolution(q, ans) {
-  // Use a template literal with double backslashes so the browser receives \( and \)
-  document.getElementById("final-feedback").innerHTML = `
+  document.getElementById("final-feedback").innerHTML += `
     <div style="margin-top:10px; padding:10px; background:#f4f4f4;">
       <b>Solution:</b><br>
-      ${q} = ${ans}
+      ${q} = \\\\(${ans}\\\\)
     </div>
   `;
   MathJax.typesetPromise();
 }
+
 
   // -------------------------
   // Init
