@@ -1073,41 +1073,6 @@ function revealSolution(q, ans) {
   MathJax.typesetPromise();
 }
 
-
-function downloadWorksheet() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  doc.setFontSize(16);
-  doc.text("Exponents & Powers Worksheet", 10, 20);
-
- const questions = document.querySelectorAll("#worksheet-container ol li");
-  let y = 30;
-
-  questions.forEach((q, i) => {
-    const text = q.innerText.replace("Show Answer", "").trim();
-    doc.setFontSize(12);
-    doc.text(`${i+1}. ${text}`, 10, y);
-    y += 10;
-
-    const ansDiv = document.getElementById("answer-" + i);
-    if (ansDiv && ansDiv.style.display === "block") {
-      doc.setFontSize(11);
-      doc.setTextColor(0, 128, 0);
-      doc.text(`Answer: ${ansDiv.innerText}`, 15, y);
-      doc.setTextColor(0, 0, 0);
-      y += 10;
-    }
-
-    if (y > 270) {
-      doc.addPage();
-      y = 20;
-    } 
-  });
-
-  doc.save("worksheet.pdf");
-}
-
   // -------------------------
   // Init
   // -------------------------
