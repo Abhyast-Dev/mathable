@@ -86,6 +86,11 @@
     /* Lab Containers */
     .tab-content { display: none; animation: fadeIn 0.4s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+     .answer-key-section {
+        display: none !important;
+       
+    }
   </style>
     <script>
     window.MathJax = {
@@ -303,93 +308,140 @@ function toggleVisibility(id, lessonId) {
   large_number_range: [1000, 100000]
 };
   
-  function generateWorksheet() {
-  const lessonArea = document.getElementById("worksheet-area");
-   
+function generateWorksheet() {
     const worksheetContainer = document.getElementById("worksheet-container");
+    
+    // Get count from input (default to 5)
+    const count = document.getElementById("qCount")?.value || 5;
+    
+    let questions = [];
+    let answers = [];
 
+    for (let i = 0; i < count; i++) {
+        const base = rand(parameters.base_range[0], parameters.base_range[1]);
+        const exp1 = rand(parameters.exp_range[0], parameters.exp_range[1]);
+        const exp2 = rand(parameters.exp_range[0], parameters.exp_range[1]);
+        const exp = rand(parameters.exp_range[0], parameters.exp_range[1]);
+        const large_number = rand(parameters.large_number_range[0], parameters.large_number_range[1]);
 
-  
-  let questions = [];
-  let answers = [];
+        let q = "";
+        let a = "";
+        const templateIndex = Math.floor(Math.random() * 6);
 
-  for (let i = 0; i < 5; i++) {
-
-    const base = rand(parameters.base_range[0], parameters.base_range[1]);
-    const exp1 = rand(parameters.exp_range[0], parameters.exp_range[1]);
-    const exp2 = rand(parameters.exp_range[0], parameters.exp_range[1]);
-    const exp = rand(parameters.exp_range[0], parameters.exp_range[1]);
-    const large_number = rand(parameters.large_number_range[0], parameters.large_number_range[1]);
-
-    let q = "";
-    let a = "";
-
-    const templateIndex = Math.floor(Math.random() * 6);
-
-    switch (templateIndex) {
-
-      case 0:
-        q = `Simplify: \\(${base}^{${exp1}} \\times ${base}^{${exp2}}\\)`;
-        a = `\\(${base}^{${exp1 + exp2}}\\)`;
-        break;
-
-      case 1:
-        q = `Evaluate: \\(${base}^{${exp}}\\)`;
-        a = `\\(${Math.pow(base, exp)}\\)`;
-        break;
-
-      case 2:
-        const expForm = large_number.toExponential(1);
-        const [num, expVal] = expForm.split("e");
-        q = `Write in standard form: \\(${large_number}\\)`;
-        a = `\\(${num} \\times 10^{${parseInt(expVal)}}\\)`;
-        break;
-
-      case 3:
-        q = `Simplify: \\((${base}^{${exp1}})^{${exp2}}\\)`;
-        a = `\\(${base}^{${exp1 * exp2}}\\)`;
-        break;
-
-      case 4:
-        q = `Evaluate: \\(${base}^{-${exp}}\\)`;
-        a = `\\(\\frac{1}{${Math.pow(base, exp)}}\\)`;
-        break;
-
-      case 5:
-        const root = Math.sqrt(base);
-        q = `Find: \\(${base}^{1/2}\\)`;
-        a = Number.isInteger(root)
-          ? `\\(${root}\\)`
-          : `\\(\\sqrt{${base}}\\)`;
-        break;
+        switch (templateIndex) {
+            case 0:
+                q = `Simplify: \\(${base}^{${exp1}} \\times ${base}^{${exp2}}\\)`;
+                a = `\\(${base}^{${exp1 + exp2}}\\)`;
+                break;
+            case 1:
+                 q = `Evaluate: \\(${base}^{${exp}}\\)`;
+                a = `\\(${Math.pow(base, exp)}\\)`;
+                break;
+            case 2:
+                const expForm = large_number.toExponential(1);
+                const [num, expVal] = expForm.split("e");
+                q = `Write in standard form: \\(${large_number}\\)`;
+                a = `\\(${num} \\times 10^{${parseInt(expVal)}}\\)`;
+                break;
+            case 3:
+                q = `Simplify: \\((${base}^{${exp1}})^{${exp2}}\\)`;
+                a = `\\(${base}^{${exp1 * exp2}}\\)`;
+                break;
+            case 4:
+                q = `Evaluate: \\(${base}^{-${exp}}\\)`;
+                a = `\\(\\frac{1}{${Math.pow(base, exp)}}\\)`;
+                break;
+            case 5:
+                q = `Find: \\(${base}^{1/2}\\)`;
+                a = `\\(\\sqrt{${base}}\\)`;
+                break;
+        }
+        questions.push(q);
+        answers.push(a);
     }
 
-    // Safety fallback
-    if (!q) q = "Error generating question";
-    if (!a) a = "Solution not available";
 
-    questions.push(q);
-    answers.push(a);
-  }
+const questionsListHtml = questions.map((q, i) => `
+         <ol class="question-item">
+            <div class="math-q">
+              <strong>Qs${i + 1}.</strong> ${q}
+            </div>
+            <button class="no-print" onclick="toggleAnswer(${i})" style="margin-top:5px; font-size:0.8rem;">Show Answer</button>
+            <div id="answer-${i}" class="answer-div" style="display:none; color:var(--success); font-weight:bold; margin-top:5px; border-left:3px solid var(--success); padding-left:10px;">
+                Answer: ${answers[i]}
+            </div>
+        </ol>
+    `).join("");
 
- worksheetContainer.innerHTML  =
-    "<h2>📄 Worksheet</h2>" +
-    "<button onclick='initPortal()' style='margin-bottom:15px;'>⬅ Back to Lessons</button>" +
-    "<ol>" +
-    questions.map((q, i) => `
-      <li>
-        ${q}
-        <button onclick="toggleAnswer(${i})">Show Answer</button>
-        <div id="answer-${i}" style="display:none; color:green;">
-          ${answers[i]}
+    // --- CHANGE 2: Build the Answer Key (This is the section that prints automatically) ---
+    const keyListHtml = answers.map((a, i) => `
+        <div style="padding:10px; border-bottom:1px dashed #ddd;">
+            <strong>Q${i + 1}:</strong> ${a}
         </div>
-      </li>
-    `).join("") +
-    "</ol>" +
-    `<button onclick="generateWorksheet()">🔄 New Worksheet</button>
-     <button onclick="downloadWorksheet()">📥 Download PDF</button>`;
+    `).join("");
 
-  MathJax.typesetPromise();
+   
+
+    worksheetContainer.innerHTML = `
+    <!-- Student Info Row -->
+        <div class="print-only-header" style="display:none;">
+            <table style="width:100%; border-bottom:2px solid #2a4d8f; margin-bottom:20px;">
+                <tr>
+                    <td>
+                        <h1 style="color:#2a4d8f; margin:0;">ABLE™ Smart Lab</h1>
+                        <p style="margin:0;">${document.querySelector('h1').innerText}</p>
+                    </td>
+                    <td style="text-align:right;">
+                        <img src="Logo.png" style="height:60px;">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+
+        <h2 class="no-print">📄 Worksheet (Assess)</h2>
+
+        <div class="no-print" style="margin-bottom:20px; background:#f8fbff; padding:15px; border-radius:10px; border:1px solid #e1e8f0;">
+            <label>Number of Questions: </label>
+            <input type="number" id="qCount" value="${count}" min="1" max="25" style="width:60px; padding:5px; border-radius:5px;">
+            <button onclick="generateWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; margin-left:10px;">Update</button>
+             <button onclick=" downloadWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px;  border-radius:5px; cursor:pointermargin-left:10px;">
+                📥 Download
+            </button>
+        </div>
+        <div class="print-only student-info">
+          <div><b>Name:</b> __________________</div>
+          <div><b>Date:</b> __________________</div>
+          <div><b>Class:</b> __________________</div>
+        </div>
+        <ol class="question-grid">
+            ${questionsListHtml}
+        </ol>
+
+        <div class="answer-key-section">
+          <h2>🔑 Answer Key</h2>
+          <div class="answer-grid">
+            ${keyListHtml}
+          </div>
+        </div>
+        
+       
+       
+       
+       <div class="no-print download-section">
+            <button onclick=" downloadWorksheet()" style="background:var(--accent); color:white; padding:12px 30px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1.1rem;">
+                📥 Download PDF with Answer Key
+            </button>
+        </div>
+    `;
+
+    MathJax.typesetPromise();
+    
+}
+
+// Ensure the downloadWorksheet function calls the new utility
+function downloadWorksheet() {
+    ABLE_PDF.download();
 }
 
 function rand(min, max) {
