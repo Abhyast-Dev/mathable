@@ -446,7 +446,7 @@ const questionsListHtml = questions.map((q, i) => `
 
 // Ensure the downloadWorksheet function calls the new utility
 function downloadWorksheet() {
-    ABLE_PDF.download();
+       window.print();
 }
 
 function rand(min, max) {
