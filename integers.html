@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ABLE™ Smart Lab | Integers</title>
+  <title>ABLE™ Math Smart Lab</title>
   <style>
     :root { --primary:#2a4d8f; --accent:#e67e22; --success:#27ae60; --bg:#f4f7f9; }
     body { font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); }
@@ -11,618 +10,159 @@
     header img { height:50px; }
     header h1 { margin:0; font-size:1.5rem; }
     nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
-    main { padding:30px; max-width:1000px; margin:auto; }
-    .tabs { display:flex; gap:15px; margin-bottom:20px; overflow-x: auto; padding-bottom: 5px; }
-    .tabs button { padding:10px 20px; border:none; border-radius:6px; cursor:pointer; background:#ddd; font-weight:bold; white-space: nowrap; }
-    .tabs button.active { background:var(--accent); color:white; }
-    .tab-content { display:none; }
-    .tab-content.active { display:block; }
-    
-    .nl-container {
-  position: relative;
-  height: 80px;
-  border-top: 2px solid #333;
-  margin: 20px auto;
-  width: 100%;
-}
+    main { padding:40px; max-width:1000px; margin:auto; }
+    h2 { color:var(--primary); }
+        .concept-grid button { padding:20px; background:white; border:2px solid var(--primary); border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
+    .concept-grid button:hover { background:var(--primary); color:white; }
+    footer { background:#eee; text-align:center; padding:20px; margin-top:40px; font-size:0.85rem; }
 
-.nl-tick {
-  position: absolute;
-  top: -10px;
-  width: 2px;
-  height: 20px;
-  background: #333;
-}
-
-.nl-label {
-  position: absolute;
-  top: 25px;
-  left: -10px;
-  font-size: 0.8rem;
-  color: #444;
-}
-
-.nl-dot {
-  position: absolute;
-  top: -20px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--primary);
-  transition: left 0.3s ease; /* smooth animation */
-}
-
-.nl-feedback {
+    .concept-grid {
+  display: grid;
+  /* Adjust minmax to 250px to give room for the longer 'Power Play' caption */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 25px;
   margin-top: 20px;
-  text-align: center;
-  min-height: 40px;
-  padding: 10px;
-  background: #f0f4f8;
-  border-radius: 8px;
 }
-.answer-key-section {
-        display: none !important;
-       
-    }
+
+.concept-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex; /* This allows the link to act as a flex container */
+}
+
+.concept-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  
+  /* THIS ENSURES SAME SIZE */
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Makes the card fill the entire height of the grid cell */
+  box-sizing: border-box;
+}
+
+.concept-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary);
+  /* Ensures titles align even if one is 1 line and another is 2 lines */
+  min-height: 2.8em; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.concept-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: auto; /* Pushes the description to the bottom if title is short */
+  padding-top: 10px;
+}
+
+
+
+
+
+
+  .concept-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* REMOVED fixed height: 100px */
+    height: 100%; /* Ensures all cards in a row have the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+  }
+
+  .concept-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border-color: var(--accent); /* Subtle hint on hover */
+  }
+
+  .concept-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    color: var(--accent); /* Using accent color for icons makes them pop */
+  }
 
   </style>
-  <link rel ="stylesheet" href = "print.css">
-    <link rel ="stylesheet" href = "style.css">
-  <script src ="worksheet.js"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
 <header>
   <div style="display:flex; align-items:center; gap:15px;">
     <img src="Logo.png" alt="ABLE™ Logo">
-    <h1>ABLE™ Smart Lab - Integers</h1>
+    <h1>ABLE™ Math Smart Lab</h1>
   </div>
-  <nav><a href="index.html">Home</a></nav>
+  
 </header>
 
 <main>
-  <div class="tabs">
-    <button class="active" onclick="showTab('lessons')">Lessons</button>
-    <button onclick="showTab('rules',this)">Sign Rules Lab</button>
-    <button onclick="showTab('solve',this)">Solve Lab</button>
-    <button onclick="showTab('real',this)">Real Life Lab</button>
-    <button onclick="showTab('worksheet',this)">Worksheet</button>
-  </div>
-
-  <div id="lessons" class="lesson-card tab-content active">
-   <div class="lesson-card">
-  <h2>1. Introduction to Integers</h2>
-  <p>Integers are a collection of <b>Whole Numbers</b> and <b>Negative Numbers</b>.</p>
   
-  <div class="nl-container" id="intro-nl">
-    <!-- Marker will be placed dynamically -->
-  </div>
-  
-  <div id="intro-nl-feedback" class="nl-feedback">
-    <b>Select a number on the line above</b>
-  </div>
-  
-<button onclick="resetIntroNumberLine()" style="margin-top:10px;">Reset</button>
-  <p><b>Note:</b> Zero is the origin; it is neither positive nor negative.</p>
-</div>
-
-    <div class="lesson">
-      <h2>2. Addition and Subtraction</h2>
-      <div class="rule-box">
-        <b>Same Signs:</b> Add values and keep the sign. \( (-2) + (-3) = -5 \)<br>
-        <b>Different Signs:</b> Subtract the smaller from the bigger; keep sign of bigger. \( (-5) + 2 = -3 \)
-      </div>
-    </div>
-
-    <div class="lesson">
-      <h2>3. Multiplication and Division</h2>
-      <table>
-        <tr><th>Operation</th><th>Resulting Sign</th></tr>
-        <tr><td>(+) × (+) or (-) × (-)</td><td>Positive (+)</td></tr>
-        <tr><td>(+) × (-) or (-) × (+)</td><td>Negative (-)</td></tr>
-      </table>
-    </div>
-  </div>
-
-<div id="rules" class="lesson-card tab-content">
-  <div class="lesson">
-    <h2>✨ Interactive Sign Rules Lab</h2>
-    <p>Choose two signs for <b>Multiplication/Division</b> and predict the result:</p>
+ <section id="concept-selector">
+  <h2>Select Concept</h2>
+  <div class="concept-grid">
     
-    <div style="background:#f8f9fa; padding:20px; border-radius:12px; border:2px solid var(--primary);">
-      <div style="font-size:1.5rem; margin-bottom:20px; display:flex; align-items:center; gap:10px; justify-content:center;">
-        <select id="sign1" style="font-size:1.2rem;">
-          <option value="pos">+</option>
-          <option value="neg">-</option>
-        </select>
-        <span> × </span>
-        <select id="sign2" style="font-size:1.2rem;">
-          <option value="pos">+</option>
-          <option value="neg">-</option>
-        </select>
+    <a href="lesson-portal.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">✖️</div>
+        <h3>Exponents & Powers</h3>
+        <p>Master repeated multiplication and its rules.</p>
       </div>
+    </a>
 
-      <div id="user-prediction-area" style="text-align:center;">
-        <p><b>What will the final sign be?</b></p>
-        <button onclick="checkUserPrediction('pos')" style="background:#d4edda; color:#155724; border:1px solid #c3e6cb;">Positive (+)</button>
-        <button onclick="checkUserPrediction('neg')" style="background:#f8d7da; color:#721c24; border:1px solid #f5c6cb;">Negative (-)</button>
+    <a href="lesson-portal-squares.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">⬜</div>
+        <h3>Squares and Cubes</h3>
+        <p>Explore perfect squares and cubes.</p>
       </div>
+    </a>
 
-      <div id="sign-result" style="margin-top:20px; text-align:center; min-height:50px;"></div>
-    </div>
+    <a href="integers.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">🔢</div>
+        <h3>Integers</h3>
+        <p>Explore the world of numbers.</p>
+      </div>
+    </a>
 
-    <div class="rule-box" style="margin-top:20px;">
-      <b>💡 Pro Tip:</b> 
-      <ul>
-        <li>If signs are the <b>SAME</b>, the result is always <b>(+) Positive</b>.</li>
-        <li>If signs are <b>DIFFERENT</b>, the result is always <b>(-) Negative</b>.</li>
-      </ul>
-    </div>
-  </div>
-</div>
+    <a href="Power.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">⚡</div>
+        <h3>Power Play</h3>
+        <p>Mastering Exponential Growth and the Laws of Powers.</p>
+      </div>
+    </a>
 
-  <div id="solve" class="lesson-card tab-content">
-    <div id="solve-container" class="lesson">
-      <h2>🧠 Step-by-Step Solve Lab</h2>
-      <button onclick="generateIntegerProblem()">Generate Problem</button>
-      <div id="int-prob-display" style="margin-top:20px;"></div>
-    </div>
-  </div>
-
-  <div id="real" class="lesson-card tab-content">
-    <div id="real-container"></div>
-  </div>
-
-  <div id="worksheet" class="lesson-card tab-content">
-    <div id="worksheet-container"></div>
-</div>
+  </div> </section>
+  <!-- Display Area -->
+  <section id="concept-display"></section>
 </main>
 
+<footer>
+  <p>Powered by the 8-Step Framework –TAKECARE™/p>
+  <p>© 2026 Abhyast Private Limited | Director: Chetna Khanna</p>
+</footer>
+
 <script>
-  function showTab(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-
-  if (id === 'lessons') {
-    initIntroNumberLine(); // re-initialize number line each time Lessons tab is opened
-  }
-  if (id === 'real') {
-    loadIntegerRealLife();
-  }
-  if (id === "worksheet") generateWorksheet(); // <-- ADD THIS LINE
-}
 
 
-/* --- MARKED CHANGE: Added missing toggleAnswer function --- */
-function toggleAnswer(i) {
-  const ansDiv = document.getElementById("answer-" + i);
-  if (ansDiv) {
-    ansDiv.style.display = ansDiv.style.display === "none" ? "block" : "none";
-  }
-}
-
-
-
-
- function initIntroNumberLine() {
-  const container = document.getElementById('intro-nl');
-  const feedback = document.getElementById('intro-nl-feedback');
-
-  // Clear container and add marker
-  container.innerHTML = '<div class="nl-dot" id="intro-marker" style="left: 50%;"></div>';
-
-  for (let i = -10; i <= 10; i++) {
-    const tick = document.createElement('div');
-    tick.className = 'nl-tick';
-    tick.style.left = `${(i + 10) * 5}%`;
-
-    const label = document.createElement('span');
-    label.className = 'nl-label';
-    label.textContent = i;
-    tick.appendChild(label);
-
-    tick.onclick = () => {
-      const position = (i + 10) * 5;
-      document.getElementById('intro-marker').style.left = `calc(${position}% - 7px)`;
-
-      const opposite = -i;
-      const absValue = Math.abs(i);
-
-      feedback.innerHTML = `
-        <div style="display:flex; justify-content: space-around; align-items: center;">
-          <div>Selected: <b style="font-size:1.2rem; color:var(--primary);">${i}</b></div>
-          <div>Opposite: <b style="color:var(--accent);">${opposite}</b></div>
-          <div>Distance from 0: <b style="color:var(--success);">${absValue} units</b></div>
-        </div>
-      `;
-    };
-
-    container.appendChild(tick);
-  }
-}
-
-function resetIntroNumberLine() {
-  const marker = document.getElementById('intro-marker');
-  const feedback = document.getElementById('intro-nl-feedback');
-
-  // Reset marker to center (zero)
-  marker.style.left = "50%";
-
-  // Reset feedback text
-  feedback.innerHTML = "<b>Select a number on the line above</b>";
-}
-// Run after DOM loads
-window.onload = () => initIntroNumberLine();
-
-
-
-
-
- function checkUserPrediction(userChoice) {
-  const s1 = document.getElementById('sign1').value;
-  const s2 = document.getElementById('sign2').value;
-  const resDisplay = document.getElementById('sign-result');
   
-  // Logic: same signs = positive, different signs = negative
-  const correctSign = (s1 === s2) ? 'pos' : 'neg';
-  const signSymbol = (correctSign === 'pos') ? '(+) Positive' : '(-) Negative';
-  const signColor = (correctSign === 'pos') ? 'green' : 'red';
-
-  if (userChoice === correctSign) {
-    resDisplay.innerHTML = `
-      <div style="padding:10px; background:#d4edda; border-radius:8px; border:1px solid #c3e6cb;">
-        <b style="color:green">🌟 Correct!</b><br>
-        Because the signs are ${s1 === s2 ? 'the SAME' : 'DIFFERENT'}, the result is <b style="color:${signColor}">${signSymbol}</b>.
-      </div>`;
-  } else {
-    resDisplay.innerHTML = `
-      <div style="padding:10px; background:#fff3cd; border-radius:8px; border:1px solid #ffeeba;">
-        <b style="color:#856404">❌ Not quite.</b><br>
-        Try thinking about the rule: ${s1 === s2 ? 'Like signs match' : 'Unlike signs conflict'}. 
-        The actual result is <b style="color:${signColor}">${signSymbol}</b>.
-      </div>`;
-  }
-}
-
- let ruleAttempts = 0;
-  let calculationAttempts = 0;
-
-  function generateIntegerProblem() {
-    ruleAttempts = 0;
-    calculationAttempts = 0;
-    
-    const a = Math.floor(Math.random() * 21) - 10;
-    const b = Math.floor(Math.random() * 21) - 10;
-    const op = ['+', '-', '×'][Math.floor(Math.random() * 3)];
-    let ans = (op === '+') ? a + b : (op === '-') ? a - b : a * b;
-
-    window.currentIntProb = { a, b, op, ans };
-
-    let correctRule = "";
-    if (op === '×') {
-      correctRule = ((a < 0 && b < 0) || (a > 0 && b > 0)) ? "pos" : "neg";
-    } else {
-      correctRule = (op === '+') ? "add" : "sub";
-    }
-
-    const display = document.getElementById('int-prob-display');
-    display.innerHTML = `
-      <div style="background:#fff; border:2px solid var(--primary); padding:20px; border-radius:12px;">
-        <h3 style="margin-top:0;">Solve: \( (${a}) ${op} (${b}) \)</h3>
-        
-        <div id="lab-step-1">
-          <p><b>Step 1: Identify the logic for this operation</b></p>
-          <select id="rule-dropdown" style="padding:8px; width:100%;">
-            <option value="">-- Select the logic --</option>
-            <option value="pos">Multiplication: Like signs = Positive (+)</option>
-            <option value="neg">Multiplication: Unlike signs = Negative (-)</option>
-            <option value="add">Addition: Move RIGHT (for positive) or LEFT (for negative)</option>
-            <option value="sub">Subtraction: Move opposite to the sign</option>
-          </select>
-          
-          <div id="rule-feedback" style="margin-top:10px;"></div>
-          
-          <div style="margin-top:10px; display:flex; gap:10px;">
-            <button onclick="checkRuleChoice('${correctRule}')">Verify Rule</button>
-            <button id="reveal-rule-btn" onclick="revealCorrectRule('${correctRule}')" 
-                    style="background:#6c757d; color:white; display:none;">Help with Rule</button>
-          </div>
-        </div>
-
-        <div id="lab-step-2" style="display:none; margin-top:20px; padding-top:20px; border-top:1px solid #eee;">
-          <p><b>Step 2: Apply the rule and find the result</b></p>
-          <input id="lab-final-input" type="number" placeholder="?" style="padding:8px; width:80px;">
-          
-          <div id="calc-feedback" style="margin-top:10px;"></div>
-          
-          <div style="margin-top:10px; display:flex; gap:10px;">
-            <button onclick="checkGuidedAns(${ans})">Check Answer</button>
-            <button id="reveal-ans-btn" onclick="showIntExplanation()" 
-                    style="background:#6c757d; color:white; display:none;">Reveal Solution</button>
-          </div>
-        </div>
-      </div>
-    `;
-    MathJax.typesetPromise();
-  }
-
-  function checkRuleChoice(correct) {
-    const userChoice = document.getElementById('rule-dropdown').value;
-    const feedback = document.getElementById('rule-feedback');
-    const revealBtn = document.getElementById('reveal-rule-btn');
-    
-    if (userChoice === correct) {
-      feedback.innerHTML = "<b style='color:var(--success)'>✅ Correct!</b>";
-      document.getElementById('lab-step-2').style.display = "block";
-      revealBtn.style.display = "none";
-    } else {
-      ruleAttempts++;
-      feedback.innerHTML = "<b style='color:orange'>❌ Not quite. Look at the operation and the signs.</b>";
-      if (ruleAttempts >= 2) {
-        revealBtn.style.display = "inline-block";
-      }
-    }
-  }
-
-  function revealCorrectRule(correct) {
-    const dropdown = document.getElementById('rule-dropdown');
-    dropdown.value = correct;
-    document.getElementById('rule-feedback').innerHTML = "<b style='color:var(--primary)'>💡 Guided: Here is the correct rule to use.</b>";
-    document.getElementById('lab-step-2').style.display = "block";
-    document.getElementById('reveal-rule-btn').style.display = "none";
-  }
-
-  function checkGuidedAns(correct) {
-    const user = parseInt(document.getElementById('lab-final-input').value);
-    const feedback = document.getElementById('calc-feedback');
-    const revealBtn = document.getElementById('reveal-ans-btn');
-    calculationAttempts++;
-
-    if (user === correct) {
-      feedback.innerHTML = `<b style="color:var(--success)">🌟 Perfect! ${user} is correct.</b><br>
-                            <button onclick="generateIntegerProblem()" style="margin-top:10px;">New Problem</button>`;
-      revealBtn.style.display = "none";
-    } else {
-      feedback.innerHTML = `<b style="color:red">❌ That's not correct. Try once more! (Attempt ${calculationAttempts}/2)</b>`;
-      if (calculationAttempts >= 2) {
-        revealBtn.style.display = "inline-block";
-      }
-    }
-  }
-
-  function showIntExplanation() {
-    const { a, b, op, ans } = window.currentIntProb;
-    const feedback = document.getElementById('calc-feedback');
-    
-    let logic = "";
-    if (op === '×') {
-      const sameSigns = (a < 0 && b < 0) || (a > 0 && b > 0);
-      logic = `Multiplying <b>${a}</b> and <b>${b}</b>: <br>
-               1. Multiply numbers: ${Math.abs(a)} × ${Math.abs(b)} = ${Math.abs(ans)} <br>
-               2. Since signs are ${sameSigns ? "the SAME" : "DIFFERENT"}, the result is ${sameSigns ? "Positive" : "Negative"}.`;
-    } else {
-      const moveDir = (op === '+' && b > 0) || (op === '-' && b < 0) ? 'RIGHT' : 'LEFT';
-      logic = `Number Line Logic: <br>
-               1. Start at <b>${a}</b>. <br>
-               2. ${op === '+' ? 'Add' : 'Subtract'} ${Math.abs(b)} by moving <b>${moveDir}</b>. <br>
-               3. You arrive at <b>${ans}</b>.`;
-    }
-
-    feedback.innerHTML = `
-      <div style="background:#fff9f0; padding:15px; border-radius:8px; border-left:5px solid var(--accent); margin-top:10px;">
-        <p><b>Answer: ${ans}</b></p>
-        <p style="font-size:0.9rem;">${logic}</p>
-        <button onclick="generateIntegerProblem()">Try Another Challenge</button>
-      </div>
-    `;
-  }
-
-
-
-  function showIntStep2(op, a, b, ans) {
-    const step2 = document.getElementById('int-step-2');
-    step2.style.display = 'block';
-    let hint = "";
-    if (op === '×') hint = "Rule: Same signs = positive, Different = negative.";
-    else hint = "Rule: Use the number line logic or sign rules for addition.";
-    
-    step2.innerHTML = `
-      <p><b>Hint:</b> ${hint}</p>
-      <input id="int-ans-input" placeholder="Your answer">
-      <button onclick="checkIntAns(${ans})">Verify</button>
-      <div id="int-verify"></div>
-    `;
-  }
-
-  function checkIntAns(correct) {
-    const user = parseInt(document.getElementById('int-ans-input').value);
-    const verify = document.getElementById('int-verify');
-    if (user === correct) verify.innerHTML = "<b style='color:green'>✅ Correct!</b>";
-    else verify.innerHTML = `<b style='color:red'>❌ Try again. The answer is ${correct}</b>`;
-  }
-
-  function loadIntegerRealLife() {
-    const container = document.getElementById('real-container');
-    const scenarios = [
-      {
-        title: "🌡️ Temperature Change",
-        story: "Morning temp was -5°C. By noon it rose by 12°C.",
-        prob: "What is the new temperature?",
-        step: "(-5) + 12 = 7",
-        ans: "7°C"
-      },
-      
-      {
-        title: "💰 Profit and Loss",
-        story: "A shopkeeper had a loss of ₹100 on Monday and profit of ₹150 on Tuesday.",
-        prob: "Net result?",
-        step: "(-100) + 150 = 50",
-        ans: "Profit of ₹50"
-      },
-
-  {
-    title: "🏔️ Mountain Climb",
-    story: "A hiker is at 1200m above sea level. She climbs 350m higher.",
-    prob: "New altitude?",
-    step: "1200 + 350 = 1550",
-    ans: "1550m above sea level"
-  },
-  {
-    title: "🌊 Diving Expedition",
-    story: "A diver is 20m below sea level (-20). He descends 15m more.",
-    prob: "Final depth?",
-    step: "(-20) + (-15) = -35",
-    ans: "35m below sea level"
-  },
-  {
-    title: "🚤 Boat and Submarine",
-    story: "A boat floats 5m above sea level. A submarine is 200m below sea level.",
-    prob: "Vertical distance between them?",
-    step: "5 - (-200) = 205",
-    ans: "205m apart"
-  },
-  {
-    title: "🛩️ Aircraft Descent",
-    story: "An aircraft is 300m above sea level. It descends 500m.",
-    prob: "Final position?",
-    step: "300 + (-500) = -200",
-    ans: "200m below sea level"
-  },
-  {
-    title: "🐠 Coral Reef",
-    story: "A coral reef is 50m below sea level (-50). A diver rises 20m.",
-    prob: "New position?",
-    step: "(-50) + 20 = -30",
-    ans: "30m below sea level"
-  }
-
-
-
-
-
-
-
-    ];
-    const s = scenarios[Math.floor(Math.random() * scenarios.length)];
-    container.innerHTML = `
-      <div class="lesson">
-        <h2>🌍 Real Life Scenario</h2>
-        <h3>${s.title}</h3>
-        <p>${s.story}</p>
-        <p><b>Problem:</b> ${s.prob}</p>
-        <div style="background:#f0fcf0; padding:10px; border-radius:5px;">
-          <b>Working:</b> ${s.step}<br>
-          <b>Answer:</b> ${s.ans}
-        </div>
-        <button onclick="loadIntegerRealLife()" style="margin-top:10px;">Next Scenario</button>
-      </div>
-    `;
-  }
-
- let answers = [];
-/* --- MARKED CHANGE: Fixed ID Case Sensitivity and Null Handling --- */
-function generateWorksheet() {
-  // 1. Correct the target container name to match your variable
-  const worksheetContainer = document.getElementById('worksheet-container');
-  
-  // 2. Use 'qCount' (Capital C) to match the HTML below. 
-  // Use ?.value to default to 5 if the input doesn't exist yet.
-  const count = document.getElementById('qCount')?.value || 5;
-    
-  let questions = [];
-  let answers = []; // Corrected to lowercase to match logic below
-
-  for (let i = 1; i <= count; i++) {
-    const a = Math.floor(Math.random() * 30) - 15;
-    const b = Math.floor(Math.random() * 30) - 15;
-    const op = ['+', '-', '×'][Math.floor(Math.random() * 3)];
-    let ans;
-
-    if (op === '+') ans = a + b;
-    else if (op === '-') ans = a - b;
-    else ans = a * b;
-    
-    questions.push(`Evaluate: \\( (${a}) ${op} (${b}) = \\_\\_\\_\\_ \\)`);
-    answers.push(ans);
-  }
-
-  // 3. Build Question HTML for Screen
-  const questionsListHtml = questions.map((q, i) => `
-    <ol class="question-item">
-        <div class="math-q">
-             <strong>Qs${i + 1}.</strong> ${q}
-             </div>
-        <button class="no-print" onclick="toggleAnswer(${i})" style="margin-top:5px; font-size:0.8rem;">Show Answer</button>
-        <div id="answer-${i}" class="answer-div" style="display:none; color:var(--success); font-weight:bold; margin-top:5px; border-left:3px solid var(--success); padding-left:10px;">
-            Answer: ${answers[i]}
-        </div>
-    </ol>
-  `).join("");
-
-  // 4. Build Answer Key for PDF
-  const keyListHtml = answers.map((a, i) => `
-    <div style="padding:10px; border-bottom:1px dashed #ddd;">
-        <strong>Qs${i + 1}:</strong> ${a}
-    </div>
-  `).join("");
-
-  // 5. Inject structure (Fixed worksheetContainer reference)
-  worksheetContainer.innerHTML = `
-    <div class="print-only-header" style="display:none;">
-        <table style="width:100%; border-bottom:2px solid #2a4d8f; margin-top:20px; margin-bottom:20px;">
-            <tr>
-                <td>
-                    <h1 style="color:#2a4d8f; margin:0;">ABLE™ Smart Lab</h1>
-                    <p style="margin:0;">Integers practice</p>
-                </td>
-                <td style="text-align:right;"><img src="Logo.png" style="height:50px;"></td>
-            </tr>
-        </table>
-    </div>
-
-    <h2 class="no-print">📄 Worksheet (Assess)</h2>
-
-    <div class="no-print" style="margin-bottom:20px; background:#f8fbff; padding:15px; border-radius:10px; border:1px solid #e1e8f0;">
-        <label>Number of Questions: </label>
-        <input type="number" id="qCount" value="${count}" min="1" max="25" style="width:60px; padding:5px; border-radius:5px;">
-        <button onclick="generateWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; margin-left:10px;">Update</button>
-         <button onclick=" downloadWorksheet()" style="background:var(--primary); color:white; border:none; padding:6px 12px;  border-radius:5px; cursor:pointermargin-left:10px;">
-                📥 Download
-            </button>
-        </div>
-    <div class="print-only student-info">
-          <div><b>Name:</b> __________________</div>
-          <div><b>Date:</b> __________________</div>
-          <div><b>Class:</b> __________________</div>
-        </div>
-    <ol class="question-grid">
-    ${questionsListHtml}
-</ol>
-
-    <div class="answer-key-section">
-  <h2>🔑 Answer Key</h2>
-  <div class="answer-grid">
-    ${keyListHtml}
-  </div>
-</div>
-   <div class="no-print">
-        <button onclick="downloadWorksheet()" style="background:var(--accent); color:white; padding:12px 30px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1.1rem;">
-            📥 Download PDF with Answer Key
-        </button>
-    </div>
-  `;
-
-  MathJax.typesetPromise();
-}
-// Ensure the downloadWorksheet function calls the new utility
-function downloadWorksheet() {
-    ABLE_PDF.download();
-}
-
 </script>
+
+
 
 </body>
 </html>
