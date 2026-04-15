@@ -12,50 +12,88 @@
     nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold; }
     main { padding:40px; max-width:1000px; margin:auto; }
     h2 { color:var(--primary); }
-    .concept-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-top:15px; }
-    .concept-grid button { padding:20px; background:white; border:2px solid var(--primary); border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
+        .concept-grid button { padding:20px; background:white; border:2px solid var(--primary); border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
     .concept-grid button:hover { background:var(--primary); color:white; }
     footer { background:#eee; text-align:center; padding:20px; margin-top:40px; font-size:0.85rem; }
-    
-  .concept-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
+
+    .concept-grid {
+  display: grid;
+  /* Adjust minmax to 250px to give room for the longer 'Power Play' caption */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.concept-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex; /* This allows the link to act as a flex container */
+}
+
+.concept-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  
+  /* THIS ENSURES SAME SIZE */
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Makes the card fill the entire height of the grid cell */
+  box-sizing: border-box;
+}
+
+.concept-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary);
+  /* Ensures titles align even if one is 1 line and another is 2 lines */
+  min-height: 2.8em; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.concept-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: auto; /* Pushes the description to the bottom if title is short */
+  padding-top: 10px;
+}
+
+
+
+
+
 
   .concept-card {
     background: white;
     border-radius: 12px;
-    height: 100px;
-    padding: 30px 20px;
+    padding: 25px 20px;
     text-align: center;
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    /* REMOVED fixed height: 100px */
+    height: 100%; /* Ensures all cards in a row have the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
   }
 
   .concept-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border-color: var(--accent); /* Subtle hint on hover */
   }
 
   .concept-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: var(--primary);
-  }
-
-  .concept-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: var(--primary);
-  }
-
-  .concept-card p {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 8px;
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    color: var(--accent); /* Using accent color for icons makes them pop */
   }
 
   </style>
@@ -72,38 +110,46 @@
 
 <main>
   
-  <!-- Concept Selector -->
  <section id="concept-selector">
   <h2>Select Concept</h2>
   <div class="concept-grid">
-    <a href="lesson-portal.html" style="text-decoration:none; color:inherit;">
-    <div class="concept-card">
-      <div class="concept-icon">✖️</div>
-      <h3>Exponents & Powers</h3>
-      <p>Master repeated multiplication and its rules.</p>
-    </div>
+    
+    <a href="lesson-portal.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">✖️</div>
+        <h3>Exponents & Powers</h3>
+        <p>Master repeated multiplication and its rules.</p>
+      </div>
     </a>
-   <a href="lesson-portal-squares.html" style="text-decoration:none; color:inherit;">
-  <div class="concept-card">
-    <div class="concept-icon">⬜</div>
-    <h3>Squares and Cubes</h3>
-    <p>Explore perfect squares and cubes.</p>
-  </div>
-</a>
 
-    <a href="integers.html" style="text-decoration:none; color:inherit;">
-  <div class="concept-card">
-    <div class="concept-icon">⬜</div>
-    <h3>Integers</h3>
-    <p>Explore the world of numbers</p>
-  </div>
-</a>
-</section>
+    <a href="lesson-portal-squares.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">⬜</div>
+        <h3>Squares and Cubes</h3>
+        <p>Explore perfect squares and cubes.</p>
+      </div>
+    </a>
 
+    <a href="integers.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">🔢</div>
+        <h3>Integers</h3>
+        <p>Explore the world of numbers.</p>
+      </div>
+    </a>
+
+    <a href="Power.html" class="concept-link">
+      <div class="concept-card">
+        <div class="concept-icon">⚡</div>
+        <h3>Power Play</h3>
+        <p>Mastering Exponential Growth and the Laws of Powers.</p>
+      </div>
+    </a>
+
+  </div> </section>
   <!-- Display Area -->
   <section id="concept-display"></section>
 </main>
-
 <footer style="background:#f9f9f9; border-top:1px solid #ccc; padding:20px;">
   <div style="display:flex; justify-content:space-between; flex-wrap:wrap; max-width:1000px; margin:auto;">
     
