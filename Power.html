@@ -217,55 +217,130 @@
     MathJax.typesetPromise();
   }
 
-  function loadSolveLab() {
+ function loadSolveLab() {
     const container = document.getElementById("solve-container");
+    
+    // 1. Randomize Question Type
+    // 0: Product Law (Add), 1: Quotient Law (Subtract), 2: Power of Power (Multiply)
+    const type = rand(0, 2);
     const base = rand(2, 9);
     const exp1 = rand(2, 6);
-    const exp2 = rand(2, 6);
-    window.currentAnswer = exp1 + exp2;
+    const exp2 = rand(2, 4);
+
+    let problemText = "";
+    let step1Question = "";
+    let step2Thinking = "";
+    let correctRule = "";
+
+    // 2. Setup logic based on Type
+    if (type === 0) {
+        problemText = `Simplify: \\(${base}^{${exp1}} \\times ${base}^{${exp2}}\\)`;
+        step1Question = "What do we do with exponents when <b>multiplying</b> same bases?";
+        correctRule = "add";
+        step2Thinking = `What is \\(${exp1} + ${exp2}\\)?`;
+        window.currentAnswer = exp1 + exp2;
+    } else if (type === 1) {
+        // Ensure exp1 is larger for positive results
+        const e1 = Math.max(exp1, exp2) + rand(1, 2);
+        const e2 = Math.min(exp1, exp2);
+        problemText = `Simplify: \\(${base}^{${e1}} \\div ${base}^{${e2}}\\)`;
+        step1Question = "What do we do with exponents when <b>dividing</b> same bases?";
+        correctRule = "sub";
+        step2Thinking = `What is \\(${e1} - ${e2}\\)?`;
+        window.currentAnswer = e1 - e2;
+    } else {
+        problemText = `Simplify: \\((${base}^{${exp1}})^{${exp2}}\\)`;
+        step1Question = "What do we do with exponents in a <b>Power of a Power</b>?";
+        correctRule = "mul";
+        step2Thinking = `What is \\(${exp1} \\times ${exp2}\\)?`;
+        window.currentAnswer = exp1 * exp2;
+    }
+
     container.innerHTML = `
       <h2>🧠 Solve Lab</h2>
-      <p><b>Problem:</b> Simplify \\(${base}^{${exp1}} \\times ${base}^{${exp2}}\\)</p>
-      <div id="step1">
-        <p><b>Step 1 (Ask):</b> What do we do with exponents when multiplying same bases? [cite: 184, 947]</p>
-        <select id="rule-select">
-          <option value="">Select</option>
-          <option value="add">Add them</option>
-          <option value="sub">Subtract them</option>
-        </select>
-        <button onclick="checkRule('add')">Check</button>
-        <div id="rule-feedback"></div>
-      </div>
-      <div id="step2" style="display:none; margin-top:15px;">
-        <p><b>Step 2 (Think):</b> What is \\(${exp1} + ${exp2}\\)?</p>
-        <input id="final-answer" type="number">
-        <button onclick="checkFinalAnswer()">Verify</button>
-        <div id="final-feedback"></div>
+      <div style="background:#fff; padding:20px; border-radius:10px; border:1px solid #ddd;">
+          <p style="font-size:1.4rem;"><b>Problem:</b> ${problemText}</p>
+          
+          <div id="step1">
+            <p><b>Step 1 (Ask):</b> ${step1Question}</p>
+            <select id="rule-select" style="padding:8px; border-radius:5px;">
+              <option value="">Select</option>
+              <option value="add">Add them</option>
+              <option value="sub">Subtract them</option>
+              <option value="mul">Multiply them</option>
+            </select>
+            <button onclick="checkRule('${correctRule}')" style="background:var(--primary); color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Check</button>
+            <div id="rule-feedback" style="margin-top:10px; font-weight:bold;"></div>
+          </div>
+
+          <div id="step2" style="display:none; margin-top:20px; padding-top:20px; border-top:1px dashed #ccc;">
+            <p><b>Step 2 (Think):</b> ${step2Thinking}</p>
+            <input id="final-answer" type="number" style="padding:8px; width:60px; border-radius:5px; border:1px solid #ccc;">
+            <button onclick="checkFinalAnswer()" style="background:var(--primary); color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Verify</button>
+            <div id="final-feedback" style="margin-top:10px; font-weight:bold;"></div>
+          </div>
+
+          <div id="next-step" style="display:none; margin-top:20px;">
+             <button onclick="loadSolveLab()" style="background:var(--success); color:white; border:none; padding:12px 25px; border-radius:8px; font-weight:bold; cursor:pointer; width:100%;">
+                Next Question ➔
+             </button>
+          </div>
       </div>
     `;
     MathJax.typesetPromise();
-  }
+}
 
-  function checkRule(correct) {
+function checkRule(correctRule) {
     const val = document.getElementById("rule-select").value;
     const feedback = document.getElementById("rule-feedback");
-    if (val === correct) {
-      feedback.innerHTML = "✅ Correct!";
-      document.getElementById("step2").style.display = "block";
-    } else {
-      feedback.innerHTML = "💡 Hint: Multiplication leads to addition[cite: 947].";
-    }
-  }
+    const step2 = document.getElementById("step2");
 
-  function checkFinalAnswer() {
+    if (val === "") {
+        feedback.innerHTML = "⚠️ Please select a rule first.";
+        feedback.style.color = "orange";
+        return;
+    }
+
+    if (val === correctRule) {
+        feedback.innerHTML = "✅ Correct! You've identified the right Law of Exponents.";
+        feedback.style.color = "var(--success)";
+        
+        // Unlock the next step of the framework (Think)
+        step2.style.display = "block";
+        
+        // Optional: Smooth scroll to the next step for better UX
+        step2.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+        // Metacognitive Hinting
+        let hint = "";
+        switch (correctRule) {
+            case 'add': hint = "💡 Think: When we multiply same bases, the total count of factors increases. Should we add or subtract?"; break;
+            case 'sub': hint = "💡 Think: Division is like 'taking away' factors. What operation matches that?"; break;
+            case 'mul': hint = "💡 Think: You have a group of powers being repeated. This is a shortcut for repeated addition."; break;
+        }
+        feedback.innerHTML = hint;
+        feedback.style.color = "var(--accent)";
+    }
+}
+
+
+
+
+ // Update checkFinalAnswer to show the Next button
+function checkFinalAnswer() {
     const user = parseInt(document.getElementById("final-answer").value);
     const feedback = document.getElementById("final-feedback");
+    
     if (user === window.currentAnswer) {
-      feedback.innerHTML = "✅ Perfect! The result is base raised to the power of " + user;
+        feedback.innerHTML = "✅ Perfect! The result is base raised to the power of " + user;
+        feedback.style.color = "var(--success)";
+        // Show the next question button
+        document.getElementById("next-step").style.display = "block";
     } else {
-      feedback.innerHTML = "❌ Try the addition again.";
+        feedback.innerHTML = "❌ Not quite. Double-check your calculation.";
+        feedback.style.color = "red";
     }
-  }
+}
 
   function loadRealLifeLab() {
     const container = document.getElementById("real-container");
