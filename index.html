@@ -1,312 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ABLE™ Math Smart Lab</title>
-  <style>
-    /* 1. Global Variables & Reset */
-    :root { 
-      --primary: #2a4d8f; 
-      --accent: #e67e22; 
-      --success: #27ae60; 
-      --bg: #f4f7f9; 
-      --card-bg: #ffffff;
-      --text-dark: #2c3e50;
-      --text-muted: #666666;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      background: var(--bg); 
-      color: var(--text-dark);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* 2. Header Layout */
-    header { 
-      background: var(--primary); 
-      color: white; 
-      padding: 15px 30px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between; 
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .header-logo-container {
-      display: flex; 
-      align-items: center; 
-      gap: 15px;
-    }
-
-    header img { 
-      height: 45px; 
-      width: auto;
-    }
-
-    header h1 { 
-      font-size: 1.4rem; 
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    /* 3. Main Content */
-    main { 
-      padding: 40px 20px; 
-      max-width: 1100px; 
-      width: 100%;
-      margin: 0 auto; 
-      flex: 1; /* Pushes footer to the bottom */
-    }
-
-    h2 { 
-      color: var(--primary); 
-      margin-bottom: 25px;
-      font-size: 1.8rem;
-      position: relative;
-    }
-
-    /* 4. Scalable & Responsive Concept Grid */
-    .concept-grid {
-      display: grid;
-      /* Ensures layout looks great on mobile screens down to 280px up to 4K displays */
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-      gap: 25px;
-      margin-top: 20px;
-    }
-
-    .concept-link {
-      text-decoration: none;
-      color: inherit;
-      display: flex; 
-    }
-
-    /* 5. Clean Card UI */
-    .concept-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.05);
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%; /* Fills grid item space */
-    }
-
-    .concept-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(42, 77, 143, 0.12);
-      border-color: var(--accent);
-    }
-
-    .concept-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-
-    .concept-card:hover .concept-icon {
-      transform: scale(1.1);
-    }
-
-    .concept-card h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.25rem;
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .concept-card p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      /* Pushes the paragraph up, ensuring visual alignment if descriptions vary in length */
-      flex-grow: 1; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* 6. Clean, Responsive Footer */
-    footer { 
-      background: #ffffff; 
-      border-top: 1px solid #e1e8ed; 
-      padding: 30px 20px; 
-      margin-top: auto;
-    }
-
-    .footer-container {
-      display: flex; 
-      justify-content: space-between; 
-      flex-wrap: wrap; 
-      gap: 30px;
-      max-width: 1100px; 
-      margin: auto;
-    }
-
-    .footer-col-left {
-      flex: 1; 
-      min-width: 280px; 
-      text-align: left;
-    }
-
-    .footer-col-left h4 {
-      color: var(--primary);
-      margin-bottom: 12px;
-      font-size: 1rem;
-    }
-
-    .footer-col-left p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    
-    .footer-links {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .footer-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--primary); 
-      font-weight: bold; 
-      text-decoration: none;
-      font-size: 0.9rem;
-      padding: 6px 12px;
-      background: rgba(42, 77, 143, 0.05);
-      border-radius: 6px;
-      transition: background 0.2s;
-    }
-
-    .footer-link:hover {
-      background: rgba(42, 77, 143, 0.1);
-    }
-
-    .footer-col-right {
-      flex: 1; 
-      min-width: 280px; 
-      text-align: right; 
-      font-size: 0.9rem; 
-      color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .footer-col-right p {
-      margin-bottom: 6px;
-    }
-
-    /* 7. Responsive Breakpoints */
-    @media (max-width: 768px) {
-      header {
-        justify-content: center;
-        text-align: center;
-      }
-      main {
-        padding: 25px 15px;
-      }
-      .footer-col-right {
-        text-align: left; /* Flips footer text alignment on smaller devices */
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathable - Smart Lab</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <div class="header-logo-container">
-    <img src="Logo.png" alt="ABLE™ Logo">
-    <h1>ABLE™ Math Smart Lab</h1>
-  </div>
-</header>
+    <main class="lab-container">
+        <header class="lab-header">
+            <h1>Mathable Smart Lab</h1>
+            <p>Select a module to begin exploring mathematical concepts through interactive play.</p>
+        </header>
 
-<main>
-  <section id="concept-selector">
-    <h2>Select Concept</h2>
-    <div class="concept-grid">
-      
-      <a href="lesson-portal.html" class="concept-link">
-        <div class="concept-card">
-          <div class="concept-icon">✖️</div>
-          <h3>Exponents & Powers</h3>
-          <p>Master repeated multiplication and its rules.</p>
-        </div>
-      </a>
+        <section class="concept-grid">
+            
+            <a href="#" class="concept-link">
+                <article class="concept-card">
+                    <div class="concept-icon">⬜</div>
+                    <h3>Squares and Cubes</h3>
+                    <p>Explore perfect squares and cubes.</p>
+                </article>
+            </a>
 
-      <a href="lesson-portal-squares.html" class="concept-link">
-        <div class="concept-card">
-          <div class="concept-icon">⬜</div>
-          <h3>Squares and Cubes</h3>
-          <p>Explore perfect squares and cubes.</p>
-        </div>
-      </a>
+            <a href="#" class="concept-link">
+                <article class="concept-card">
+                    <div class="concept-icon">🔢</div>
+                    <h3>Integers</h3>
+                    <p>Explore the world of numbers.</p>
+                </article>
+            </a>
 
-      <a href="integers.html" class="concept-link">
-        <div class="concept-card">
-          <div class="concept-icon">🔢</div>
-          <h3>Integers</h3>
-          <p>Explore the world of numbers.</p>
-        </div>
-      </a>
+            <a href="#" class="concept-link">
+                <article class="concept-card">
+                    <div class="concept-icon">⚡</div>
+                    <h3>Power Play</h3>
+                    <p>Mastering Exponential Growth and the Laws of Powers.</p>
+                </article>
+            </a>
 
-      <a href="Power.html" class="concept-link">
-        <div class="concept-card">
-          <div class="concept-icon">⚡</div>
-          <h3>Power Play</h3>
-          <p>Mastering Exponential Growth and the Laws of Powers.</p>
-        </div>
-      </a>
-
-    </div> 
-  </section>
-  
-  <section id="concept-display"></section>
-</main>
-
-<footer>
-  <div class="footer-container">
-    
-    <div class="footer-col-left">
-      <h4>Contact for Institutional Accounts</h4>
-      <p>For schools and bulk parent analytics:</p>
-      
-      <div class="footer-links">
-        <a href="mailto:contact@abhyast.in" class="footer-link">
-          📧 contact@abhyast.in
-        </a>
-        
-        <a href="https://wa.me/919910686080?text=I%20am%20interested%20in%20an%20ABLE%20Institutional%20Account" 
-           target="_blank" class="footer-link">
-          💬 WhatsApp
-        </a>
-      </div>
-    </div>
-    
-    <div class="footer-col-right">
-      <p><b>ABLE™</b> Powered by the 8-Step Framework – TAKECARE™</p>
-      <p>© 2026 Abhyast Private Limited</p>
-    </div>
-    
-  </div>
-</footer>
+        </section>
+    </main>
 
 </body>
 </html>
