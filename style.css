@@ -46,6 +46,147 @@ body {
     margin-top: 20px;
 }
 
+/* ==========================================================================
+   4. Module Specific & Sandbox Additions
+   ========================================================================== */
+
+.lab-nav {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+}
+
+.back-btn:hover {
+    opacity: 0.8;
+}
+
+.module-badge {
+    display: inline-block;
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Sandbox Panel Styles */
+.interactive-sandbox {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 6px 15px var(--shadow-sm);
+    margin-bottom: 50px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.sandbox-lead, .section-lead {
+    color: var(--text-muted);
+    margin-top: -5px;
+    margin-bottom: 30px;
+}
+
+.sandbox-workspace {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px dashed #e0e0e0;
+}
+
+.math-display {
+    flex: 1;
+    min-width: 250px;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+    background: var(--primary);
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+.math-display sup {
+    color: #5dade2;
+    font-size: 1.8rem;
+}
+
+.control-panel {
+    flex: 1.2;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.slider-group label {
+    font-weight: 600;
+}
+
+.slider-group label span {
+    color: var(--accent);
+}
+
+.slider-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+/* Custom Resource Card adjustments */
+.resource-card {
+    cursor: default;
+}
+
+.resource-card:hover {
+    transform: none;
+    box-shadow: 0 6px 15px var(--shadow-sm);
+    border-color: transparent;
+}
+
+/* Button UI Components */
+.download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--primary);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.download-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+}
+
 /* Makes sure the link acts as a perfect structural wrapper */
 .concept-link {
     text-decoration: none;
