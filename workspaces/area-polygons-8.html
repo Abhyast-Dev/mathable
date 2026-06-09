@@ -54,7 +54,14 @@
 <section id="panel-generator" class="tab-content"><h3>Worksheet Generator</h3><div class="info-box"><p>Generate practice on rectangles, triangles, parallelograms, paths, unknown lengths, and area reasoning.</p><label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12"><br><br><button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button><button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button></div><div id="pdf-canvas" style="display:none"></div></section>
 <section id="panel-real" class="tab-content"><h3>Real-World Use</h3><div class="info-box"><div class="highlight-card"><strong>Rangoli and Painting:</strong> Area helps estimate how much colour, paint, or powder is needed.</div><div class="highlight-card aqua-card"><strong>Gardens and Paths:</strong> Subtract inner area from outer area to find the area of a walkway.</div><div class="highlight-card pink-card"><strong>Construction:</strong> Parallelogram, trapezium, and triangle formulas help estimate land, flooring, roofs, and tiles.</div><div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div></div></section>
 <section id="panel-teacher" class="tab-content"><h3>Teacher Tools</h3><div class="info-box"><h4>Learning Outcomes</h4><ul><li>Measure area using unit squares.</li><li>Distinguish area from perimeter.</li><li>Derive and apply area formulae for rectangles, triangles, parallelograms, rhombi and trapezia.</li><li>Use dissection to transform shapes without changing area.</li><li>Decompose polygons into triangles to find area.</li></ul><h4>Exit Ticket Prompts</h4><ul><li>Give two rectangles with the same perimeter but different areas.</li><li>Explain why triangle area is half of base × height.</li><li>Find the area of a rectangular path around a park.</li><li>Describe how a parallelogram can be rearranged into a rectangle.</li></ul></div></section>
-</main><footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+</main>
+  <footer>
+    <p>
+        📧 <a href="mailto:contact@abhyast.in" style="color: #ffffff; text-decoration: underline;">contact@abhyast.in</a> | 
+        💬 <a href="https://wa.me/919910686080" style="color: #ffffff; text-decoration: underline;">WhatsApp Support</a>
+    </p>
+    <p>© 2026 Abhyast Private Limited. ABLE™ (Autonomy Building Learning Environment) and TAKECARE™ are registered cognitive frameworks.</p>
+</footer>
 <script>
 const qPool=[
 {q:'Find the area of a rectangle with length 12 cm and width 5 cm.',a:'60',accepted:['60','60cm2','60sqcm'],hint:'Use length × width.',steps:'Area = 12 × 5 = 60 cm².'},
