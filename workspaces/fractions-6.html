@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class VI: Fractions Lab - Mathable Smart Lab</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --brand-yellow: #fde32d;
+            --brand-pink: #ee4977;
+            --brand-navy: #272b6a;
+            --brand-aqua: #4bc2c4;
+            --text-muted: #5e6282;
+            --white: #ffffff;
+            --soft-bg: #fafafa;
+            --success: #138a36;
+            --danger: #c62828;
+            --transition-smooth: all 0.25s ease;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            background: var(--soft-bg);
+            color: var(--brand-navy);
+        }
+        header {
+            background: var(--white);
+            border-bottom: 2px solid var(--brand-aqua);
+            padding: 1rem 1.25rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .logo-block img { height: 42px; max-width: 160px; object-fit: contain; }
+        .workspace-container {
+            max-width: 1050px;
+            margin: 2rem auto;
+            padding: 1.25rem;
+            background: var(--white);
+            border-radius: 18px;
+            box-shadow: 0 8px 28px rgba(39,43,106,0.08);
+        }
+        .card-badge {
+            display: inline-block;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .tab-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            border-bottom: 2px solid rgba(39,43,106,0.08);
+            padding-bottom: 0.8rem;
+            margin: 1.25rem 0;
+        }
+        .tab-btn {
+            border: none;
+            cursor: pointer;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            background: #f1f2f8;
+            color: var(--brand-navy);
+            transition: var(--transition-smooth);
+        }
+        .tab-btn:hover { transform: translateY(-1px); }
+        .tab-btn.active { background: var(--brand-aqua); color: var(--white); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .info-box {
+            background: rgba(39, 43, 106, 0.035);
+            border: 1px solid rgba(39,43,106,0.1);
+            padding: 1.25rem;
+            border-radius: 14px;
+            margin-bottom: 1rem;
+        }
+        .activity-card {
+            background: var(--white);
+            border: 1px solid rgba(39,43,106,0.1);
+            border-radius: 14px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 12px rgba(39,43,106,0.04);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        .action-btn {
+            background: var(--brand-navy);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+            transition: var(--transition-smooth);
+        }
+        .action-btn:hover { transform: translateY(-1px); opacity: 0.92; }
+        .secondary-btn { background: var(--brand-pink); }
+        .aqua-btn { background: var(--brand-aqua); }
+        input, select {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 2px solid var(--brand-navy);
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        .hidden { display: none; }
+        .hint-box, .solution-box, .feedback-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(253,227,45,0.18);
+            border-left: 4px solid var(--brand-yellow);
+        }
+        .solution-box { background: rgba(75,194,196,0.12); border-left-color: var(--brand-aqua); }
+        .feedback-box.success { background: rgba(19,138,54,0.08); border-left-color: var(--success); color: var(--success); }
+        .feedback-box.error { background: rgba(198,40,40,0.08); border-left-color: var(--danger); color: var(--danger); }
+        .fraction-sandbox-container {
+            background-color: rgba(39, 43, 106, 0.03);
+            border: 2px dashed var(--brand-aqua);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .fraction-visual-bar {
+            display: flex;
+            width: 100%;
+            max-width: 28rem;
+            height: 3rem;
+            border: 3px solid var(--brand-navy);
+            border-radius: 8px;
+            margin: 1rem auto;
+            overflow: hidden;
+            background-color: var(--white);
+        }
+        .fraction-segment {
+            height: 100%;
+            border-right: 1px solid var(--brand-navy);
+            transition: var(--transition-smooth);
+            flex: 1;
+        }
+        .fraction-segment:last-child { border-right: none; }
+        .segment-filled { background-color: var(--brand-pink); }
+        .fraction-math-display { font-size: 1.8rem; font-weight: 700; color: var(--brand-navy); margin: 0.5rem 0; }
+        .pizza {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 1rem auto;
+            border: 4px solid var(--brand-navy);
+            background: conic-gradient(var(--brand-pink) 0deg, var(--brand-pink) var(--pizza-angle, 180deg), #fff3b0 var(--pizza-angle, 180deg), #fff3b0 360deg);
+            position: relative;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            color: var(--brand-navy);
+        }
+        .number-line {
+            position: relative;
+            height: 56px;
+            max-width: 520px;
+            margin: 1.5rem auto;
+            border-bottom: 5px solid var(--brand-navy);
+        }
+        .number-line::before, .number-line::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            width: 5px;
+            height: 24px;
+            background: var(--brand-navy);
+        }
+        .number-line::before { left: 0; }
+        .number-line::after { right: 0; }
+        .line-label { position: absolute; bottom: -42px; font-weight: 700; }
+        .line-label.left { left: 0; }
+        .line-label.right { right: 0; }
+        .line-marker {
+            position: absolute;
+            bottom: -10px;
+            width: 18px;
+            height: 18px;
+            background: var(--brand-pink);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 2px var(--brand-pink);
+        }
+        .badge-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .badge {
+            padding: 0.45rem 0.7rem;
+            border-radius: 999px;
+            background: #f1f2f8;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .badge.unlocked { background: var(--brand-yellow); color: #111; }
+        footer { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .footer-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        @media (max-width: 760px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .workspace-container { margin: 1rem; padding: 1rem; }
+            .pizza { width: 180px; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+      <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+
+    <main class="workspace-container">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+            <span class="card-badge" style="background-color: var(--brand-pink); color: var(--white);">TRACK 1 • NUMBER SENSE</span>
+            <span style="font-size:0.9rem; font-weight:bold; color:var(--text-muted);">Strand: Parts of a Whole</span>
+        </div>
+        <h2 style="color: var(--brand-navy); margin-top: 0; font-size: 2.2rem; font-weight: 700;">Class VI: Fractions Lab</h2>
+        
+        <nav class="tab-navigation" role="tablist" aria-label="Learning Pillars">
+            <button id="btn-fact" class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-fact" onclick="switchLabTab('fact')">📖 Fact Sheet</button>
+            <button id="btn-formula" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-formula" onclick="switchLabTab('formula')">🧪 Key Rules</button>
+            <button id="btn-lab" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-lab" onclick="switchLabTab('lab')">💻 Online Lab</button>
+            <button id="btn-activity" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-activity" onclick="switchLabTab('activity')">🎮 Activity Zone</button>
+            <button id="btn-generator" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-generator" onclick="switchLabTab('generator')">🖨️ Worksheet Generator</button>
+            <button id="btn-real" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-real" onclick="switchLabTab('real')">🌍 Real-World Use</button>
+        </nav>
+
+        <section id="panel-fact" class="tab-content active" role="tabpanel" aria-labelledby="btn-fact">
+            <h3>What is a Fraction?</h3>
+            <div class="info-box">
+                <p>A fraction represents a part of a whole or a part of a collection. The whole must be divided into <strong>equal parts</strong> for the fraction to be meaningful.</p>
+                <ul>
+                    <li><strong>Numerator:</strong> the top number. It shows how many parts are selected.</li>
+                    <li><strong>Denominator:</strong> the bottom number. It shows the total number of equal parts.</li>
+                </ul>
+                <div class="fraction-sandbox-container">
+                    <h4>🎛️ Equal Partition Visualizer</h4>
+                    <p>Use the slider to shade parts of a whole divided into 5 equal parts.</p>
+                    <input type="range" id="fractionSlider" min="0" max="5" value="3" style="width:100%; max-width:20rem; accent-color:var(--brand-pink);" oninput="updateLiveFractionCanvas()">
+                    <div class="fraction-visual-bar" id="fractionBarCanvas" aria-label="Fraction bar display"></div>
+                    <div class="fraction-math-display" id="fractionMathText">3 / 5</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-formula" class="tab-content" role="tabpanel" aria-labelledby="btn-formula">
+            <h3>Key Rules and Definitions</h3>
+            <div class="info-box grid-2">
+                <div class="activity-card"><strong>Proper Fraction</strong><p>Numerator is smaller than denominator. Example: 3/5.</p></div>
+                <div class="activity-card"><strong>Improper Fraction</strong><p>Numerator is greater than or equal to denominator. Example: 7/5.</p></div>
+                <div class="activity-card"><strong>Equivalent Fractions</strong><p>Fractions that show the same value. Example: 1/2 = 2/4 = 4/8.</p></div>
+                <div class="activity-card"><strong>Simplest Form</strong><p>Divide numerator and denominator by their HCF until no common factor remains.</p></div>
+            </div>
+        </section>
+
+        <section id="panel-lab" class="tab-content" role="tabpanel" aria-labelledby="btn-lab">
+            <h3>Interactive Sandbox Engine</h3>
+            <div class="info-box">
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem; font-weight:700; color:var(--brand-pink);">
+                    <span id="lab-score-display">Score: 0</span>
+                    <span id="lab-streak-display">Current Streak: 🔥 0</span>
+                </div>
+                <div class="badge-row" id="badge-row"></div>
+                <div class="activity-card">
+                    <p id="lab-question-field" style="font-size:1.15rem; font-weight:600; line-height:1.6;"></p>
+                    <input type="text" id="student-answer-input" placeholder="Type answer, e.g. 2/3 or proper" aria-label="Enter your fraction answer">
+                    <br><br>
+                    <button class="action-btn" onclick="submitSandboxAnswer()">Check Answer</button>
+                    <button class="action-btn secondary-btn" onclick="toggleVisibilityBox('hint-box-container')">Show Hint</button>
+                    <button class="action-btn secondary-btn" onclick="toggleVisibilityBox('solution-box-container')">Step-by-Step</button>
+                    <button class="action-btn aqua-btn" onclick="skipQuestion()">Next</button>
+                    <div id="lab-feedback" class="feedback-box hidden"></div>
+                    <div id="hint-box-container" class="hint-box hidden"></div>
+                    <div id="solution-box-container" class="solution-box hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-activity" class="tab-content" role="tabpanel" aria-labelledby="btn-activity">
+            <h3>Activity Zone</h3>
+            <div class="grid-2">
+                <div class="activity-card">
+                    <h4>🍕 Fraction Pizza Builder</h4>
+                    <p>Choose total slices and shaded slices.</p>
+                    <label>Total slices: <select id="pizza-den" onchange="updatePizza()"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>8</option></select></label>
+                    <label>Shaded slices: <select id="pizza-num" onchange="updatePizza()"></select></label>
+                    <div class="pizza" id="pizzaCanvas">1/4</div>
+                    <p id="pizzaFeedback"><strong>Fraction shown:</strong> 1/4</p>
+                </div>
+
+                <div class="activity-card">
+                    <h4>⚙️ Equivalent Fraction Machine</h4>
+                    <p id="equiv-question"></p>
+                    <input type="text" id="equiv-input" placeholder="Missing numerator">
+                    <br><br>
+                    <button class="action-btn" onclick="checkEquivalent()">Check</button>
+                    <button class="action-btn aqua-btn" onclick="newEquivalentQuestion()">New</button>
+                    <div id="equiv-feedback" class="feedback-box hidden"></div>
+                </div>
+
+                <div class="activity-card">
+                    <h4>⚔️ Fraction Comparison Game</h4>
+                    <p style="font-size:1.5rem; font-weight:800;" id="compare-question"></p>
+                    <button class="action-btn" onclick="checkCompare('>')">&gt;</button>
+                    <button class="action-btn" onclick="checkCompare('<')">&lt;</button>
+                    <button class="action-btn" onclick="checkCompare('=')">=</button>
+                    <button class="action-btn aqua-btn" onclick="newCompareQuestion()">New</button>
+                    <div id="compare-feedback" class="feedback-box hidden"></div>
+                </div>
+
+                <div class="activity-card">
+                    <h4>📍 Number Line Locator</h4>
+                    <p>Move the marker to show <strong id="line-target">3/4</strong>.</p>
+                    <input type="range" id="line-slider" min="0" max="100" value="50" oninput="updateNumberLineMarker()" style="width:100%; accent-color:var(--brand-pink);">
+                    <div class="number-line"><span class="line-marker" id="line-marker" style="left:50%;"></span><span class="line-label left">0</span><span class="line-label right">1</span></div>
+                    <br>
+                    <button class="action-btn" onclick="checkNumberLine()">Check Position</button>
+                    <button class="action-btn aqua-btn" onclick="newNumberLineQuestion()">New</button>
+                    <div id="line-feedback" class="feedback-box hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-generator" class="tab-content" role="tabpanel" aria-labelledby="btn-generator">
+            <h3>Custom Printable Worksheet Engine</h3>
+            <div class="info-box">
+                <p>Generate a customized practice sheet with randomized fraction problems.</p>
+                <label for="pdf-quantity-input" style="font-weight:700;">Select number of problems:</label>
+                <input type="number" id="pdf-quantity-input" min="5" max="50" value="10">
+                <br><br>
+                <button class="action-btn" onclick="generateWorksheetPdf(false)">Download Worksheet PDF</button>
+                <button class="action-btn secondary-btn" onclick="generateWorksheetPdf(true)">Download Answer Key PDF</button>
+            </div>
+            <div id="pdf-printing-canvas" style="display:none;"></div>
+        </section>
+
+        <section id="panel-real" class="tab-content" role="tabpanel" aria-labelledby="btn-real">
+            <h3>Real-World Use</h3>
+            <div class="info-box grid-2">
+                <div class="activity-card"><h4>🍲 Cooking</h4><p>Recipes use 1/2 cup, 3/4 spoon, and 2/3 bowl measurements. Fractions help scale recipes up or down.</p></div>
+                <div class="activity-card"><h4>🏏 Cricket</h4><p>If a batter scores 3/4 of a team’s runs, fractions help compare contributions.</p></div>
+                <div class="activity-card"><h4>🛒 Shopping</h4><p>A 25% discount means 1/4 off. Understanding fractions helps estimate prices quickly.</p></div>
+                <div class="activity-card"><h4>🍕 Sharing</h4><p>Pizza, cake, chocolate bars, and fruit are divided fairly using fractions.</p></div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div>
+            <div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div>
+        </div>
+    </footer>
+
+    <script>
+        const class6FractionsPool = [
+            { q: "A rectangle is divided into 8 equal parts. If 3 parts are shaded, what fraction is unshaded?", a: "5/8", hint: "Subtract shaded parts from total parts.", steps: "Total parts = 8. Shaded parts = 3. Unshaded parts = 8 - 3 = 5. Therefore, the fraction unshaded is 5/8." },
+            { q: "Is 7/5 a proper fraction or an improper fraction?", a: "improper", hint: "Compare numerator 7 with denominator 5.", steps: "A proper fraction has numerator smaller than denominator. Here 7 is greater than 5, so 7/5 is improper." },
+            { q: "Find the missing numerator: 2/3 = ___/12", a: "8", hint: "3 is multiplied by 4 to get 12.", steps: "Since 3 × 4 = 12, multiply the numerator by 4 too. 2 × 4 = 8." },
+            { q: "Write 18/24 in simplest form.", a: "3/4", hint: "Divide both 18 and 24 by their HCF.", steps: "The HCF of 18 and 24 is 6. 18 ÷ 6 = 3 and 24 ÷ 6 = 4. So the simplest form is 3/4." },
+            { q: "What is the denominator of 9/11?", a: "11", hint: "The denominator is the bottom number.", steps: "In 9/11, the numerator is 9 and the denominator is 11." },
+            { q: "Which is greater: 1/2 or 1/3? Type the greater fraction.", a: "1/2", hint: "For unit fractions, the smaller denominator gives the bigger part.", steps: "One half is larger than one third because a whole divided into 2 parts has bigger parts than a whole divided into 3 parts." },
+            { q: "Convert 5/5 to a whole number.", a: "1", hint: "If numerator and denominator are equal, the value is one whole.", steps: "5 out of 5 equal parts means the complete whole. So 5/5 = 1." },
+            { q: "Find the missing denominator: 3/4 = 6/___", a: "8", hint: "3 is multiplied by 2 to get 6.", steps: "To keep the fraction equivalent, multiply denominator 4 by 2. So the missing denominator is 8." }
+        ];
+
+        let currentIdx = 0, activeScore = 0, activeStreak = 0;
+        let equivAnswer = 0, compareAnswer = '=', lineTargetValue = 0.75;
+        const storageKey = "mathable_state_class6_fractions_final";
+
+        window.onload = function() {
+            const savedData = localStorage.getItem(storageKey);
+            if (savedData) {
+                const parsed = JSON.parse(savedData);
+                activeScore = parsed.score || 0;
+                activeStreak = parsed.streak || 0;
+                currentIdx = parsed.index || 0;
+            }
+            renderSandboxQuestion();
+            updateLiveFractionCanvas();
+            updatePizzaSelectors();
+            updatePizza();
+            newEquivalentQuestion();
+            newCompareQuestion();
+            newNumberLineQuestion();
+        };
+
+        function switchLabTab(pillarId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            document.getElementById(`btn-${pillarId}`).classList.add('active');
+            document.getElementById(`btn-${pillarId}`).setAttribute('aria-selected', 'true');
+            document.getElementById(`panel-${pillarId}`).classList.add('active');
+        }
+
+        function toggleVisibilityBox(id) { document.getElementById(id).classList.toggle('hidden'); }
+
+        function normalizeAnswer(text) {
+            return String(text).trim().toLowerCase().replace(/\s/g, '').replace('properfraction','proper').replace('improperfraction','improper');
+        }
+
+        function updateLiveFractionCanvas() {
+            const numeratorVal = parseInt(document.getElementById('fractionSlider').value, 10);
+            const barCanvas = document.getElementById('fractionBarCanvas');
+            const mathText = document.getElementById('fractionMathText');
+            barCanvas.innerHTML = "";
+            mathText.innerText = `${numeratorVal} / 5`;
+            for (let i = 1; i <= 5; i++) {
+                const segment = document.createElement('div');
+                segment.classList.add('fraction-segment');
+                if (i <= numeratorVal) segment.classList.add('segment-filled');
+                barCanvas.appendChild(segment);
+            }
+        }
+
+        function renderSandboxQuestion() {
+            const activeObj = class6FractionsPool[currentIdx % class6FractionsPool.length];
+            document.getElementById('lab-question-field').innerHTML = `<strong>Question ${currentIdx + 1}:</strong> ${activeObj.q}`;
+            document.getElementById('hint-box-container').innerHTML = `<strong>Hint:</strong> ${activeObj.hint}`;
+            document.getElementById('solution-box-container').innerHTML = `<strong>Step-by-Step Explanation:</strong><br>${activeObj.steps}`;
+            document.getElementById('hint-box-container').classList.add('hidden');
+            document.getElementById('solution-box-container').classList.add('hidden');
+            document.getElementById('lab-feedback').classList.add('hidden');
+            document.getElementById('student-answer-input').value = "";
+            updateScoreboard();
+        }
+
+        function updateScoreboard() {
+            document.getElementById('lab-score-display').innerText = `Score: ${activeScore}`;
+            document.getElementById('lab-streak-display').innerText = `Current Streak: 🔥 ${activeStreak}`;
+            const badges = [
+                { name: 'Fraction Rookie', score: 20 },
+                { name: 'Slice Solver', score: 50 },
+                { name: 'Equivalent Expert', score: 80 },
+                { name: 'Fraction Master', score: 120 }
+            ];
+            document.getElementById('badge-row').innerHTML = badges.map(b => `<span class="badge ${activeScore >= b.score ? 'unlocked' : ''}">${activeScore >= b.score ? '🏆 ' : '🔒 '}${b.name}</span>`).join('');
+        }
+
+        function submitSandboxAnswer() {
+            const activeObj = class6FractionsPool[currentIdx % class6FractionsPool.length];
+            const answerInput = normalizeAnswer(document.getElementById('student-answer-input').value);
+            const correctAnswer = normalizeAnswer(activeObj.a);
+            const feedback = document.getElementById('lab-feedback');
+            feedback.classList.remove('hidden', 'success', 'error');
+            if (answerInput === correctAnswer) {
+                feedback.classList.add('success');
+                feedback.innerHTML = "✅ Excellent answer! You earned 10 points.";
+                activeScore += 10;
+                activeStreak += 1;
+                currentIdx++;
+                saveState();
+                setTimeout(renderSandboxQuestion, 700);
+            } else {
+                feedback.classList.add('error');
+                feedback.innerHTML = `❌ Not yet. Try the hint or view the steps. Correct answer: <strong>${activeObj.a}</strong>`;
+                activeStreak = 0;
+                saveState();
+                updateScoreboard();
+            }
+        }
+
+        function skipQuestion() { currentIdx++; saveState(); renderSandboxQuestion(); }
+        function saveState() { localStorage.setItem(storageKey, JSON.stringify({ score: activeScore, streak: activeStreak, index: currentIdx })); }
+
+        function updatePizzaSelectors() {
+            const den = parseInt(document.getElementById('pizza-den').value, 10);
+            const numSelect = document.getElementById('pizza-num');
+            const current = Math.min(parseInt(numSelect.value || '1', 10), den);
+            numSelect.innerHTML = '';
+            for (let i = 0; i <= den; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i;
+                if (i === current) opt.selected = true;
+                numSelect.appendChild(opt);
+            }
+        }
+
+        function updatePizza() {
+            updatePizzaSelectors();
+            const den = parseInt(document.getElementById('pizza-den').value, 10);
+            const num = parseInt(document.getElementById('pizza-num').value, 10);
+            const angle = (num / den) * 360;
+            const pizza = document.getElementById('pizzaCanvas');
+            pizza.style.setProperty('--pizza-angle', angle + 'deg');
+            pizza.innerText = `${num}/${den}`;
+            document.getElementById('pizzaFeedback').innerHTML = `<strong>Fraction shown:</strong> ${num}/${den}. Numerator = ${num}, Denominator = ${den}.`;
+        }
+
+        function newEquivalentQuestion() {
+            const baseDen = Math.floor(Math.random() * 5) + 2;
+            const baseNum = Math.floor(Math.random() * (baseDen - 1)) + 1;
+            const factor = Math.floor(Math.random() * 4) + 2;
+            equivAnswer = baseNum * factor;
+            document.getElementById('equiv-question').innerHTML = `Complete: <strong>${baseNum}/${baseDen} = ___/${baseDen * factor}</strong>`;
+            document.getElementById('equiv-input').value = '';
+            document.getElementById('equiv-feedback').classList.add('hidden');
+        }
+
+        function checkEquivalent() {
+            const val = parseInt(document.getElementById('equiv-input').value, 10);
+            const fb = document.getElementById('equiv-feedback');
+            fb.classList.remove('hidden', 'success', 'error');
+            if (val === equivAnswer) {
+                fb.classList.add('success'); fb.innerHTML = '✅ Correct! Multiply numerator and denominator by the same number.';
+                activeScore += 5; activeStreak++; saveState(); updateScoreboard();
+            } else {
+                fb.classList.add('error'); fb.innerHTML = `❌ Correct answer: ${equivAnswer}.`;
+                activeStreak = 0; saveState(); updateScoreboard();
+            }
+        }
+
+        function newCompareQuestion() {
+            const den1 = Math.floor(Math.random() * 7) + 2;
+            const den2 = Math.floor(Math.random() * 7) + 2;
+            const num1 = Math.floor(Math.random() * den1) + 1;
+            const num2 = Math.floor(Math.random() * den2) + 1;
+            const v1 = num1 / den1, v2 = num2 / den2;
+            compareAnswer = Math.abs(v1 - v2) < 0.0001 ? '=' : (v1 > v2 ? '>' : '<');
+            document.getElementById('compare-question').innerText = `${num1}/${den1}  ?  ${num2}/${den2}`;
+            document.getElementById('compare-feedback').classList.add('hidden');
+        }
+
+        function checkCompare(choice) {
+            const fb = document.getElementById('compare-feedback');
+            fb.classList.remove('hidden', 'success', 'error');
+            if (choice === compareAnswer) {
+                fb.classList.add('success'); fb.innerHTML = '✅ Correct comparison!';
+                activeScore += 5; activeStreak++; saveState(); updateScoreboard();
+            } else {
+                fb.classList.add('error'); fb.innerHTML = `❌ Correct symbol: ${compareAnswer}`;
+                activeStreak = 0; saveState(); updateScoreboard();
+            }
+        }
+
+        function newNumberLineQuestion() {
+            const denOptions = [2, 3, 4, 5, 6, 8, 10];
+            const den = denOptions[Math.floor(Math.random() * denOptions.length)];
+            const num = Math.floor(Math.random() * (den - 1)) + 1;
+            lineTargetValue = num / den;
+            document.getElementById('line-target').innerText = `${num}/${den}`;
+            document.getElementById('line-slider').value = 50;
+            updateNumberLineMarker();
+            document.getElementById('line-feedback').classList.add('hidden');
+        }
+
+        function updateNumberLineMarker() {
+            const sliderVal = document.getElementById('line-slider').value;
+            document.getElementById('line-marker').style.left = sliderVal + '%';
+        }
+
+        function checkNumberLine() {
+            const sliderValue = parseInt(document.getElementById('line-slider').value, 10) / 100;
+            const fb = document.getElementById('line-feedback');
+            fb.classList.remove('hidden', 'success', 'error');
+            if (Math.abs(sliderValue - lineTargetValue) <= 0.06) {
+                fb.classList.add('success'); fb.innerHTML = '✅ Good placement on the number line!';
+                activeScore += 5; activeStreak++; saveState(); updateScoreboard();
+            } else {
+                fb.classList.add('error'); fb.innerHTML = `❌ Try placing it near ${Math.round(lineTargetValue * 100)}% of the way from 0 to 1.`;
+                activeStreak = 0; saveState(); updateScoreboard();
+            }
+        }
+
+        function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+        function randomFractionQuestion() {
+            const type = Math.floor(Math.random() * 5);
+            let n, d, g, answer, q, steps;
+            if (type === 0) {
+                d = Math.floor(Math.random() * 8) + 3;
+                n = Math.floor(Math.random() * (d - 1)) + 1;
+                answer = `${n}/${d}`;
+                q = `Write the fraction represented by ${n} shaded parts out of ${d} equal parts.`;
+                steps = `Numerator = shaded parts = ${n}. Denominator = total equal parts = ${d}. Answer = ${answer}.`;
+            } else if (type === 1) {
+                d = Math.floor(Math.random() * 8) + 3;
+                n = d + Math.floor(Math.random() * 5);
+                answer = 'improper';
+                q = `Classify ${n}/${d} as proper or improper.`;
+                steps = `${n} is greater than or equal to ${d}, so the fraction is improper.`;
+            } else if (type === 2) {
+                d = Math.floor(Math.random() * 6) + 2;
+                n = Math.floor(Math.random() * (d - 1)) + 1;
+                const factor = Math.floor(Math.random() * 4) + 2;
+                answer = String(n * factor);
+                q = `Complete the equivalent fraction: ${n}/${d} = ___/${d * factor}`;
+                steps = `The denominator was multiplied by ${factor}. Multiply the numerator by ${factor}: ${n} × ${factor} = ${answer}.`;
+            } else if (type === 3) {
+                const baseN = Math.floor(Math.random() * 5) + 1;
+                const baseD = baseN + Math.floor(Math.random() * 5) + 1;
+                const factor = Math.floor(Math.random() * 5) + 2;
+                n = baseN * factor; d = baseD * factor;
+                g = gcd(n, d); answer = `${n / g}/${d / g}`;
+                q = `Simplify ${n}/${d}.`;
+                steps = `The HCF is ${g}. Divide both terms: ${n} ÷ ${g} = ${n/g}, ${d} ÷ ${g} = ${d/g}. Answer = ${answer}.`;
+            } else {
+                d = Math.floor(Math.random() * 8) + 3;
+                n = Math.floor(Math.random() * (d - 1)) + 1;
+                answer = `${d - n}/${d}`;
+                q = `A bar has ${d} equal pieces. If ${n} pieces are eaten, what fraction is left?`;
+                steps = `Pieces left = ${d} - ${n} = ${d-n}. Fraction left = ${answer}.`;
+            }
+            return { q, answer, steps };
+        }
+
+        function generateWorksheetPdf(shouldIncludeKeys) {
+            const densityQty = Math.min(50, Math.max(5, parseInt(document.getElementById('pdf-quantity-input').value, 10) || 10));
+            const contextContainer = document.getElementById('pdf-printing-canvas');
+            let docMarkupString = `<div style="font-family:Arial,sans-serif; padding:30px; color:#272b6a;"><h1 style="border-bottom:3px solid #4bc2c4; padding-bottom:12px;">Class VI: Fractions Practice Worksheet</h1><p>Name: ____________________ Date: _______________</p><ol style="padding-left:25px;">`;
+            const generated = [];
+            for (let i = 0; i < densityQty; i++) generated.push(randomFractionQuestion());
+            generated.forEach((item) => {
+                docMarkupString += `<li style="margin-bottom:28px; font-size:1.05rem; page-break-inside:avoid;"><div><strong>Question:</strong> ${item.q}</div>`;
+                if (shouldIncludeKeys) {
+                    docMarkupString += `<div style="background-color:rgba(75,194,196,0.08); border-left:4px solid #ee4977; padding:12px; border-radius:6px; margin-top:10px;"><strong>Answer:</strong> ${item.answer}<br><strong>Steps:</strong> ${item.steps}</div>`;
+                } else {
+                    docMarkupString += `<div style="height:45px; border-bottom:1px dashed #aaa; width:95%; margin-top:10px;"></div>`;
+                }
+                docMarkupString += `</li>`;
+            });
+            docMarkupString += `</ol></div>`;
+            contextContainer.innerHTML = docMarkupString;
+            html2pdf().from(contextContainer).set({
+                margin: 15,
+                filename: `class6-fractions${shouldIncludeKeys ? '-answer-key' : '-worksheet'}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, logging: false },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).save();
+        }
+    </script>
+</body>
+</html>

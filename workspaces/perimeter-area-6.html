@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class VI: Perimeter and Area - Mathable Smart Lab</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --brand-yellow: #fde32d;
+            --brand-pink: #ee4977;
+            --brand-navy: #272b6a;
+            --brand-aqua: #4bc2c4;
+            --text-muted: #5e6282;
+            --white: #ffffff;
+            --soft-bg: #fafafa;
+            --transition-smooth: all 0.25s ease;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: var(--soft-bg);
+            color: var(--brand-navy);
+            margin: 0;
+        }
+        
+        header {
+            background: var(--white);
+            padding: 18px 24px;
+            border-bottom: 2px solid var(--brand-aqua);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-block img {
+            height: 42px;
+        }
+
+        .workspace-container {
+            max-width: 1050px;
+            margin: 32px auto;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .tab-navigation {
+            display: flex;
+            gap: 10px;
+            margin: 24px 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 16px;
+            cursor: pointer;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 10px;
+            font-weight: 700;
+            color: var(--brand-navy);
+            transition: var(--transition-smooth);
+        }
+
+        .tab-btn.active {
+            background-color: var(--brand-aqua);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .info-box {
+            background: rgba(39, 43, 106, 0.03);
+            border: 1px solid rgba(39,43,106,0.1);
+            padding: 24px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
+        .activity-card {
+            background: var(--white);
+            border: 1px solid rgba(39,43,106,0.12);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 18px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .highlight-card {
+            background-color: rgba(75, 194, 196, 0.08);
+            border-left: 5px solid var(--brand-aqua);
+            padding: 16px;
+            margin: 14px 0;
+            border-radius: 8px;
+        }
+
+        .pink-card {
+            border-left-color: var(--brand-pink);
+            background-color: rgba(238, 73, 119, 0.07);
+        }
+
+        .yellow-card {
+            border-left-color: var(--brand-yellow);
+            background-color: rgba(253, 227, 45, 0.14);
+        }
+
+        .action-btn {
+            background: var(--brand-navy);
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+            margin: 6px 6px 6px 0;
+            transition: var(--transition-smooth);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.92;
+        }
+
+        .secondary-btn {
+            background: var(--brand-aqua);
+        }
+
+        .pink-btn {
+            background: var(--brand-pink);
+        }
+
+        input, select {
+            padding: 10px;
+            border: 2px solid rgba(39,43,106,0.35);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin: 4px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .hint-box, .solution-box, .feedback-box {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 10px;
+            background: #fff;
+            border-left: 5px solid var(--brand-yellow);
+        }
+
+        .solution-box {
+            border-left-color: var(--brand-pink);
+        }
+
+        .feedback-box {
+            border-left-color: var(--brand-aqua);
+            font-weight: 700;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .formula-tile {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(39,43,106,0.12);
+            padding: 18px;
+        }
+
+        .formula-tile h4 {
+            margin-top: 0;
+            color: var(--brand-pink);
+        }
+
+        .shape-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin: 22px 0;
+        }
+
+        .shape-rect {
+            width: 180px;
+            height: 110px;
+            border: 5px solid var(--brand-navy);
+            background: rgba(75,194,196,0.22);
+            position: relative;
+        }
+
+        .shape-square {
+            width: 130px;
+            height: 130px;
+            border: 5px solid var(--brand-pink);
+            background: rgba(238,73,119,0.15);
+            position: relative;
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 130px solid rgba(253,227,45,0.85);
+            filter: drop-shadow(0 0 0 var(--brand-navy));
+        }
+
+        .grid-board {
+            display: grid;
+            grid-template-columns: repeat(10, 28px);
+            grid-template-rows: repeat(6, 28px);
+            gap: 2px;
+            justify-content: center;
+            margin: 18px auto;
+            max-width: max-content;
+            padding: 12px;
+            background: #fff;
+            border: 2px dashed var(--brand-aqua);
+            border-radius: 12px;
+        }
+
+        .grid-cell {
+            width: 28px;
+            height: 28px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .grid-cell.active {
+            background: var(--brand-pink);
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 26px);
+            gap: 2px;
+            justify-content: center;
+            margin: 16px auto;
+        }
+
+        .mini-cell {
+            width: 26px;
+            height: 26px;
+            background: #f3f3f3;
+            border: 1px solid #ddd;
+        }
+
+        .mini-cell.fill {
+            background: var(--brand-aqua);
+        }
+
+        .canvas-board {
+            width: 100%;
+            max-width: 560px;
+            height: 260px;
+            background: #fff;
+            border: 2px solid rgba(39,43,106,0.16);
+            border-radius: 12px;
+            margin: 16px auto;
+            position: relative;
+            overflow: hidden;
+            background-image:
+                linear-gradient(to right, rgba(39,43,106,0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(39,43,106,0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .field-rect {
+            position: absolute;
+            left: 84px;
+            top: 56px;
+            width: 252px;
+            height: 140px;
+            background: rgba(75,194,196,0.25);
+            border: 5px solid var(--brand-navy);
+            border-radius: 4px;
+        }
+
+        .label-chip {
+            display: inline-block;
+            background: rgba(39,43,106,0.08);
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .score-bar {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            color: var(--brand-pink);
+            font-weight: 700;
+        }
+
+        .comparison-card {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 1.1rem;
+            margin: 12px 0;
+        }
+
+        .shape-option {
+            padding: 18px;
+            min-width: 150px;
+            border-radius: 12px;
+            background: #fff;
+            border: 2px solid rgba(39,43,106,0.15);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        footer {
+            padding: 36px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .workspace-container {
+                margin: 14px;
+                padding: 16px;
+            }
+            .grid-board {
+                grid-template-columns: repeat(10, 22px);
+                grid-template-rows: repeat(6, 22px);
+            }
+            .grid-cell {
+                width: 22px;
+                height: 22px;
+            }
+            .shape-row {
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+    <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+    <h1>Mathable Smart Lab</h1>
+  </div>
+  <nav><a href="../index.html">← Back to Dashboard</a></nav>
+</header>
+<main class="workspace-container">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+        <span class="card-badge" style="background-color:var(--brand-yellow); color:#000;">TRACK 3 • MEASUREMENT</span>
+        <span style="font-size:0.9rem; font-weight:700; color:var(--text-muted);">Strand: Mensuration • Grade 6</span>
+    </div>
+
+    <h2 style="color:var(--brand-navy); margin-top:0; font-size:2.25rem; font-weight:800;">Class VI: Perimeter and Area Smart Lab</h2>
+    <p style="color:var(--text-muted); margin-top:-6px;">Explore boundaries, surfaces, grids, triangles, composite figures, and real-life measurement problems.</p>
+
+    <nav class="tab-navigation" role="tablist" aria-label="Learning Pillars">
+        <button id="btn-fact" class="tab-btn active" role="tab" onclick="switchLabTab('fact')">📖 Fact Sheet</button>
+        <button id="btn-formula" class="tab-btn" role="tab" onclick="switchLabTab('formula')">🧪 Formula Hub</button>
+        <button id="btn-lab" class="tab-btn" role="tab" onclick="switchLabTab('lab')">💻 Online Lab</button>
+        <button id="btn-activities" class="tab-btn" role="tab" onclick="switchLabTab('activities')">🎮 Activity Zone</button>
+        <button id="btn-generator" class="tab-btn" role="tab" onclick="switchLabTab('generator')">🖨️ Worksheet Generator</button>
+        <button id="btn-real" class="tab-btn" role="tab" onclick="switchLabTab('real')">🌍 Real-World Use</button>
+        <button id="btn-teacher" class="tab-btn" role="tab" onclick="switchLabTab('teacher')">📊 Teacher Tools</button>
+    </nav>
+
+    <section id="panel-fact" class="tab-content active" role="tabpanel">
+        <h3>Measurement Story: Boundary vs Surface</h3>
+        <div class="info-box">
+            <p><strong>Perimeter</strong> is the total distance around a closed figure. Think of walking around the boundary of a garden.</p>
+            <p><strong>Area</strong> is the amount of surface covered by a closed figure. Think of how many square tiles are needed to cover the garden floor.</p>
+
+            <div class="shape-row">
+                <div>
+                    <div class="shape-rect"></div>
+                    <p style="text-align:center;"><strong>Rectangle</strong><br>Boundary + Surface</p>
+                </div>
+                <div>
+                    <div class="shape-square"></div>
+                    <p style="text-align:center;"><strong>Square</strong><br>All sides equal</p>
+                </div>
+                <div>
+                    <div class="shape-triangle"></div>
+                    <p style="text-align:center;"><strong>Triangle</strong><br>3-sided polygon</p>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <strong>Key Difference:</strong> Perimeter uses length units like cm, m, km. Area uses square units like cm², m², km².
+            </div>
+
+            <div class="highlight-card pink-card">
+                <strong>Important Idea:</strong> Two shapes can have the same area but different perimeters. Two shapes can also have the same perimeter but different areas.
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-formula" class="tab-content" role="tabpanel">
+        <h3>Formula Hub</h3>
+        <div class="info-box">
+            <div class="formula-grid">
+                <div class="formula-tile">
+                    <h4>Perimeter of Rectangle</h4>
+                    <p><strong>P = 2 × (length + breadth)</strong></p>
+                    <p>Use when opposite sides are equal.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Perimeter of Square</h4>
+                    <p><strong>P = 4 × side</strong></p>
+                    <p>All four sides are equal.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Perimeter of Triangle</h4>
+                    <p><strong>P = a + b + c</strong></p>
+                    <p>Add all three side lengths.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Regular Polygon</h4>
+                    <p><strong>P = number of sides × side length</strong></p>
+                    <p>Works when all sides are equal.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Area of Rectangle</h4>
+                    <p><strong>A = length × breadth</strong></p>
+                    <p>Count rows × columns of square units.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Area of Square</h4>
+                    <p><strong>A = side × side</strong></p>
+                    <p>Also written as side².</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Area of Triangle</h4>
+                    <p><strong>A = ½ × base × height</strong></p>
+                    <p>A triangle is half of a rectangle with the same base and height.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Composite Figures</h4>
+                    <p><strong>Total Area = sum of smaller areas</strong></p>
+                    <p>Split the shape into rectangles, squares, and triangles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-lab" class="tab-content" role="tabpanel">
+        <h3>Interactive Problem Lab</h3>
+        <div class="info-box">
+            <div class="score-bar">
+                <span id="lab-score-display">Score: 0</span>
+                <span id="lab-streak-display">Current Streak: 🔥 0</span>
+                <span id="lab-badge-display">Badge: Explorer</span>
+            </div>
+
+            <div class="activity-card">
+                <p id="lab-question-field" style="font-size:1.15rem; font-weight:600; line-height:1.6;"></p>
+                <input type="text" id="student-answer-input" placeholder="Type answer, e.g. 24 cm or 35">
+                <br>
+                <button class="action-btn" onclick="submitSandboxAnswer()">Check Answer</button>
+                <button class="action-btn secondary-btn" onclick="renderSandboxQuestion(true)">Next Question</button>
+                <button class="action-btn secondary-btn" onclick="toggleVisibilityBox('hint-box-container')">Show Hint</button>
+                <button class="action-btn pink-btn" onclick="toggleVisibilityBox('solution-box-container')">Step-by-Step</button>
+
+                <div id="feedback-box-container" class="feedback-box hidden"></div>
+                <div id="hint-box-container" class="hint-box hidden"></div>
+                <div id="solution-box-container" class="solution-box hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-activities" class="tab-content" role="tabpanel">
+        <h3>Activity Zone</h3>
+
+        <div class="activity-card">
+            <h4>🎛️ Rectangle Builder: Perimeter & Area Simulator</h4>
+            <p>Change the length and breadth. Observe how perimeter and area change differently.</p>
+            <label>Length:
+                <input type="range" id="rectLength" min="1" max="12" value="7" oninput="updateRectangleBuilder()">
+                <span id="rectLengthText">7</span> units
+            </label>
+            <br>
+            <label>Breadth:
+                <input type="range" id="rectBreadth" min="1" max="8" value="4" oninput="updateRectangleBuilder()">
+                <span id="rectBreadthText">4</span> units
+            </label>
+
+            <div class="canvas-board">
+                <div class="field-rect" id="builderRect"></div>
+            </div>
+            <p>
+                <span class="label-chip" id="builderPerimeter">Perimeter: 22 units</span>
+                <span class="label-chip" id="builderArea">Area: 28 square units</span>
+            </p>
+        </div>
+
+        <div class="activity-card">
+            <h4>🧱 Grid Paper Area Estimator</h4>
+            <p>Click squares to create a shape. The lab estimates area and boundary perimeter using grid units.</p>
+            <div class="grid-board" id="gridBoard"></div>
+            <button class="action-btn" onclick="clearGrid()">Clear Grid</button>
+            <button class="action-btn secondary-btn" onclick="makeGridChallenge()">Make Challenge Shape</button>
+            <p>
+                <span class="label-chip" id="gridAreaText">Area: 0 square units</span>
+                <span class="label-chip" id="gridPerimeterText">Perimeter: 0 units</span>
+            </p>
+        </div>
+
+        <div class="activity-card">
+            <h4>⚔️ Same Area, Different Perimeter Investigation</h4>
+            <p>Both shapes below have area 12 square units. Which has the larger perimeter?</p>
+            <div class="comparison-card">
+                <div class="shape-option">
+                    Shape A<br>3 × 4 rectangle<br>
+                    <span class="label-chip">Area 12</span>
+                </div>
+                <div class="shape-option">
+                    Shape B<br>1 × 12 rectangle<br>
+                    <span class="label-chip">Area 12</span>
+                </div>
+            </div>
+            <button class="action-btn" onclick="checkCompare('A')">Shape A</button>
+            <button class="action-btn" onclick="checkCompare('B')">Shape B</button>
+            <button class="action-btn secondary-btn" onclick="checkCompare('same')">Same Perimeter</button>
+            <div id="compareFeedback" class="feedback-box hidden"></div>
+        </div>
+
+        <div class="activity-card">
+            <h4>🔺 Triangle as Half of Rectangle</h4>
+            <p>A rectangle of base 8 units and height 5 units has area 40 square units. A triangle with the same base and height is half of it.</p>
+            <div class="mini-grid" id="triangleGrid"></div>
+            <p><strong>Triangle Area = ½ × 8 × 5 = 20 square units</strong></p>
+        </div>
+
+        <div class="activity-card">
+            <h4>🏠 House Plan Area Calculator</h4>
+            <p>Find the total area of a simple house plan by adding room areas.</p>
+            <label>Room 1: <input type="number" id="room1" value="20"> m²</label>
+            <label>Room 2: <input type="number" id="room2" value="12"> m²</label>
+            <label>Room 3: <input type="number" id="room3" value="15"> m²</label>
+            <br>
+            <button class="action-btn" onclick="calculateHouseArea()">Calculate Total Area</button>
+            <div id="houseFeedback" class="feedback-box hidden"></div>
+        </div>
+    </section>
+
+    <section id="panel-generator" class="tab-content" role="tabpanel">
+        <h3>Worksheet Generator</h3>
+        <div class="info-box">
+            <p>Create printable practice worksheets for perimeter, area, triangles, composite figures, and real-life applications.</p>
+            <label for="pdf-quantity-input" style="font-weight:700;">Number of problems:</label>
+            <input type="number" id="pdf-quantity-input" min="5" max="50" value="12">
+            <br><br>
+            <button class="action-btn" onclick="generateWorksheetPdf(false)">Download Worksheet PDF</button>
+            <button class="action-btn secondary-btn" onclick="generateWorksheetPdf(true)">Download Answer Key PDF</button>
+        </div>
+        <div id="pdf-printing-canvas" style="display:none;"></div>
+    </section>
+
+    <section id="panel-real" class="tab-content" role="tabpanel">
+        <h3>Real-World Measurement Applications</h3>
+        <div class="info-box">
+            <div class="highlight-card">
+                <strong>Fencing:</strong> To fence a rectangular garden, calculate the perimeter. The answer tells how much wire or fencing is needed.
+            </div>
+            <div class="highlight-card pink-card">
+                <strong>Flooring:</strong> To tile a classroom, calculate the area. The answer tells how many square tiles are needed.
+            </div>
+            <div class="highlight-card yellow-card">
+                <strong>Running Tracks:</strong> A runner covers distance around the boundary, so perimeter helps calculate one lap.
+            </div>
+            <div class="highlight-card">
+                <strong>Gardens and Land Use:</strong> Area helps decide how many plants can fit, how much grass is needed, or how much land is available.
+            </div>
+            <div class="highlight-card pink-card">
+                <strong>House Plans:</strong> Architects decompose rooms into rectangles and triangles to estimate total floor area.
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-teacher" class="tab-content" role="tabpanel">
+        <h3>Teacher Tools</h3>
+        <div class="info-box">
+            <h4>Learning Outcomes</h4>
+            <ul>
+                <li>Distinguish between perimeter and area using units.</li>
+                <li>Calculate perimeter of rectangles, squares, triangles, and regular polygons.</li>
+                <li>Calculate area of rectangles, squares, triangles, and composite figures.</li>
+                <li>Use grid paper to estimate and compare areas.</li>
+                <li>Investigate shapes with equal area but different perimeters.</li>
+            </ul>
+
+            <h4>Suggested Learning Sequence</h4>
+            <ol>
+                <li>Understanding perimeter through walking boundaries.</li>
+                <li>Rectangle, square, triangle, and regular polygon perimeters.</li>
+                <li>Real-life perimeter problems: fencing, tracks, rope, and wire.</li>
+                <li>Understanding area through square units and grid paper.</li>
+                <li>Area of rectangle and square.</li>
+                <li>Composite figures and decomposing shapes.</li>
+                <li>Triangle area as half of a rectangle.</li>
+                <li>Area–perimeter investigations and problem solving.</li>
+            </ol>
+
+            <h4>Exit Ticket Prompts</h4>
+            <ul>
+                <li>Why is area measured in square units?</li>
+                <li>Can two shapes have equal area but different perimeter? Give an example.</li>
+                <li>Which formula would you use for fencing a square garden?</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <div class="footer-container">
+        <div class="footer-links">
+            <span>📧 contact@abhyast.in</span>
+            <span>💬 WhatsApp Support</span>
+        </div>
+        <div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div>
+    </div>
+</footer>
+
+<script>
+    const class6MeasurementPool = [
+        {
+            q: "A rectangle has length 8 cm and breadth 5 cm. Find its perimeter.",
+            a: "26",
+            accepted: ["26", "26cm", "26 cm"],
+            hint: "Use P = 2 × (length + breadth).",
+            steps: "P = 2 × (8 + 5) = 2 × 13 = 26 cm."
+        },
+        {
+            q: "A square has side 9 m. Find its perimeter.",
+            a: "36",
+            accepted: ["36", "36m", "36 m"],
+            hint: "A square has 4 equal sides.",
+            steps: "Perimeter = 4 × side = 4 × 9 = 36 m."
+        },
+        {
+            q: "A triangle has sides 6 cm, 7 cm, and 8 cm. Find its perimeter.",
+            a: "21",
+            accepted: ["21", "21cm", "21 cm"],
+            hint: "Add all three side lengths.",
+            steps: "Perimeter = 6 + 7 + 8 = 21 cm."
+        },
+        {
+            q: "A rectangle has length 12 m and breadth 4 m. Find its area.",
+            a: "48",
+            accepted: ["48", "48m2", "48 m2", "48m²", "48 m²"],
+            hint: "Use A = length × breadth.",
+            steps: "Area = 12 × 4 = 48 square metres."
+        },
+        {
+            q: "A square has side 6 cm. Find its area.",
+            a: "36",
+            accepted: ["36", "36cm2", "36 cm2", "36cm²", "36 cm²"],
+            hint: "Use A = side × side.",
+            steps: "Area = 6 × 6 = 36 square centimetres."
+        },
+        {
+            q: "An equilateral triangle has side 11 cm. Find its perimeter.",
+            a: "33",
+            accepted: ["33", "33cm", "33 cm"],
+            hint: "An equilateral triangle has 3 equal sides.",
+            steps: "Perimeter = 3 × side = 3 × 11 = 33 cm."
+        },
+        {
+            q: "A regular pentagon has side length 7 cm. Find its perimeter.",
+            a: "35",
+            accepted: ["35", "35cm", "35 cm"],
+            hint: "A pentagon has 5 sides. Regular means all sides are equal.",
+            steps: "Perimeter = 5 × 7 = 35 cm."
+        },
+        {
+            q: "A triangle has base 10 cm and height 6 cm. Find its area.",
+            a: "30",
+            accepted: ["30", "30cm2", "30 cm2", "30cm²", "30 cm²"],
+            hint: "Use A = ½ × base × height.",
+            steps: "Area = ½ × 10 × 6 = 5 × 6 = 30 square centimetres."
+        },
+        {
+            q: "A shape is made from two rectangles with areas 24 cm² and 18 cm². Find the total area.",
+            a: "42",
+            accepted: ["42", "42cm2", "42 cm2", "42cm²", "42 cm²"],
+            hint: "For composite figures, add the areas of smaller parts.",
+            steps: "Total area = 24 + 18 = 42 cm²."
+        },
+        {
+            q: "Which unit is suitable for area: cm or cm²?",
+            a: "cm2",
+            accepted: ["cm2", "cm²", "square cm", "square centimetre", "square centimetres"],
+            hint: "Area counts square units.",
+            steps: "Area is measured in square units, so cm² or square centimetres is suitable."
+        }
+    ];
+
+    let currentIdx = 0;
+    let activeScore = 0;
+    let activeStreak = 0;
+    const storageKey = "mathable_state_class6_perimeter_area";
+
+    window.onload = function() {
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+            try {
+                const parsed = JSON.parse(savedData);
+                activeScore = parsed.score || 0;
+                activeStreak = parsed.streak || 0;
+                currentIdx = parsed.index || 0;
+            } catch(e) {}
+        }
+        renderSandboxQuestion();
+        updateRectangleBuilder();
+        buildGridBoard();
+        buildTriangleGrid();
+    };
+
+    function switchLabTab(pillarId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`btn-${pillarId}`).classList.add('active');
+        document.getElementById(`panel-${pillarId}`).classList.add('active');
+    }
+
+    function toggleVisibilityBox(elementId) {
+        document.getElementById(elementId).classList.toggle('hidden');
+    }
+
+    function normalizeAnswer(value) {
+        return String(value).trim().toLowerCase().replace(/\s+/g, "").replace("²", "2");
+    }
+
+    function updateScoreDisplay() {
+        document.getElementById('lab-score-display').innerText = `Score: ${activeScore}`;
+        document.getElementById('lab-streak-display').innerText = `Current Streak: 🔥 ${activeStreak}`;
+        let badge = "Explorer";
+        if (activeScore >= 150) badge = "Measurement Master";
+        else if (activeScore >= 90) badge = "Area Architect";
+        else if (activeScore >= 40) badge = "Perimeter Pro";
+        document.getElementById('lab-badge-display').innerText = `Badge: ${badge}`;
+    }
+
+    function renderSandboxQuestion(forceNext = false) {
+        if (forceNext) {
+            currentIdx++;
+        }
+        const activeQuestionObj = class6MeasurementPool[currentIdx % class6MeasurementPool.length];
+        document.getElementById('lab-question-field').innerHTML = `<strong>Question ${currentIdx + 1}:</strong> ${activeQuestionObj.q}`;
+        document.getElementById('hint-box-container').innerHTML = `<strong>Hint:</strong> ${activeQuestionObj.hint}`;
+        document.getElementById('solution-box-container').innerHTML = `<strong>Step-by-Step Explanation:</strong><br>${activeQuestionObj.steps}`;
+        document.getElementById('feedback-box-container').classList.add('hidden');
+        document.getElementById('hint-box-container').classList.add('hidden');
+        document.getElementById('solution-box-container').classList.add('hidden');
+        document.getElementById('student-answer-input').value = "";
+        updateScoreDisplay();
+    }
+
+    function submitSandboxAnswer() {
+        const activeQuestionObj = class6MeasurementPool[currentIdx % class6MeasurementPool.length];
+        const answerInput = normalizeAnswer(document.getElementById('student-answer-input').value);
+        const accepted = activeQuestionObj.accepted.map(normalizeAnswer);
+        const feedbackBox = document.getElementById('feedback-box-container');
+
+        if (accepted.includes(answerInput)) {
+            feedbackBox.innerHTML = "🎉 Correct! " + activeQuestionObj.steps;
+            feedbackBox.style.borderLeftColor = "var(--brand-aqua)";
+            activeScore += 10;
+            activeStreak += 1;
+            currentIdx++;
+        } else {
+            feedbackBox.innerHTML = `Keep trying. Correct answer: <strong>${activeQuestionObj.a}</strong>. Open step-by-step if you want help.`;
+            feedbackBox.style.borderLeftColor = "var(--brand-pink)";
+            activeStreak = 0;
+        }
+
+        feedbackBox.classList.remove('hidden');
+        localStorage.setItem(storageKey, JSON.stringify({
+            score: activeScore,
+            streak: activeStreak,
+            index: currentIdx
+        }));
+
+        updateScoreDisplay();
+
+        if (accepted.includes(answerInput)) {
+            setTimeout(() => renderSandboxQuestion(), 900);
+        }
+    }
+
+    function updateRectangleBuilder() {
+        const length = parseInt(document.getElementById('rectLength').value);
+        const breadth = parseInt(document.getElementById('rectBreadth').value);
+        const rect = document.getElementById('builderRect');
+
+        document.getElementById('rectLengthText').innerText = length;
+        document.getElementById('rectBreadthText').innerText = breadth;
+
+        rect.style.width = `${length * 28}px`;
+        rect.style.height = `${breadth * 28}px`;
+
+        const perimeter = 2 * (length + breadth);
+        const area = length * breadth;
+
+        document.getElementById('builderPerimeter').innerText = `Perimeter: ${perimeter} units`;
+        document.getElementById('builderArea').innerText = `Area: ${area} square units`;
+    }
+
+    function buildGridBoard() {
+        const board = document.getElementById('gridBoard');
+        board.innerHTML = "";
+        for (let i = 0; i < 60; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            cell.dataset.index = i;
+            cell.onclick = function() {
+                cell.classList.toggle('active');
+                updateGridMetrics();
+            };
+            board.appendChild(cell);
+        }
+        updateGridMetrics();
+    }
+
+    function updateGridMetrics() {
+        const activeSet = new Set();
+        document.querySelectorAll('.grid-cell.active').forEach(cell => activeSet.add(parseInt(cell.dataset.index)));
+
+        let area = activeSet.size;
+        let perimeter = 0;
+
+        activeSet.forEach(index => {
+            const row = Math.floor(index / 10);
+            const col = index % 10;
+            const neighbors = [
+                row > 0 ? index - 10 : -1,
+                row < 5 ? index + 10 : -1,
+                col > 0 ? index - 1 : -1,
+                col < 9 ? index + 1 : -1
+            ];
+            neighbors.forEach(n => {
+                if (!activeSet.has(n)) perimeter++;
+            });
+        });
+
+        document.getElementById('gridAreaText').innerText = `Area: ${area} square units`;
+        document.getElementById('gridPerimeterText').innerText = `Perimeter: ${perimeter} units`;
+    }
+
+    function clearGrid() {
+        document.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('active'));
+        updateGridMetrics();
+    }
+
+    function makeGridChallenge() {
+        clearGrid();
+        const shapeIndexes = [12,13,14,15,22,23,24,25,32,33,34,42,43,44];
+        shapeIndexes.forEach(i => {
+            const cell = document.querySelector(`.grid-cell[data-index="${i}"]`);
+            if (cell) cell.classList.add('active');
+        });
+        updateGridMetrics();
+    }
+
+    function checkCompare(choice) {
+        const box = document.getElementById('compareFeedback');
+        if (choice === 'B') {
+            box.innerHTML = "✅ Correct. Shape A perimeter = 2 × (3 + 4) = 14. Shape B perimeter = 2 × (1 + 12) = 26. Same area, different perimeter!";
+            activeScore += 10;
+        } else {
+            box.innerHTML = "❌ Try again. Both areas are 12, but the long thin rectangle has a larger boundary.";
+        }
+        box.classList.remove('hidden');
+        updateScoreDisplay();
+    }
+
+    function buildTriangleGrid() {
+        const grid = document.getElementById('triangleGrid');
+        grid.innerHTML = "";
+        for (let r = 0; r < 5; r++) {
+            for (let c = 0; c < 8; c++) {
+                const cell = document.createElement('div');
+                cell.className = 'mini-cell';
+                if (c <= r + 2) cell.classList.add('fill');
+                grid.appendChild(cell);
+            }
+        }
+    }
+
+    function calculateHouseArea() {
+        const r1 = Number(document.getElementById('room1').value) || 0;
+        const r2 = Number(document.getElementById('room2').value) || 0;
+        const r3 = Number(document.getElementById('room3').value) || 0;
+        const total = r1 + r2 + r3;
+        const box = document.getElementById('houseFeedback');
+        box.innerHTML = `🏠 Total house plan area = ${r1} + ${r2} + ${r3} = <strong>${total} m²</strong>.`;
+        box.classList.remove('hidden');
+    }
+
+    function generateRandomWorksheetQuestion() {
+        const type = Math.floor(Math.random() * 8);
+
+        if (type === 0) {
+            const l = Math.floor(Math.random() * 12) + 3;
+            const b = Math.floor(Math.random() * 8) + 2;
+            return { q: `Find the perimeter of a rectangle with length ${l} cm and breadth ${b} cm.`, a: `${2 * (l + b)} cm`, s: `2 × (${l} + ${b}) = ${2 * (l + b)} cm` };
+        }
+
+        if (type === 1) {
+            const s = Math.floor(Math.random() * 12) + 2;
+            return { q: `Find the area of a square with side ${s} m.`, a: `${s * s} m²`, s: `${s} × ${s} = ${s * s} m²` };
+        }
+
+        if (type === 2) {
+            const a = Math.floor(Math.random() * 8) + 3;
+            const b = Math.floor(Math.random() * 8) + 4;
+            const c = Math.floor(Math.random() * 8) + 5;
+            return { q: `Find the perimeter of a triangle with sides ${a} cm, ${b} cm, and ${c} cm.`, a: `${a + b + c} cm`, s: `${a} + ${b} + ${c} = ${a + b + c} cm` };
+        }
+
+        if (type === 3) {
+            const l = Math.floor(Math.random() * 12) + 3;
+            const b = Math.floor(Math.random() * 8) + 2;
+            return { q: `Find the area of a rectangle with length ${l} m and breadth ${b} m.`, a: `${l * b} m²`, s: `${l} × ${b} = ${l * b} m²` };
+        }
+
+        if (type === 4) {
+            const side = Math.floor(Math.random() * 10) + 3;
+            const sides = [5, 6, 8][Math.floor(Math.random() * 3)];
+            return { q: `A regular polygon has ${sides} sides, each ${side} cm long. Find its perimeter.`, a: `${sides * side} cm`, s: `${sides} × ${side} = ${sides * side} cm` };
+        }
+
+        if (type === 5) {
+            const base = Math.floor(Math.random() * 10) + 4;
+            const height = Math.floor(Math.random() * 8) + 2;
+            return { q: `Find the area of a triangle with base ${base} cm and height ${height} cm.`, a: `${0.5 * base * height} cm²`, s: `½ × ${base} × ${height} = ${0.5 * base * height} cm²` };
+        }
+
+        if (type === 6) {
+            const a1 = Math.floor(Math.random() * 30) + 10;
+            const a2 = Math.floor(Math.random() * 25) + 8;
+            return { q: `A composite figure is made of two rectangles with areas ${a1} cm² and ${a2} cm². Find the total area.`, a: `${a1 + a2} cm²`, s: `${a1} + ${a2} = ${a1 + a2} cm²` };
+        }
+
+        const side = Math.floor(Math.random() * 15) + 5;
+        return { q: `A square garden has side ${side} m. How much fencing is needed around it?`, a: `${4 * side} m`, s: `Perimeter = 4 × ${side} = ${4 * side} m` };
+    }
+
+    function generateWorksheetPdf(shouldIncludeKeys) {
+        const densityQty = Math.min(50, Math.max(5, parseInt(document.getElementById('pdf-quantity-input').value) || 12));
+        const contextContainer = document.getElementById('pdf-printing-canvas');
+        contextContainer.innerHTML = "";
+
+        let docMarkupString = `
+            <div style="font-family:'Poppins', Arial, sans-serif; padding:30px; color:#272b6a;">
+                <h1 style="border-bottom:3px solid #4bc2c4; padding-bottom:12px; margin-bottom:5px;">Class VI: Perimeter and Area Practice Worksheet</h1>
+                <p style="color:#5e6282; margin:0 0 20px 0;">Mathable Smart Lab • Generated on ${new Date().toLocaleDateString()}</p>
+                <p><strong>Name:</strong> ____________________________ &nbsp;&nbsp; <strong>Date:</strong> _______________</p>
+                <hr style="border:0; border-top:1px solid rgba(39,43,106,0.1); margin-bottom:25px;">
+                <ol style="padding-left:25px;">
+        `;
+
+        for (let i = 0; i < densityQty; i++) {
+            const item = generateRandomWorksheetQuestion();
+            docMarkupString += `
+                <li style="margin-bottom:30px; font-size:1.05rem; page-break-inside:avoid;">
+                    <div style="margin-bottom:10px;"><strong>Question:</strong> ${item.q}</div>
+                    <div style="height:45px; border-bottom:1px dashed #bbb; width:95%; margin-bottom:12px; display:${shouldIncludeKeys ? 'none' : 'block'};"></div>
+            `;
+
+            if (shouldIncludeKeys) {
+                docMarkupString += `
+                    <div style="background-color:rgba(75,194,196,0.07); border-left:4px solid #ee4977; padding:12px; border-radius:6px; font-size:0.95rem;">
+                        <strong>Answer:</strong> ${item.a}<br>
+                        <strong>Solution:</strong> ${item.s}
+                    </div>
+                `;
+            }
+
+            docMarkupString += `</li>`;
+        }
+
+        docMarkupString += `</ol></div>`;
+        contextContainer.innerHTML = docMarkupString;
+
+        const printSettingConfig = {
+            margin: 15,
+            filename: `class6-perimeter-area${shouldIncludeKeys ? '-answer-key' : '-worksheet'}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(contextContainer).set(printSettingConfig).save();
+    }
+</script>
+
+</body>
+</html>

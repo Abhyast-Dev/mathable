@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VIII: A Story of Numbers - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--orange:#e67e22}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-container img{height:42px}.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.orange-btn{background:var(--orange)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.place-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0}.place-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:16px;min-width:120px;text-align:center;font-weight:800}.place-card small{display:block;color:var(--text-muted);font-weight:700;margin-top:6px}
+.block-zone{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}.base-block{background:var(--brand-aqua);color:white;padding:12px 16px;border-radius:12px;font-weight:800;box-shadow:3px 3px 0 rgba(39,43,106,.2)}.base-block.one{background:var(--brand-pink)}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:150px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.num-card{min-width:120px}.place-card{min-width:90px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VIII • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Number Systems and Bases</span></div>
+<h2 style="font-size:2.2rem;margin-top:0">Class VIII: A Story of Numbers</h2>
+<p style="color:var(--text-muted)">Explore how numbers can be written in different bases, why base-10 is common, and how place value changes in base-8, base-2, and base-5.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Formula Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Why Different Bases?</h3>
+<div class="info-box">
+<p>Humans commonly use <strong>base-10</strong>, probably because we have 10 fingers. But numbers can be represented in any base.</p>
+<div class="highlight-card"><strong>Base-10:</strong> Places are 1, 10, 100, 1000...</div>
+<div class="highlight-card pink-card"><strong>Base-8:</strong> Places are 1, 8, 64, 512...</div>
+<div class="highlight-card yellow-card"><strong>Example:</strong> 25 in base-10 becomes 31 in base-8 because 25 = 3 × 8 + 1.</div>
+<div class="place-row"><div class="place-card">8²<small>64s place</small></div><div class="place-card">8¹<small>8s place</small></div><div class="place-card">8⁰<small>1s place</small></div></div>
+<div class="block-zone" id="introBlocks"></div>
+<p style="text-align:center"><span class="label-chip">25₁₀</span><span class="label-chip">= 3 groups of 8 + 1</span><span class="label-chip">= 31₈</span></p>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Formula Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Base Meaning</h4><p>The base tells us how many symbols are used and when a new place starts.</p><p>Base-8 uses digits 0 to 7.</p></div>
+<div class="formula-tile"><h4>Decimal to Base-b</h4><p>Divide repeatedly by b and read remainders upward.</p><p>25 ÷ 8 gives 31₈.</p></div>
+<div class="formula-tile"><h4>Base-b to Decimal</h4><p>Multiply each digit by its place value.</p><p>31₈ = 3×8 + 1 = 25.</p></div>
+<div class="formula-tile"><h4>Base-2</h4><p>Computer-friendly system using only 0 and 1.</p><p>13₁₀ = 1101₂.</p></div>
+<div class="formula-tile"><h4>Allowed Digits</h4><p>In base-b, digits must be less than b.</p><p>8 is not allowed in base-8.</p></div>
+<div class="formula-tile"><h4>Place Value</h4><p>In base-b, places are b⁰, b¹, b², b³...</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Base Conversion Explorer</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Base Beginner</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Logical Explanation:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🔁 Decimal to Base Converter</h4>
+<label>Base-10 number <input type="number" id="decInput" value="25" min="0"></label>
+<label>Target base <input type="number" id="baseInput" value="8" min="2" max="16"></label>
+<button class="action-btn" onclick="convertDecimal()">Convert</button>
+<div id="decimalFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔍 Base to Decimal Converter</h4>
+<label>Number <input type="text" id="baseNumberInput" value="31"></label>
+<label>Base <input type="number" id="fromBaseInput" value="8" min="2" max="16"></label>
+<button class="action-btn" onclick="convertToDecimal()">Convert to Base-10</button>
+<div id="toDecimalFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧱 Place-Value Block Builder</h4>
+<p>Build a base representation using groups and leftovers.</p>
+<label>Number <input type="number" id="blockNumber" value="25"></label>
+<label>Base <input type="number" id="blockBase" value="8" min="2" max="12"></label>
+<button class="action-btn" onclick="buildBlocks()">Build Blocks</button>
+<div id="blockOutput" class="block-zone"></div>
+<div id="blockFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>✅ Valid Digit Checker</h4>
+<p>Check whether a numeral is allowed in a given base.</p>
+<label>Numeral <input type="text" id="validNumber" value="78"></label>
+<label>Base <input type="number" id="validBase" value="8" min="2" max="16"></label>
+<button class="action-btn" onclick="checkValid()">Check</button>
+<div id="validFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>⚔️ Base Comparison</h4>
+<div class="compare-zone"><div class="num-card" id="compareA">31₈</div><div class="num-card" id="compareB">25₁₀</div></div>
+<button class="action-btn" onclick="checkCompare('A')">Left greater</button>
+<button class="action-btn" onclick="checkCompare('B')">Right greater</button>
+<button class="action-btn secondary-btn" onclick="checkCompare('equal')">Equal</button>
+<button class="action-btn pink-btn" onclick="newCompare()">New</button>
+<div id="compareFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>📋 Conversion Table</h4>
+<button class="action-btn" onclick="generateTable()">Generate Table</button>
+<div id="conversionTable" class="table-wrap"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on converting between base-10, base-8, base-5, and base-2.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Computers:</strong> Computers use base-2 because circuits work with off/on states.</div>
+<div class="highlight-card pink-card"><strong>Time:</strong> We use base-60 ideas when measuring minutes and seconds.</div>
+<div class="highlight-card yellow-card"><strong>History:</strong> Different civilizations used different ways to group and record numbers.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Explain why base-10 is a convention, not the only possible system.</li>
+<li>Convert base-10 numbers to base-8 using grouping or repeated division.</li>
+<li>Convert base-b numbers to base-10 using place values.</li>
+<li>Identify valid and invalid digits in a given base.</li>
+<li>Connect number bases to computers, clocks, and historical counting systems.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Convert 25₁₀ to base-8.</li>
+<li>Convert 31₈ to base-10.</li>
+<li>Why is 8 not a valid digit in base-8?</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"If humans had 8 fingers, we would use a base-8 system. How is the base-10 number '25' written in base-8?",a:"31",accepted:["31","31₈","31 base 8"],hint:"Find how many 8s fit into 25, then find the leftover.",steps:"Step 1: In base-8, places are 8^0=1, 8^1=8, 8^2=64. Step 2: 25 has 3 groups of 8, because 3×8=24. Step 3: 1 is left over. Step 4: So 25 = 3×8 + 1, written as 31 in base-8."},
+{q:"Convert 13 in base-10 to base-2.",a:"1101",accepted:["1101","1101₂","1101 base 2"],hint:"Use powers 8, 4, 2, 1.",steps:"13 = 8 + 4 + 1. So the bits for 8,4,2,1 are 1,1,0,1. Therefore 13₁₀ = 1101₂."},
+{q:"Convert 31 in base-8 to base-10.",a:"25",accepted:["25"],hint:"Use place values 8 and 1.",steps:"31₈ = 3×8 + 1×1 = 24 + 1 = 25."},
+{q:"Is 78 a valid number in base-8? Type yes or no.",a:"no",accepted:["no","n"],hint:"Base-8 only allows digits 0 through 7.",steps:"In base-8, allowed digits are 0,1,2,3,4,5,6,7. The digit 8 is not allowed, so 78 is not valid in base-8."},
+{q:"Convert 42 in base-10 to base-5.",a:"132",accepted:["132","132₅","132 base 5"],hint:"Use powers 25, 5, 1.",steps:"42 has 1 group of 25, leaving 17. 17 has 3 groups of 5, leaving 2. So 42 = 1×25 + 3×5 + 2 = 132₅."},
+{q:"Convert 1011 in base-2 to base-10.",a:"11",accepted:["11"],hint:"Use place values 8,4,2,1.",steps:"1011₂ = 1×8 + 0×4 + 1×2 + 1×1 = 11."}
+];
+let qIdx=0,score=0,streak=0,comparePair=[25,25];const storageKey='mathable_story_numbers_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();buildIntroBlocks();convertDecimal();convertToDecimal();buildBlocks();newCompare();generateTable();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\\s/g,'');}
+function toBase(n,b){if(n===0)return '0';let chars='0123456789ABCDEF',res='';while(n>0){res=chars[n%b]+res;n=Math.floor(n/b);}return res;}
+function fromBase(str,b){let chars='0123456789ABCDEF',n=0;str=String(str).toUpperCase().trim();for(let ch of str){let v=chars.indexOf(ch);if(v<0||v>=b)return NaN;n=n*b+v;}return n;}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Base Beginner';if(score>=150)badge='Number System Master';else if(score>=80)badge='Conversion Champion';else if(score>=30)badge='Place Value Explorer';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see the logic.';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function buildIntroBlocks(){let z=document.getElementById('introBlocks');z.innerHTML='';for(let i=0;i<3;i++){let b=document.createElement('div');b.className='base-block';b.innerText='8';z.appendChild(b);}let one=document.createElement('div');one.className='base-block one';one.innerText='1';z.appendChild(one);}
+function convertDecimal(){let n=Number(document.getElementById('decInput').value)||25,b=Number(document.getElementById('baseInput').value)||8,ans=toBase(n,b);document.getElementById('decimalFeedback').innerHTML=`${n} in base-${b} = <strong>${ans}</strong>. Repeated division by ${b} gives the digits.`;}
+function convertToDecimal(){let s=document.getElementById('baseNumberInput').value,b=Number(document.getElementById('fromBaseInput').value)||8,n=fromBase(s,b);document.getElementById('toDecimalFeedback').innerHTML=isNaN(n)?`<strong>${s}</strong> is not valid in base-${b}.`:`${s} in base-${b} = <strong>${n}</strong> in base-10.`;}
+function buildBlocks(){let n=Number(document.getElementById('blockNumber').value)||25,b=Number(document.getElementById('blockBase').value)||8,out=document.getElementById('blockOutput');out.innerHTML='';let groups=Math.floor(n/b),ones=n%b;for(let i=0;i<Math.min(groups,20);i++){let x=document.createElement('div');x.className='base-block';x.innerText=b;out.appendChild(x);}for(let i=0;i<Math.min(ones,20);i++){let x=document.createElement('div');x.className='base-block one';x.innerText='1';out.appendChild(x);}document.getElementById('blockFeedback').innerHTML=`${n} = ${groups} groups of ${b} and ${ones} ones, so it starts as <strong>${groups}${ones}</strong> in base-${b} when ${groups}<${b}. Full conversion: <strong>${toBase(n,b)}</strong>.`;}
+function checkValid(){let s=document.getElementById('validNumber').value,b=Number(document.getElementById('validBase').value)||8,n=fromBase(s,b),fb=document.getElementById('validFeedback');fb.innerHTML=isNaN(n)?`❌ ${s} is not valid in base-${b}. Every digit must be less than ${b}.`:`✅ ${s} is valid in base-${b} and equals ${n} in base-10.`;fb.classList.remove('hidden');}
+function newCompare(){let items=[['31',8,25],['1101',2,13],['132',5,42],['20',8,16]];let it=items[Math.floor(Math.random()*items.length)],left=fromBase(it[0],it[1]),right=it[2];comparePair=[left,right];document.getElementById('compareA').innerText=`${it[0]} base-${it[1]}`;document.getElementById('compareB').innerText=`${right} base-10`;document.getElementById('compareFeedback').classList.add('hidden');}
+function checkCompare(choice){let [a,b]=comparePair,correct=a>b?'A':a<b?'B':'equal',fb=document.getElementById('compareFeedback');fb.innerHTML=choice===correct?`✅ Correct. Left = ${a} in base-10 and right = ${b}.`:`❌ Not quite. Convert both to base-10: left = ${a}, right = ${b}.`;fb.classList.remove('hidden');}
+function generateTable(){let nums=[5,8,13,25,42,64],h='<table class="smart-table"><tr><th>Base-10</th><th>Base-2</th><th>Base-5</th><th>Base-8</th></tr>';nums.forEach(n=>h+=`<tr><td>${n}</td><td>${toBase(n,2)}</td><td>${toBase(n,5)}</td><td>${toBase(n,8)}</td></tr>`);h+='</table>';document.getElementById('conversionTable').innerHTML=h;}
+function loadRealCase(){let cases=[['Computers','A computer uses base-2 because each circuit can be off or on.','13 in base-10 is 1101 in base-2.'],['Base-8 World','If people counted using 8 fingers, groups of 8 would become the next place.','25 in base-10 becomes 31 in base-8.'],['Clock Systems','Time uses groups of 60 for seconds and minutes.','This shows base-10 is not the only useful grouping.'],['Valid Digits','Base-5 uses only 0,1,2,3,4.','The digit 5 is not valid in base-5.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*5);if(t===0){let n=[13,25,42,64][Math.floor(Math.random()*4)],b=[2,5,8][Math.floor(Math.random()*3)];return{q:`Convert ${n} from base-10 to base-${b}.`,a:toBase(n,b),s:`Repeated division by ${b} gives ${toBase(n,b)}.`};}if(t===1)return{q:'Convert 31 base-8 to base-10.',a:'25',s:'31₈ = 3×8 + 1 = 25.'};if(t===2)return{q:'Is 78 valid in base-8?',a:'No',s:'Base-8 digits must be 0 to 7.'};if(t===3)return{q:'Convert 1011 base-2 to base-10.',a:'11',s:'1×8+0×4+1×2+1=11.'};return{q:'Convert 42 base-10 to base-5.',a:'132',s:'42 = 1×25 + 3×5 + 2.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VIII: A Story of Numbers Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'story-of-numbers-answer-key.pdf':'story-of-numbers-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

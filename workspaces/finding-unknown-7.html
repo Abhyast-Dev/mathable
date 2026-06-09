@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VII: Finding the Unknown - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--red:#d64242;--orange:#f39c12}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-container img{height:42px}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}
+.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}
+.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}
+.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}
+.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.orange-btn{background:var(--orange)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px;max-width:220px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}
+.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.balance{display:grid;grid-template-columns:1fr 80px 1fr;gap:12px;align-items:end;margin:18px auto;max-width:760px}
+.pan{min-height:90px;background:#fff;border:3px solid var(--brand-navy);border-radius:18px 18px 8px 8px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.stand{height:110px;display:flex;align-items:center;justify-content:center;font-size:3rem;font-weight:900;color:var(--brand-aqua)}
+.weight,.unknown{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;font-weight:800;color:#fff;min-width:48px;height:42px;padding:0 8px}
+.weight{background:var(--brand-aqua)}.unknown{background:var(--brand-pink)}
+.match-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0}.match-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:14px;min-width:120px;text-align:center;font-weight:800}
+.match-stick{display:inline-block;width:44px;height:6px;background:var(--orange);border-radius:99px;margin:2px;transform:rotate(0deg)}
+.equation-box{background:#111;color:#7CFF7C;border-radius:12px;padding:16px;font-size:1.25rem;text-align:center;font-family:monospace;margin:12px 0;min-height:34px;overflow:auto}
+.tile-model{display:grid;gap:3px;justify-content:center;background:#fff;border:2px dashed var(--brand-aqua);border-radius:14px;padding:14px;margin:18px auto;max-width:max-content}.tile-cell{width:28px;height:28px;background:var(--brand-aqua);border-radius:5px}.tile-cell.mid{background:var(--brand-pink)}
+.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:700px){.workspace-container{margin:14px;padding:16px}.balance{grid-template-columns:1fr}.stand{height:30px}.tile-cell{width:22px;height:22px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+<span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VII • ALGEBRA</span>
+<span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Chapter 7: Finding the Unknown</span>
+</div>
+<h2 style="font-size:2.2rem;margin-top:0">Finding the Unknown</h2>
+<p style="color:var(--text-muted)">Move from balance-scale thinking to equations, matchstick patterns, systematic solving, checking solutions, and real-life word problems.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Equation Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Finding Unknown Values</h3>
+<div class="info-box">
+<p>An <strong>equation</strong> is a statement that two expressions are equal. Solving an equation means finding the value of the unknown that makes the left hand side equal to the right hand side.</p>
+<div class="highlight-card"><strong>Balance idea:</strong> If equal weights are removed from both pans of a balanced scale, it remains balanced.</div>
+<div class="highlight-card pink-card"><strong>Equation idea:</strong> If the same operation is done on both sides, equality is preserved.</div>
+<div class="highlight-card yellow-card"><strong>Matchstick pattern:</strong> If the nth arrangement has <strong>2n + 1</strong> sticks, then 99 sticks gives <strong>2n + 1 = 99</strong>, so <strong>n = 49</strong>.</div>
+<div class="balance">
+<div class="pan"><span class="unknown">x</span><span class="weight">4</span></div>
+<div class="stand">=</div>
+<div class="pan"><span class="weight">12</span></div>
+</div>
+<p style="text-align:center"><span class="label-chip">x + 4 = 12</span><span class="label-chip">remove 4 from both sides</span><span class="label-chip">x = 8</span></p>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Equation Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Equation</h4><p>A statement of equality between two expressions.</p><p>Example: 2n + 1 = 99.</p></div>
+<div class="formula-tile"><h4>LHS and RHS</h4><p>LHS is the left hand side. RHS is the right hand side.</p><p>Solution makes LHS = RHS.</p></div>
+<div class="formula-tile"><h4>Balance Rule</h4><p>Do the same operation to both sides.</p><p>Equality stays true.</p></div>
+<div class="formula-tile"><h4>Add/Subtract Inverses</h4><p>To remove +7, subtract 7.</p><p>2y + 7 = 21 → 2y = 14.</p></div>
+<div class="formula-tile"><h4>Multiply/Divide Inverses</h4><p>To remove factor 5, divide by 5.</p><p>5x = 11 → x = 11/5.</p></div>
+<div class="formula-tile"><h4>Check Solution</h4><p>Substitute your answer into the original equation.</p><p>Both sides must match.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Equation Solver</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Unknown Finder</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Logical Explanation:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>⚖️ Balance Scale Solver</h4>
+<p>Solve equations of the form ax + b = c.</p>
+<label>a <input type="number" id="balA" value="3"></label>
+<label>b <input type="number" id="balB" value="4"></label>
+<label>c <input type="number" id="balC" value="19"></label>
+<button class="action-btn" onclick="balanceSolver()">Solve</button>
+<div class="balance">
+<div class="pan" id="leftPan"></div>
+<div class="stand">=</div>
+<div class="pan" id="rightPan"></div>
+</div>
+<div id="balanceFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔥 Matchstick Pattern Lab</h4>
+<p>The nth arrangement uses 2n + 1 matchsticks.</p>
+<label>Target sticks <input type="number" id="stickTarget" value="99"></label>
+<button class="action-btn" onclick="matchstickLab()">Find Position</button>
+<div id="matchOutput" class="match-row"></div>
+<div id="matchFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧱 Tile Pattern: 3k + 1</h4>
+<p>Use the tile pattern rule from the chapter. Step k has 3k + 1 tiles.</p>
+<label>Step k <input type="number" id="tileK" value="4" min="1" max="20"></label>
+<button class="action-btn" onclick="tilePattern()">Build Pattern</button>
+<div id="tileModel" class="tile-model"></div>
+<div id="tileFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧮 Equation Stepper</h4>
+<p>Solve selected equations step-by-step.</p>
+<select id="stepperSelect">
+<option value="5*x-4=7">5x - 4 = 7</option>
+<option value="11*y-5=61">11y + (-5) = 61</option>
+<option value="6*y+7=4*y+21">6y + 7 = 4y + 21</option>
+<option value="3*x-10=35">3x - 10 = 35</option>
+<option value="28*(x+4)+300=1000">28(x + 4) + 300 = 1000</option>
+</select>
+<button class="action-btn" onclick="equationStepper()">Show Steps</button>
+<div id="stepperFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🎩 Math Trick Reverse Machine</h4>
+<p>Think of a number, subtract 3, multiply by 4, then add 8. Reverse the trick from the final answer.</p>
+<label>Final answer <input type="number" id="trickFinal" value="24"></label>
+<button class="action-btn" onclick="mathTrick()">Find Starting Number</button>
+<div id="trickFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>📋 Check LHS = RHS</h4>
+<p>Substitute the proposed solution and check if it works.</p>
+<select id="checkSelect">
+<option value="5*x-4=7|11/5">5x - 4 = 7, x = 11/5</option>
+<option value="11*y-5=61|6">11y - 5 = 61, y = 6</option>
+<option value="6*y+7=4*y+21|7">6y + 7 = 4y + 21, y = 7</option>
+<option value="3*x-10=35|15">3x - 10 = 35, x = 15</option>
+</select>
+<button class="action-btn" onclick="checkLhsRhs()">Check</button>
+<div id="checkFeedback" class="feedback-box hidden"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on balance equations, matchstick patterns, systematic solving, checking solutions, and word problems.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Party Budget:</strong> If each plate costs ₹25 and delivery is ₹50, then total cost is 25p + 50.</div>
+<div class="highlight-card pink-card"><strong>Savings:</strong> If two people save different starting amounts and monthly amounts, equations find when their savings become equal.</div>
+<div class="highlight-card yellow-card"><strong>Patterns:</strong> If step k has 3k + 1 tiles, equations can tell whether a target number of tiles is possible.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Represent unknown quantities using letter-numbers.</li>
+<li>Frame equations from balance scales and patterns.</li>
+<li>Solve one-step and two-step equations systematically.</li>
+<li>Use inverse operations while preserving equality.</li>
+<li>Check solutions by substituting into the original equation.</li>
+<li>Apply equations to matchstick, tile, budget, savings, and math-trick problems.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Solve 2n + 1 = 99 and explain each step.</li>
+<li>Frame an equation for a 4-column matchstick or tile pattern.</li>
+<li>Check whether x = 11/5 satisfies 5x - 4 = 7.</li>
+<li>Create an equation that has no solution.</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"Jasmine wants to make the matchstick arrangement using exactly 99 sticks. If the nth arrangement has 2n + 1 sticks, what is n?",a:"49",accepted:["49"],hint:"Solve 2n + 1 = 99.",steps:"Step 1: Frame the equation 2n + 1 = 99. Step 2: Subtract 1 from both sides: 2n = 98. Step 3: Divide both sides by 2: n = 49."},
+{q:"Solve: 5x - 4 = 7.",a:"11/5",accepted:["11/5","2.2"],hint:"Add 4 to both sides, then divide by 5.",steps:"5x - 4 = 7. Add 4 to both sides: 5x = 11. Divide by 5: x = 11/5."},
+{q:"Solve: 11y + (-5) = 61.",a:"6",accepted:["6"],hint:"Remove -5 first.",steps:"11y + (-5) = 61. Subtract (-5) from both sides: 11y = 66. Divide by 11: y = 6."},
+{q:"Solve: 6y + 7 = 4y + 21.",a:"7",accepted:["7"],hint:"Bring unknown terms to one side.",steps:"Subtract 4y from both sides: 2y + 7 = 21. Subtract 7: 2y = 14. Divide by 2: y = 7."},
+{q:"A tile pattern has 3k + 1 tiles. Can it have 100 tiles? If yes, what is k?",a:"33",accepted:["33","yes,33","yes 33"],hint:"Solve 3k + 1 = 100.",steps:"3k + 1 = 100. Subtract 1: 3k = 99. Divide by 3: k = 33. So yes, it is Step 33."},
+{q:"Madhubanti has ₹500, delivery costs ₹50, each snack plate costs ₹25, and 5 family members attend. How many friends can she invite?",a:"13",accepted:["13"],hint:"First remove delivery cost, then find plates, then subtract family members.",steps:"₹500 - ₹50 = ₹450 for snacks. ₹450 ÷ ₹25 = 18 plates. 18 people total, including 5 family members. Friends = 18 - 5 = 13."},
+{q:"A math trick gives final answer 24: think of x, subtract 3, multiply by 4, add 8. What was x?",a:"7",accepted:["7"],hint:"Frame 4(x - 3) + 8 = 24.",steps:"4(x - 3) + 8 = 24. Simplify: 4x - 12 + 8 = 24, so 4x - 4 = 24. Add 4: 4x = 28. Divide by 4: x = 7."}
+];
+let qIdx=0,score=0,streak=0;const storageKey='mathable_finding_unknown_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();balanceSolver();matchstickLab();tilePattern();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){let t=b;b=a%b;a=t;}return a||1;}
+function frac(n,d){let g=gcd(n,d);n/=g;d/=g;if(d===1)return String(n);return `${n}/${d}`;}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Unknown Finder';if(score>=150)badge='Equation Master';else if(score>=80)badge='Balance Solver';else if(score>=30)badge='Pattern Equation Builder';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see the logic.';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function balanceSolver(){let a=Number(document.getElementById('balA').value)||3,b=Number(document.getElementById('balB').value)||4,c=Number(document.getElementById('balC').value)||19;let left=document.getElementById('leftPan'),right=document.getElementById('rightPan');left.innerHTML='';for(let i=0;i<Math.min(a,6);i++)left.innerHTML+='<span class="unknown">x</span>';if(b!==0)left.innerHTML+=`<span class="weight">${b}</span>`;right.innerHTML=`<span class="weight">${c}</span>`;let num=c-b,ans=frac(num,a);document.getElementById('balanceFeedback').innerHTML=`Equation: ${a}x + ${b} = ${c}<br>Subtract ${b}: ${a}x = ${num}<br>Divide by ${a}: <strong>x = ${ans}</strong>.`;}
+function matchstickLab(){let target=Number(document.getElementById('stickTarget').value)||99;let n=(target-1)/2;let output=document.getElementById('matchOutput');output.innerHTML='';for(let i=1;i<=Math.min(8,Math.max(1,Math.floor(n)));i++){let card=document.createElement('div');card.className='match-card';card.innerHTML=`Step ${i}<br>${2*i+1} sticks`;output.appendChild(card);}let possible=Number.isInteger(n)&&n>0;document.getElementById('matchFeedback').innerHTML=`Equation: 2n + 1 = ${target}<br>2n = ${target-1}<br>n = ${(target-1)}/2 = <strong>${n}</strong><br>${possible?'✅ Possible arrangement.':'❌ Not a whole positive step, so not possible in this sequence.'}`;}
+function tilePattern(){let k=Number(document.getElementById('tileK').value)||4,model=document.getElementById('tileModel'),tiles=3*k+1;model.innerHTML='';model.style.gridTemplateColumns=`repeat(${2*k+1},28px)`;for(let i=0;i<2*k+1;i++){let cell=document.createElement('div');cell.className='tile-cell';model.appendChild(cell);}for(let i=0;i<k;i++){let cell=document.createElement('div');cell.className='tile-cell mid';model.appendChild(cell);}document.getElementById('tileFeedback').innerHTML=`Step ${k}: 3k + 1 = 3×${k} + 1 = <strong>${tiles}</strong> tiles.`;}
+function equationStepper(){let v=document.getElementById('stepperSelect').value,fb=document.getElementById('stepperFeedback');let text='';if(v==='5*x-4=7')text='5x - 4 = 7<br>Add 4 to both sides: 5x = 11<br>Divide by 5: <strong>x = 11/5</strong>';if(v==='11*y-5=61')text='11y + (-5) = 61<br>Subtract (-5) from both sides: 11y = 66<br>Divide by 11: <strong>y = 6</strong>';if(v==='6*y+7=4*y+21')text='6y + 7 = 4y + 21<br>Subtract 4y: 2y + 7 = 21<br>Subtract 7: 2y = 14<br>Divide by 2: <strong>y = 7</strong>';if(v==='3*x-10=35')text='3x - 10 = 35<br>Add 10: 3x = 45<br>Divide by 3: <strong>x = 15</strong>';if(v==='28*(x+4)+300=1000')text='28(x + 4) + 300 = 1000<br>Subtract 300: 28(x+4)=700<br>Divide by 28: x+4=25<br>Subtract 4: <strong>x=21</strong>';fb.innerHTML=text;}
+function mathTrick(){let finalAns=Number(document.getElementById('trickFinal').value)||24;let x=(finalAns+4)/4;let fb=document.getElementById('trickFeedback');fb.innerHTML=`Equation: 4(x - 3) + 8 = ${finalAns}<br>Simplify: 4x - 4 = ${finalAns}<br>4x = ${finalAns+4}<br><strong>x = ${x}</strong>.`;fb.classList.remove('hidden');}
+function evalExpr(expr,varName,val){return Function(varName,'return '+expr)(val);}
+function checkLhsRhs(){let raw=document.getElementById('checkSelect').value,[eq,val]=raw.split('|'),[lhs,rhs]=eq.split('='),v=parseFloat(val.includes('/')?val.split('/')[0]/val.split('/')[1]:val),name=eq.includes('y')?'y':'x',L=evalExpr(lhs.replace(/\^/g,'**'),name,v),R=evalExpr(rhs.replace(/\^/g,'**'),name,v),fb=document.getElementById('checkFeedback');fb.innerHTML=`Substitute ${name} = ${val}<br>LHS = ${L}<br>RHS = ${R}<br>${Math.abs(L-R)<1e-9?'✅ LHS = RHS, so it is correct.':'❌ LHS ≠ RHS, so it is not correct.'}`;fb.classList.remove('hidden');}
+function loadRealCase(){let cases=[['Matchstick Pattern','Jasmine wants 99 sticks in a 2n+1 sequence.','2n+1=99 gives n=49.'],['Party Snacks','₹25 per plate and ₹50 delivery under ₹500.','25p+50=500 gives p=18 people, so 13 friends after 5 family members.'],['Savings','Jahnavi: 4000+650m, Sunita: 5050+500m.','4000+650m=5050+500m gives m=7 months.'],['Math Trick','Subtract 3, multiply by 4, add 8, final 24.','4(x-3)+8=24 gives x=7.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*7);if(t===0)return{q:'Solve 2n + 1 = 99.',a:'49',s:'Subtract 1: 2n=98; divide by 2: n=49.'};if(t===1)return{q:'Solve 5x - 4 = 7.',a:'11/5',s:'Add 4: 5x=11; divide by 5.'};if(t===2)return{q:'Solve 6y + 7 = 4y + 21.',a:'7',s:'Subtract 4y, subtract 7, divide by 2.'};if(t===3)return{q:'A tile pattern has 3k+1 tiles. Which step has 100 tiles?',a:'33',s:'3k+1=100, so k=33.'};if(t===4)return{q:'Snack cost equation: 25p + 50 = 500. Find p.',a:'18',s:'25p=450, p=18.'};if(t===5)return{q:'Check whether y=6 solves 11y + (-5) = 61.',a:'Yes',s:'11×6-5=61.'};return{q:'Final answer of math trick is 24: 4(x-3)+8=24. Find x.',a:'7',s:'4x-4=24, x=7.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VII: Finding the Unknown Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'finding-the-unknown-answer-key.pdf':'finding-the-unknown-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

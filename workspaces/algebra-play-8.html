@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VIII: Algebra Play - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-container img{height:42px}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}
+.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}
+.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}
+.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}
+.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px;max-width:220px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}
+.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.magic-steps{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0}.magic-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:14px;min-width:140px;text-align:center;font-weight:800}
+.magic-card.final{background:var(--brand-yellow);color:#111}.expression-box{background:#111;color:#7CFF7C;border-radius:12px;padding:16px;font-size:1.25rem;text-align:center;font-family:monospace;margin:12px 0;min-height:34px;overflow:auto}
+.number-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px 0}.num-chip{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:12px;padding:10px 14px;font-weight:800;min-width:70px;text-align:center}.num-chip.active{background:var(--brand-pink);color:#fff}
+.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:700px){.workspace-container{margin:14px;padding:16px}.magic-card{min-width:110px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+<span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VIII • ALGEBRA PLAY</span>
+<span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Smart Lab: Think of a Number Tricks</span>
+</div>
+<h2 style="font-size:2.2rem;margin-top:0">Algebra Play: Think of a Number Tricks</h2>
+<p style="color:var(--text-muted)">Use variables to explain mathematical magic, create constant-result tricks, test examples, and prove why a trick always works.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Formula Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Interactive Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet Generator</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real-World Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Mathematical Magic</h3>
+<div class="info-box">
+<p>A <strong>Think of a Number</strong> trick is a sequence of operations performed on a secret number. Algebra explains why the final result may be fixed even when different people start with different numbers.</p>
+<div class="highlight-card"><strong>Classic Trick:</strong> Think of a number. Double it. Add 4. Divide by 2. Subtract the original number. The final answer is always <strong>2</strong>.</div>
+<div class="highlight-card pink-card"><strong>Algebra Proof:</strong> Let the starting number be x. Double: 2x. Add 4: 2x+4. Divide by 2: x+2. Subtract x: 2.</div>
+<div class="highlight-card yellow-card"><strong>Big Idea:</strong> Variables help us prove a result for every possible starting number.</div>
+<div class="magic-steps">
+<div class="magic-card">x</div><div class="magic-card">2x</div><div class="magic-card">2x + 4</div><div class="magic-card">x + 2</div><div class="magic-card final">2</div>
+</div>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Formula Hub</h3>
+<div class="info-box">
+<div class="formula-grid">
+<div class="formula-tile"><h4>Variable</h4><p>A symbol representing a number.</p><p>Example: x</p></div>
+<div class="formula-tile"><h4>Expression</h4><p>A mathematical phrase.</p><p>Example: 2x + 4</p></div>
+<div class="formula-tile"><h4>Simplify</h4><p>Reduce an expression to a simpler form.</p><p>(2x+4)/2 = x+2</p></div>
+<div class="formula-tile"><h4>Constant Result</h4><p>After simplification, the variable cancels.</p><p>x + 2 - x = 2</p></div>
+<div class="formula-tile"><h4>Design Rule</h4><p>To create final result k:</p><p>Double, add 2k, divide by 2, subtract original.</p></div>
+<div class="formula-tile"><h4>Proof</h4><p>Use x to show the trick works for all numbers, not just examples.</p></div>
+</div>
+<div class="expression-box">(2x + 4) ÷ 2 − x = 2</div>
+</div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Interactive Lab: Magic Trick Solver</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Algebra Magician</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Logical Explanation:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🧙 Magic Trick Simulator</h4>
+<p>Enter any starting number and watch the classic trick always end at 2.</p>
+<label>Starting number x <input type="number" id="startNumber" value="15"></label>
+<button class="action-btn" onclick="runClassicTrick()">Run Trick</button>
+<div id="classicSteps" class="magic-steps"></div>
+<div id="classicFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🎯 Create a Trick with Your Chosen Final Answer</h4>
+<p>Choose the final constant k. The Smart Lab builds the trick.</p>
+<label>Final answer k <input type="number" id="targetK" value="5"></label>
+<label>Test number x <input type="number" id="testX" value="20"></label>
+<button class="action-btn" onclick="buildCustomTrick()">Build Trick</button>
+<div id="customFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔍 Algebra Proof Builder</h4>
+<p>Complete the simplification for the trick: double x, add 4, divide by 2, subtract x.</p>
+<select id="proofSelect">
+<option value="2">Final result is 2</option>
+<option value="x">Final result is x</option>
+<option value="x+2">Final result is x+2</option>
+</select>
+<button class="action-btn" onclick="checkProof()">Check Proof</button>
+<div id="proofFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>📅 Date Decoder Mini Lab</h4>
+<p>Try a simple date code: code = 100 × month + day. Decode the final number.</p>
+<label>Code <input type="number" id="dateCode" value="725"></label>
+<button class="action-btn" onclick="decodeDate()">Decode</button>
+<div id="dateFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>📋 Trick Table Generator</h4>
+<button class="action-btn" onclick="generateTable()">Generate Table</button>
+<div id="trickTable" class="table-wrap"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on applying tricks, simplifying algebraically, and creating your own Think of a Number trick.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Computer Programming:</strong> Programs use variables and operations to guarantee predictable results.</div>
+<div class="highlight-card pink-card"><strong>Puzzle Design:</strong> Escape rooms and brain teasers use algebraic rules behind the scenes.</div>
+<div class="highlight-card yellow-card"><strong>Game Development:</strong> Scores, bonuses, and rewards often depend on algebraic expressions.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Use variables to represent unknown numbers.</li>
+<li>Simplify algebraic expressions step by step.</li>
+<li>Explain why a mathematical trick always works.</li>
+<li>Create a constant-result Think of a Number trick.</li>
+<li>Connect algebra to puzzles, coding, and games.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Prove why the classic trick always gives 2.</li>
+<li>Create a trick that always gives 7.</li>
+<li>Explain why trying only examples is not the same as proof.</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"Think of a number. Double it. Add 4. Divide by 2. Subtract the original number. What is the final answer?",a:"2",accepted:["2"],hint:"Let the original number be x.",steps:"Let the number be x. After doubling: 2x. Add 4: 2x+4. Divide by 2: x+2. Subtract x. Final answer = 2."},
+{q:"If the starting number is 15, what is the final answer after applying the classic trick?",a:"2",accepted:["2"],hint:"Apply each operation carefully.",steps:"Start with 15. Double: 30. Add 4: 34. Divide by 2: 17. Subtract original 15: 2."},
+{q:"If the starting number is 100, what is the final answer after applying the classic trick?",a:"2",accepted:["2"],hint:"The trick always gives the same result.",steps:"Start with 100. Double: 200. Add 4: 204. Divide by 2: 102. Subtract original 100: 2."},
+{q:"Create a similar trick that always gives 5. What number should be added before dividing by 2?",a:"10",accepted:["10"],hint:"To get final k, add 2k before dividing by 2.",steps:"Double x to get 2x. Add 10: 2x+10. Divide by 2: x+5. Subtract x. Final answer = 5."},
+{q:"Simplify: (2x + 4)/2 - x.",a:"2",accepted:["2"],hint:"Divide both terms by 2 first.",steps:"(2x+4)/2 = x+2. Then x+2-x = 2."},
+{q:"To make a trick always give 8, what number should be added after doubling?",a:"16",accepted:["16"],hint:"Add twice the desired result.",steps:"Double x: 2x. Add 16: 2x+16. Divide by 2: x+8. Subtract x: 8."}
+];
+let qIdx=0,score=0,streak=0;const storageKey='mathable_algebra_play_tricks_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();runClassicTrick();buildCustomTrick();generateTable();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Algebra Magician';if(score>=150)badge='Proof Master';else if(score>=80)badge='Trick Designer';else if(score>=30)badge='Variable Explorer';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see the logic.';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function runClassicTrick(){let x=Number(document.getElementById('startNumber').value)||15,steps=[x,2*x,2*x+4,(2*x+4)/2,(2*x+4)/2-x];document.getElementById('classicSteps').innerHTML=steps.map((v,i)=>`<div class="magic-card ${i===steps.length-1?'final':''}">${['Start','Double','Add 4','Divide by 2','Subtract original'][i]}<br>${v}</div>`).join('');document.getElementById('classicFeedback').innerHTML=`No matter what x is, (2x+4)/2 - x = <strong>2</strong>.`;}
+function buildCustomTrick(){let k=Number(document.getElementById('targetK').value)||5,x=Number(document.getElementById('testX').value)||20,add=2*k,final=(2*x+add)/2-x;document.getElementById('customFeedback').innerHTML=`To make the final result ${k}:<br>1. Think of x.<br>2. Double it: 2x.<br>3. Add <strong>${add}</strong>: 2x+${add}.<br>4. Divide by 2: x+${k}.<br>5. Subtract original x: <strong>${k}</strong>.<br>Test with x=${x}: final answer = ${final}.`;}
+function checkProof(){let ans=document.getElementById('proofSelect').value,fb=document.getElementById('proofFeedback');fb.innerHTML=ans==='2'?'✅ Correct. (2x+4)/2 - x = x+2-x = 2.':'❌ Not quite. The x cancels out, leaving 2.';fb.classList.remove('hidden');}
+function decodeDate(){let code=Number(document.getElementById('dateCode').value)||725,month=Math.floor(code/100),day=code%100,fb=document.getElementById('dateFeedback');fb.innerHTML=`Code ${code} means <strong>month ${month}, day ${day}</strong>. This is a simple place-value decoder.`;fb.classList.remove('hidden');}
+function generateTable(){let h='<table class="smart-table"><tr><th>Starting x</th><th>Double</th><th>Add 4</th><th>Divide by 2</th><th>Subtract x</th></tr>';[1,5,10,25,100].forEach(x=>h+=`<tr><td>${x}</td><td>${2*x}</td><td>${2*x+4}</td><td>${(2*x+4)/2}</td><td>2</td></tr>`);h+='</table>';document.getElementById('trickTable').innerHTML=h;}
+function loadRealCase(){let cases=[['Puzzle Design','A magic trick seems mysterious until algebra shows why it works.','Variables turn magic into proof.'],['Programming','A program applies operations to unknown input values.','Algebra predicts the output for every input.'],['Game Score','A game may double points, add bonuses, then subtract penalties.','Expressions model the rule.'],['Escape Room','Hidden-number clues often use reversible operations.','Algebra helps decode them.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*6);if(t===0){let x=[8,12,27,100][Math.floor(Math.random()*4)];return{q:`Apply the classic trick to ${x}.`,a:'2',s:`Double ${x}, add 4, divide by 2, subtract ${x}; result is 2.`};}if(t===1)return{q:'Simplify (2x+4)/2 - x.',a:'2',s:'(2x+4)/2 = x+2; x+2-x=2.'};if(t===2)return{q:'Create a trick that always gives 3. What number should be added after doubling?',a:'6',s:'Add twice the desired result: 2×3=6.'};if(t===3)return{q:'Create a trick that always gives 10. What number should be added after doubling?',a:'20',s:'Add twice the desired result: 2×10=20.'};if(t===4)return{q:'If final result should be 7, complete: double x, add __, divide by 2, subtract x.',a:'14',s:'2x+14 divided by 2 is x+7.'};return{q:'Explain why examples alone do not prove the trick.',a:'Need algebra',s:'Algebra with x proves the trick for all possible starting numbers.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VIII: Algebra Play Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'algebra-play-answer-key.pdf':'algebra-play-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

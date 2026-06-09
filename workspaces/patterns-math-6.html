@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VI: Patterns in Mathematics - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}.header-container img{height:42px}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.sequence-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0}.num-chip{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:12px;padding:12px 16px;font-weight:800;min-width:70px;text-align:center}.num-chip.active{background:var(--brand-yellow)}.num-chip.answer{background:var(--brand-pink);color:#fff}
+.dot-grid{display:grid;gap:4px;justify-content:center;margin:16px auto;background:#fff;border:2px dashed var(--brand-aqua);border-radius:12px;padding:14px;max-width:max-content}.dot{width:18px;height:18px;border-radius:50%;background:var(--brand-aqua)}
+.pattern-strip{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0}.shape-card{background:#fff;border:1px solid rgba(39,43,106,.15);border-radius:14px;padding:16px;min-width:150px;text-align:center}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.dot{width:14px;height:14px}.num-chip{min-width:52px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VI • PATTERNS</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Patterns in Mathematics</span></div>
+<h2 style="font-size:2.2rem;margin-top:0">Class VI: Patterns in Mathematics</h2>
+<p style="color:var(--text-muted)">Explore triangle numbers, square numbers, growing patterns, difference patterns, visual dot arrangements, and rule-making.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Pattern Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: What is a Pattern?</h3>
+<div class="info-box">
+<p>A pattern is a repeated or growing arrangement that follows a rule. In mathematics, we can find patterns in numbers, shapes, dots, tiles, and real-life designs.</p>
+<div class="highlight-card"><strong>Triangle Numbers:</strong> 1, 3, 6, 10, 15, ...</div>
+<div class="sequence-row"><span class="num-chip">1</span><span class="num-chip">3</span><span class="num-chip">6</span><span class="num-chip">10</span><span class="num-chip">15</span><span class="num-chip active">?</span></div>
+<div class="highlight-card pink-card">Differences are +2, +3, +4, +5, so the next difference is +6. Therefore, 15 + 6 = 21.</div>
+<div class="highlight-card yellow-card">A good pattern answer gives both the <strong>next value</strong> and the <strong>reason</strong>.</div>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Pattern Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Triangle Numbers</h4><p>1, 3, 6, 10, 15...</p><p>Add 1, then 2, then 3, then 4...</p></div>
+<div class="formula-tile"><h4>Square Numbers</h4><p>1, 4, 9, 16, 25...</p><p>n² = n × n.</p></div>
+<div class="formula-tile"><h4>Arithmetic Pattern</h4><p>Add or subtract the same number each time.</p><p>5, 9, 13, 17...</p></div>
+<div class="formula-tile"><h4>Growing Difference</h4><p>The difference changes in a pattern.</p><p>+2, +3, +4, +5...</p></div>
+<div class="formula-tile"><h4>Visual Pattern</h4><p>Draw dots or shapes to see how the pattern grows.</p></div>
+<div class="formula-tile"><h4>Rule-Making</h4><p>Observe, test, predict, and explain.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Pattern Detective</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Pattern Starter</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Logical Explanation:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🔺 Triangle Number Builder</h4>
+<p>Move the slider to build triangular dot patterns.</p>
+<input type="range" id="triSlider" min="1" max="10" value="5" oninput="buildTriangleDots()">
+<span class="label-chip" id="triText">T₅ = 15</span>
+<div id="triDots" class="dot-grid"></div>
+</div>
+
+<div class="activity-card">
+<h4>⬛ Square Number Builder</h4>
+<p>Build square dot patterns.</p>
+<input type="range" id="sqSlider" min="1" max="10" value="4" oninput="buildSquareDots()">
+<span class="label-chip" id="sqText">4² = 16</span>
+<div id="sqDots" class="dot-grid"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔍 Guess the Rule</h4>
+<p id="ruleQuestion" style="font-weight:800;font-size:1.1rem"></p>
+<button class="action-btn" onclick="checkRule('same')">Same Difference</button>
+<button class="action-btn" onclick="checkRule('growing')">Growing Difference</button>
+<button class="action-btn" onclick="checkRule('square')">Square Pattern</button>
+<button class="action-btn secondary-btn" onclick="newRuleChallenge()">New</button>
+<div id="ruleFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧮 Next Number Machine</h4>
+<select id="machineSelect">
+<option value="triangle">Triangle Numbers: 1, 3, 6, 10, 15...</option>
+<option value="square">Square Numbers: 1, 4, 9, 16, 25...</option>
+<option value="arithmetic">Arithmetic Pattern: 5, 9, 13, 17...</option>
+<option value="odd">Odd Numbers: 1, 3, 5, 7...</option>
+</select>
+<button class="action-btn" onclick="nextNumberMachine()">Find Next</button>
+<div id="machineFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>📋 Pattern Table Generator</h4>
+<button class="action-btn" onclick="generateTable()">Generate Table</button>
+<div id="patternTable" class="table-wrap"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on triangle numbers, square numbers, arithmetic patterns, visual patterns, and rule explanation.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Floor Tiles:</strong> Tile designs often follow repeating or growing patterns.</div>
+<div class="highlight-card pink-card"><strong>Seating Arrangements:</strong> Triangular and square arrangements help count quickly.</div>
+<div class="highlight-card yellow-card"><strong>Art and Rangoli:</strong> Many designs grow using mathematical patterns.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Recognize and extend number patterns.</li>
+<li>Identify triangle numbers and square numbers.</li>
+<li>Use differences to find the next term.</li>
+<li>Represent patterns visually using dots.</li>
+<li>Explain the rule behind a pattern.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Find the next triangle number after 21.</li>
+<li>Explain why 25 is a square number.</li>
+<li>Write the next two terms: 5, 9, 13, 17...</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"The sequence of Triangle Numbers is 1, 3, 6, 10, 15... What is the next number in this pattern and why?",a:"21",accepted:["21"],hint:"Look at the differences between terms.",steps:"Step 1: Observe the difference between terms: 3-1=2, 6-3=3, 10-6=4, 15-10=5. Step 2: The difference increases by 1 each time. Step 3: The next difference should be 6. Step 4: 15 + 6 = 21."},
+{q:"Find the next number: 1, 4, 9, 16, 25, ...",a:"36",accepted:["36"],hint:"These are square numbers.",steps:"1=1², 4=2², 9=3², 16=4², 25=5². Next is 6² = 36."},
+{q:"Find the next two numbers: 5, 9, 13, 17, ...",a:"21, 25",accepted:["21,25","21, 25"],hint:"The same number is added each time.",steps:"The difference is +4 each time. So 17+4=21 and 21+4=25."},
+{q:"What is the 6th triangle number?",a:"21",accepted:["21"],hint:"Add 1+2+3+4+5+6.",steps:"The 6th triangle number is 1+2+3+4+5+6 = 21."},
+{q:"What is the 7th square number?",a:"49",accepted:["49"],hint:"Square means n × n.",steps:"The 7th square number is 7² = 7×7 = 49."},
+{q:"Find the next number: 2, 4, 7, 11, 16, ...",a:"22",accepted:["22"],hint:"Differences are +2, +3, +4, +5.",steps:"The differences are 2, 3, 4, 5. The next difference is 6. So 16 + 6 = 22."}
+];
+let qIdx=0,score=0,streak=0,currentRule='growing';const storageKey='mathable_patterns_class6_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();buildTriangleDots();buildSquareDots();newRuleChallenge();generateTable();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Pattern Starter';if(score>=150)badge='Pattern Master';else if(score>=80)badge='Triangle Number Hero';else if(score>=30)badge='Rule Finder';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see the logic.';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function buildTriangleDots(){let n=Number(document.getElementById('triSlider').value),grid=document.getElementById('triDots'),total=n*(n+1)/2;grid.innerHTML='';grid.style.gridTemplateColumns=`repeat(${n},18px)`;for(let r=1;r<=n;r++){for(let c=1;c<=n;c++){let d=document.createElement('div');if(c<=r)d.className='dot';else d.style.visibility='hidden';grid.appendChild(d);}}document.getElementById('triText').innerText=`T${n} = ${total}`;}
+function buildSquareDots(){let n=Number(document.getElementById('sqSlider').value),grid=document.getElementById('sqDots'),total=n*n;grid.innerHTML='';grid.style.gridTemplateColumns=`repeat(${n},18px)`;for(let i=0;i<total;i++){let d=document.createElement('div');d.className='dot';grid.appendChild(d);}document.getElementById('sqText').innerText=`${n}² = ${total}`;}
+function newRuleChallenge(){let items=[['1, 3, 6, 10, 15','growing'],['5, 9, 13, 17, 21','same'],['1, 4, 9, 16, 25','square'],['2, 4, 7, 11, 16','growing']];let it=items[Math.floor(Math.random()*items.length)];document.getElementById('ruleQuestion').innerText='Rule for: '+it[0];currentRule=it[1];document.getElementById('ruleFeedback').classList.add('hidden');}
+function checkRule(ans){let fb=document.getElementById('ruleFeedback');fb.innerHTML=ans===currentRule?`✅ Correct. This is a ${currentRule} pattern.`:`❌ Not quite. This is a ${currentRule} pattern.`;fb.classList.remove('hidden');}
+function nextNumberMachine(){let v=document.getElementById('machineSelect').value,fb=document.getElementById('machineFeedback'),text='';if(v==='triangle')text='1, 3, 6, 10, 15 → next is 21 because the next difference is +6.';if(v==='square')text='1, 4, 9, 16, 25 → next is 36 because 6² = 36.';if(v==='arithmetic')text='5, 9, 13, 17 → next is 21 because we add 4.';if(v==='odd')text='1, 3, 5, 7 → next is 9 because odd numbers increase by 2.';fb.innerHTML=text;fb.classList.remove('hidden');}
+function generateTable(){let h='<table class="smart-table"><tr><th>Pattern</th><th>Rule</th><th>Next Term</th></tr>';let rows=[['1, 3, 6, 10, 15','Add next counting number','21'],['1, 4, 9, 16, 25','Square numbers','36'],['5, 9, 13, 17','Add 4','21'],['2, 4, 7, 11, 16','Add 2, 3, 4, 5...','22'],['1, 3, 5, 7','Odd numbers','9']];rows.forEach(r=>h+=`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`);h+='</table>';document.getElementById('patternTable').innerHTML=h;}
+function loadRealCase(){let cases=[['Stair Dots','A staircase pattern grows by adding one more dot each row.','This forms triangle numbers.'],['Tile Squares','A square tile design of side 5 has 25 small tiles.','5² = 25.'],['Rangoli Design','Many rangoli patterns grow by adding the same number of dots or shapes.','Find the difference to predict the next design.'],['Seating Rows','Rows of 1,2,3,4,5 seats form triangular arrangements.','Total seats after 5 rows = 15.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*5);if(t===0)return{q:'Find the next triangle number after 15.',a:'21',s:'Differences are +2,+3,+4,+5, so add +6.'};if(t===1)return{q:'Find the next square number after 25.',a:'36',s:'25=5², next is 6²=36.'};if(t===2)return{q:'Find next two: 5, 9, 13, 17...',a:'21, 25',s:'Add 4 each time.'};if(t===3)return{q:'What is the 7th square number?',a:'49',s:'7²=49.'};return{q:'What is the 6th triangle number?',a:'21',s:'1+2+3+4+5+6=21.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VI: Patterns in Mathematics Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'patterns-mathematics-answer-key.pdf':'patterns-mathematics-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

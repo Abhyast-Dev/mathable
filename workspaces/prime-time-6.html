@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class VI: Prime Time - Mathable Smart Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --brand-yellow: #fde32d;
+      --brand-pink: #ee4977;
+      --brand-navy: #272b6a;
+      --brand-aqua: #4bc2c4;
+      --text-muted: #5e6282;
+      --white: #ffffff;
+      --soft-bg: #f7fbfc;
+      --success: #198754;
+      --danger: #d6336c;
+      --warning: #f59f00;
+      --shadow: 0 10px 30px rgba(39, 43, 106, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fefce8 0%, #effcff 45%, #fff5f8 100%);
+      color: var(--brand-navy);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+
+    .workspace-container {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 22px;
+    }
+
+    .hero {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.6fr 0.9fr;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 220px;
+      height: 220px;
+      background: var(--brand-yellow);
+      border-radius: 50%;
+      opacity: 0.55;
+    }
+
+    .hero h2 { font-size: 2.1rem; margin: 0 0 8px; }
+    .hero p { color: var(--text-muted); line-height: 1.7; margin: 0; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .pill {
+      background: #f2f8fb;
+      border: 1px solid rgba(75,194,196,0.35);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .score-card {
+      background: linear-gradient(160deg, var(--brand-navy), #3a3f95);
+      color: white;
+      border-radius: 22px;
+      padding: 22px;
+      position: relative;
+      z-index: 1;
+    }
+    .score-card h3 { margin: 0 0 8px; }
+    .big-score { font-size: 3rem; font-weight: 800; line-height: 1; }
+    .progress-bar { background: rgba(255,255,255,0.22); height: 12px; border-radius: 999px; overflow: hidden; margin-top: 16px; }
+    .progress-fill { height: 100%; width: 0%; background: var(--brand-yellow); transition: width 0.4s ease; }
+
+    .tab-navigation {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 10px;
+      background: rgba(255,255,255,0.72);
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 16px;
+      cursor: pointer;
+      border: none;
+      background: #f0f3f6;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.25s;
+      color: var(--brand-navy);
+    }
+    .tab-btn:hover { transform: translateY(-2px); }
+    .tab-btn.active { background-color: var(--brand-aqua); color: white; }
+
+    .tab-content { display: none; animation: fadeIn 0.25s ease; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+
+    .info-box, .activity-card {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(39,43,106,0.08);
+      padding: 22px;
+      border-radius: 20px;
+      box-shadow: 0 8px 22px rgba(39, 43, 106, 0.08);
+    }
+
+    .activity-card h4, .info-box h3, .info-box h4 { margin-top: 0; }
+    .muted { color: var(--text-muted); }
+
+    .action-btn {
+      background: var(--brand-navy);
+      color: white;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      margin: 5px 4px 5px 0;
+      transition: 0.25s;
+    }
+    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(39,43,106,0.22); }
+    .pink-btn { background: var(--brand-pink); }
+    .aqua-btn { background: var(--brand-aqua); }
+    .yellow-btn { background: var(--brand-yellow); color: var(--brand-navy); }
+
+    input, select {
+      padding: 12px 14px;
+      border: 2px solid #e8eaf4;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      max-width: 100%;
+    }
+
+    .step-box {
+      margin-top: 15px;
+      padding: 16px;
+      background: #fff8fb;
+      border-left: 5px solid var(--brand-pink);
+      border-radius: 12px;
+      display: none;
+    }
+
+    .number-display {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      margin: 12px 0;
+      color: var(--brand-pink);
+    }
+
+    .number-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; margin-top: 12px; }
+    .num-cell {
+      background: #f4f6fb;
+      border-radius: 10px;
+      padding: 10px 0;
+      text-align: center;
+      font-weight: 800;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .num-cell.prime { background: #ddfbfb; border-color: var(--brand-aqua); }
+    .num-cell.composite { background: #fff2c7; border-color: var(--brand-yellow); }
+    .num-cell.selected { background: #ffe4ec; border-color: var(--brand-pink); }
+
+    .factor-output {
+      min-height: 54px;
+      background: #f8f9ff;
+      border: 2px dashed #c8cae8;
+      border-radius: 14px;
+      padding: 14px;
+      font-weight: 700;
+    }
+
+    .feedback { font-weight: 800; margin-top: 10px; }
+    .correct { color: var(--success); }
+    .wrong { color: var(--danger); }
+
+    .mini-card {
+      background: #f8fbff;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(39,43,106,0.08);
+    }
+
+    footer { padding: 35px; text-align: center; color: var(--text-muted); font-size: 0.88rem; }
+
+    @media (max-width: 820px) {
+      .hero, .grid, .grid-3 { grid-template-columns: 1fr; }
+      .number-grid { grid-template-columns: repeat(5, 1fr); }
+      header { align-items: flex-start; gap: 12px; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+  <main class="workspace-container">
+    <section class="hero">
+      <div>
+        <h2>Class VI: Prime Time</h2>
+        <p>Explore prime numbers, composite numbers, divisibility tests and prime factorisation through games, challenges and printable worksheets.</p>
+        <div class="badge-row">
+          <span class="pill">ABLE™: Activity Based Learning</span>
+          <span class="pill">TAKECARE™: Confidence Check</span>
+          <span class="pill">Skill: Number Sense</span>
+        </div>
+      </div>
+      <div class="score-card">
+        <h3>Student Progress</h3>
+        <div class="big-score"><span id="score">0</span></div>
+        <p id="badgeText">Badge: Explorer</p>
+        <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+      </div>
+    </section>
+
+    <nav class="tab-navigation" role="tablist">
+      <button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+      <button id="btn-formula" class="tab-btn" onclick="switchTab('formula')">🧪 Formula Hub</button>
+      <button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+      <button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activities</button>
+      <button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+      <button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real-World Use</button>
+    </nav>
+
+    <section id="panel-fact" class="tab-content active">
+      <div class="grid">
+        <div class="info-box">
+          <h3>Prime Numbers</h3>
+          <p>A prime number has exactly two factors: <strong>1 and itself</strong>.</p>
+          <p><strong>Examples:</strong> 2, 3, 5, 7, 11, 13, 17, 19</p>
+        </div>
+        <div class="info-box">
+          <h3>Composite Numbers</h3>
+          <p>A composite number has more than two factors.</p>
+          <p><strong>Examples:</strong> 4, 6, 8, 9, 10, 12, 15, 21</p>
+        </div>
+      </div>
+      <br>
+      <div class="info-box">
+        <h3>Remember</h3>
+        <p><strong>1 is neither prime nor composite.</strong> It has only one factor: 1.</p>
+        <p><strong>2 is the smallest prime number</strong> and the only even prime number.</p>
+      </div>
+    </section>
+
+    <section id="panel-formula" class="tab-content">
+      <div class="grid-3">
+        <div class="mini-card"><h4>Divisible by 2</h4><p>Last digit is 0, 2, 4, 6 or 8.</p></div>
+        <div class="mini-card"><h4>Divisible by 5</h4><p>Last digit is 0 or 5.</p></div>
+        <div class="mini-card"><h4>Divisible by 10</h4><p>Last digit is 0.</p></div>
+      </div>
+      <br>
+      <div class="info-box">
+        <h3>Prime Factorisation Rule</h3>
+        <p>Every composite number can be written as a product of prime numbers.</p>
+        <p><strong>Example:</strong> 24 = 2 × 2 × 2 × 3</p>
+      </div>
+    </section>
+
+    <section id="panel-lab" class="tab-content">
+      <div class="grid">
+        <div class="activity-card">
+          <h3>Practice Lab</h3>
+          <p id="lab-question-field" style="font-weight:800;"></p>
+          <input type="text" id="ans-input" placeholder="Type answer, e.g. 2*2*3">
+          <br><br>
+          <button class="action-btn" onclick="checkAnswer()">Submit</button>
+          <button class="action-btn aqua-btn" onclick="nextQuestion()">Next</button>
+          <button class="action-btn pink-btn" onclick="toggleSteps()">Show Steps</button>
+          <p id="feedback" class="feedback"></p>
+          <div id="steps-container" class="step-box">
+            <p><strong>Step-by-Step Guidance:</strong></p>
+            <div id="steps-content"></div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <h3>Factor Machine</h3>
+          <p>Enter a number and see its prime factors.</p>
+          <input type="number" id="factorNumber" value="36" min="2" max="200">
+          <button class="action-btn" onclick="showFactors()">Factorise</button>
+          <div id="factorOutput" class="factor-output">36 = 2 × 2 × 3 × 3</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-activities" class="tab-content">
+      <div class="grid">
+        <div class="activity-card">
+          <h3>Prime or Composite?</h3>
+          <p>Classify the number.</p>
+          <div id="sort-number" class="number-display">7</div>
+          <button class="action-btn aqua-btn" onclick="sortAnswer('prime')">Prime</button>
+          <button class="action-btn yellow-btn" onclick="sortAnswer('composite')">Composite</button>
+          <p id="sort-feedback" class="feedback"></p>
+        </div>
+
+        <div class="activity-card">
+          <h3>Divisibility Challenge</h3>
+          <p id="div-question" style="font-weight:800;"></p>
+          <button class="action-btn aqua-btn" onclick="divAnswer(true)">Yes</button>
+          <button class="action-btn pink-btn" onclick="divAnswer(false)">No</button>
+          <p id="div-feedback" class="feedback"></p>
+        </div>
+      </div>
+      <br>
+      <div class="activity-card">
+        <h3>Prime Number Sieve</h3>
+        <p>Click “Reveal Primes” to highlight prime numbers from 1 to 50.</p>
+        <button class="action-btn" onclick="revealPrimes()">Reveal Primes</button>
+        <button class="action-btn pink-btn" onclick="resetSieve()">Reset</button>
+        <div id="sieveGrid" class="number-grid"></div>
+      </div>
+    </section>
+
+    <section id="panel-generator" class="tab-content">
+      <div class="info-box">
+        <h3>Worksheet Generator</h3>
+        <p>Create a printable worksheet for prime and composite numbers.</p>
+        <label>Number of questions:</label>
+        <input type="number" id="pdf-qty" value="10" min="5" max="30">
+        <br><br>
+        <button class="action-btn" onclick="generatePDF()">Download PDF</button>
+      </div>
+    </section>
+
+    <section id="panel-real" class="tab-content">
+      <div class="grid">
+        <div class="info-box">
+          <h3>Internet Security</h3>
+          <p>Prime numbers are used in encryption, which helps protect online payments, passwords and messages.</p>
+        </div>
+        <div class="info-box">
+          <h3>Everyday Grouping</h3>
+          <p>Factors help us arrange objects equally, form teams, pack items and understand repeated multiplication.</p>
+        </div>
+      </div>
+      <br>
+      <div class="info-box">
+        <h3>Exit Ticket</h3>
+        <p>Before leaving, answer this: Why is 1 not a prime number?</p>
+        <input type="text" id="exitAns" placeholder="Write your reason...">
+        <button class="action-btn" onclick="checkExitTicket()">Submit Exit Ticket</button>
+        <p id="exitFeedback" class="feedback"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>📧 contact@abhyast.in | 💬 WhatsApp Support</p>
+    <p>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</p>
+  </footer>
+
+  <script>
+    const qPool = [
+      { q: "Break 12 into its prime factors.", a: "2*2*3", steps: "12 ÷ 2 = 6, 6 ÷ 2 = 3. Since 3 is prime, 12 = 2 × 2 × 3." },
+      { q: "Is 17 prime or composite?", a: "prime", steps: "17 has only two factors: 1 and 17. Therefore, it is prime." },
+      { q: "Find the prime factors of 18.", a: "2*3*3", steps: "18 ÷ 2 = 9, 9 ÷ 3 = 3. Therefore, 18 = 2 × 3 × 3." },
+      { q: "Is 21 prime or composite?", a: "composite", steps: "21 has factors 1, 3, 7 and 21. Therefore, it is composite." },
+      { q: "Find the prime factors of 30.", a: "2*3*5", steps: "30 ÷ 2 = 15, 15 ÷ 3 = 5. Therefore, 30 = 2 × 3 × 5." },
+      { q: "Is 2 prime or composite?", a: "prime", steps: "2 has exactly two factors: 1 and 2. It is the only even prime number." },
+      { q: "Find the prime factors of 45.", a: "3*3*5", steps: "45 ÷ 3 = 15, 15 ÷ 3 = 5. Therefore, 45 = 3 × 3 × 5." }
+    ];
+
+    let qIdx = 0;
+    let score = Number(localStorage.getItem('primeTimeScore') || 0);
+
+    const sortNumbers = [
+      { n: 7, type: "prime" }, { n: 9, type: "composite" }, { n: 11, type: "prime" },
+      { n: 15, type: "composite" }, { n: 23, type: "prime" }, { n: 27, type: "composite" },
+      { n: 31, type: "prime" }, { n: 39, type: "composite" }
+    ];
+    let sortIdx = 0;
+
+    const divQuestions = [
+      { q: "Is 40 divisible by 5?", ans: true, reason: "Numbers ending in 0 or 5 are divisible by 5." },
+      { q: "Is 37 divisible by 2?", ans: false, reason: "Even numbers are divisible by 2. 37 is odd." },
+      { q: "Is 90 divisible by 10?", ans: true, reason: "Numbers ending in 0 are divisible by 10." },
+      { q: "Is 48 divisible by 5?", ans: false, reason: "48 does not end in 0 or 5." },
+      { q: "Is 126 divisible by 2?", ans: true, reason: "126 ends in 6, so it is even." }
+    ];
+    let divIdx = 0;
+
+    function switchTab(id) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`panel-${id}`).classList.add('active');
+      document.getElementById(`btn-${id}`).classList.add('active');
+    }
+
+    function updateScore(points = 1) {
+      score += points;
+      localStorage.setItem('primeTimeScore', score);
+      document.getElementById('score').innerText = score;
+      document.getElementById('progressFill').style.width = Math.min(score * 8, 100) + '%';
+      let badge = 'Explorer';
+      if (score >= 5) badge = 'Prime Finder';
+      if (score >= 10) badge = 'Factor Master';
+      if (score >= 15) badge = 'Prime Champion';
+      document.getElementById('badgeText').innerText = 'Badge: ' + badge;
+    }
+
+    function normalizeAnswer(ans) {
+      return ans.toLowerCase().replace(/\s/g, '').replace(/×/g, '*').replace(/x/g, '*');
+    }
+
+    function checkAnswer() {
+      const userAns = normalizeAnswer(document.getElementById('ans-input').value);
+      const correctAns = normalizeAnswer(qPool[qIdx].a);
+      const feedback = document.getElementById('feedback');
+      if (userAns === correctAns) {
+        feedback.innerText = '✅ Correct! Great work.';
+        feedback.className = 'feedback correct';
+        updateScore();
+      } else {
+        feedback.innerText = '❌ Try again. Use the steps for help.';
+        feedback.className = 'feedback wrong';
+      }
+    }
+
+    function nextQuestion() {
+      qIdx = Math.floor(Math.random() * qPool.length);
+      document.getElementById('lab-question-field').innerText = qPool[qIdx].q;
+      document.getElementById('ans-input').value = '';
+      document.getElementById('feedback').innerText = '';
+      document.getElementById('steps-container').style.display = 'none';
+    }
+
+    function toggleSteps() {
+      const box = document.getElementById('steps-container');
+      document.getElementById('steps-content').innerText = qPool[qIdx].steps;
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) if (n % i === 0) return false;
+      return true;
+    }
+
+    function getPrimeFactors(n) {
+      const factors = [];
+      let divisor = 2;
+      while (n > 1) {
+        while (n % divisor === 0) {
+          factors.push(divisor);
+          n = n / divisor;
+        }
+        divisor++;
+      }
+      return factors;
+    }
+
+    function showFactors() {
+      const n = Number(document.getElementById('factorNumber').value);
+      if (!n || n < 2) {
+        document.getElementById('factorOutput').innerText = 'Please enter a number greater than 1.';
+        return;
+      }
+      const factors = getPrimeFactors(n);
+      document.getElementById('factorOutput').innerText = `${n} = ${factors.join(' × ')}`;
+      updateScore();
+    }
+
+    function sortAnswer(choice) {
+      const current = sortNumbers[sortIdx];
+      const feedback = document.getElementById('sort-feedback');
+      if (choice === current.type) {
+        feedback.innerText = '✅ Correct!';
+        feedback.className = 'feedback correct';
+        updateScore();
+      } else {
+        feedback.innerText = `❌ Not quite. ${current.n} is ${current.type}.`;
+        feedback.className = 'feedback wrong';
+      }
+      sortIdx = (sortIdx + 1) % sortNumbers.length;
+      document.getElementById('sort-number').innerText = sortNumbers[sortIdx].n;
+    }
+
+    function divAnswer(choice) {
+      const current = divQuestions[divIdx];
+      const feedback = document.getElementById('div-feedback');
+      if (choice === current.ans) {
+        feedback.innerText = '✅ Correct! ' + current.reason;
+        feedback.className = 'feedback correct';
+        updateScore();
+      } else {
+        feedback.innerText = '❌ Try again. ' + current.reason;
+        feedback.className = 'feedback wrong';
+      }
+      divIdx = (divIdx + 1) % divQuestions.length;
+      document.getElementById('div-question').innerText = divQuestions[divIdx].q;
+    }
+
+    function buildSieve() {
+      const grid = document.getElementById('sieveGrid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= 50; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'num-cell';
+        cell.innerText = i;
+        cell.onclick = () => cell.classList.toggle('selected');
+        grid.appendChild(cell);
+      }
+    }
+
+    function revealPrimes() {
+      document.querySelectorAll('.num-cell').forEach(cell => {
+        const n = Number(cell.innerText);
+        cell.className = 'num-cell ' + (isPrime(n) ? 'prime' : (n > 1 ? 'composite' : ''));
+      });
+      updateScore();
+    }
+
+    function resetSieve() { buildSieve(); }
+
+    function generatePDF() {
+      const qty = Math.min(Math.max(Number(document.getElementById('pdf-qty').value), 5), 30);
+      let worksheet = `
+        <div style="font-family: Poppins, Arial, sans-serif; padding: 20px; color: #272b6a;">
+          <h1>Prime Time Worksheet</h1>
+          <p>Name: ____________________ Date: ____________________</p>
+          <h3>Part A: Prime or Composite</h3>
+      `;
+      for (let i = 1; i <= qty; i++) {
+        const num = Math.floor(Math.random() * 98) + 2;
+        worksheet += `<p>${i}. Is ${num} prime or composite? Give one reason.</p>`;
+      }
+      worksheet += `<h3>Part B: Prime Factorisation</h3>`;
+      for (let i = 1; i <= 5; i++) {
+        const num = Math.floor(Math.random() * 60) + 12;
+        worksheet += `<p>${i}. Write ${num} as a product of prime factors.</p>`;
+      }
+      worksheet += `<h3>Exit Ticket</h3><p>Why is 1 neither prime nor composite?</p></div>`;
+      const element = document.createElement('div');
+      element.innerHTML = worksheet;
+      html2pdf().from(element).save('Prime-Time-Worksheet.pdf');
+    }
+
+    function checkExitTicket() {
+      const ans = document.getElementById('exitAns').value.toLowerCase();
+      const feedback = document.getElementById('exitFeedback');
+      if (ans.includes('two') || ans.includes('2') || ans.includes('one factor') || ans.includes('only one')) {
+        feedback.innerText = '✅ Good explanation! A prime number must have exactly two factors.';
+        feedback.className = 'feedback correct';
+        updateScore();
+      } else {
+        feedback.innerText = 'Hint: Think about how many factors a prime number must have.';
+        feedback.className = 'feedback wrong';
+      }
+    }
+
+    window.onload = () => {
+      document.getElementById('lab-question-field').innerText = qPool[0].q;
+      document.getElementById('sort-number').innerText = sortNumbers[0].n;
+      document.getElementById('div-question').innerText = divQuestions[0].q;
+      buildSieve();
+      updateScore(0);
+    };
+  </script>
+</body>
+</html>

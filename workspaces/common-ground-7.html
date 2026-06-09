@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VII: Finding Common Ground - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-container img{height:42px}.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.tile-room{display:grid;gap:2px;justify-content:center;background:#fff;border:3px solid var(--brand-navy);border-radius:12px;padding:10px;margin:18px auto;max-width:max-content}.room-cell{width:22px;height:22px;background:#f0f0f0;border-radius:3px}.room-cell.edge{background:var(--brand-aqua)}.room-cell.tile{background:var(--brand-pink)}
+.number-list{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px 0}.num-chip{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:999px;padding:8px 12px;font-weight:800}.num-chip.common{background:var(--brand-yellow)}.num-chip.answer{background:var(--brand-pink);color:#fff}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:150px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.room-cell{width:16px;height:16px}.num-card{min-width:120px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VII • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: HCF & LCM</span></div>
+<h2 style="font-size:2.2rem;margin-top:0">Finding Common Ground</h2>
+<p style="color:var(--text-muted)">Explore highest common factor, lowest common multiple, tiling, grouping, meeting cycles, and prime factorization.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Formula Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: HCF and LCM</h3>
+<div class="info-box">
+<p><strong>HCF</strong> means Highest Common Factor: the largest number that divides two or more numbers exactly.</p>
+<p><strong>LCM</strong> means Lowest Common Multiple: the smallest number that is a multiple of two or more numbers.</p>
+<div class="highlight-card"><strong>Use HCF</strong> when you want the biggest equal group, biggest square tile, or largest common size.</div>
+<div class="highlight-card pink-card"><strong>Use LCM</strong> when events repeat together, bells ring together, or cycles meet again.</div>
+<div class="highlight-card yellow-card"><strong>Room Tile Example:</strong> For a 12 ft by 16 ft room, the largest square tile has side HCF(12,16) = 4 ft.</div>
+<div class="tile-room" id="introRoom"></div>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Formula Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Factors</h4><p>Numbers that divide a number exactly.</p><p>Factors of 12: 1, 2, 3, 4, 6, 12.</p></div>
+<div class="formula-tile"><h4>Common Factors</h4><p>Factors shared by two or more numbers.</p><p>Common factors of 12 and 16: 1, 2, 4.</p></div>
+<div class="formula-tile"><h4>HCF</h4><p>Largest common factor.</p><p>HCF(12,16) = 4.</p></div>
+<div class="formula-tile"><h4>Multiples</h4><p>Numbers in a times table.</p><p>Multiples of 6: 6, 12, 18, 24...</p></div>
+<div class="formula-tile"><h4>LCM</h4><p>Smallest common multiple.</p><p>LCM(6,8) = 24.</p></div>
+<div class="formula-tile"><h4>HCF × LCM Rule</h4><p>For two numbers: product = HCF × LCM.</p><p>12 × 16 = 4 × 48.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Common Ground Finder</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Factor Finder</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>The Logical Path:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🧮 HCF & LCM Calculator</h4>
+<label>Number A <input type="number" id="calcA" value="12"></label>
+<label>Number B <input type="number" id="calcB" value="16"></label>
+<button class="action-btn" onclick="calcHcfLcm()">Calculate</button>
+<div id="calcFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧱 Tile the Room</h4>
+<p>Find the largest square tile for a rectangular room.</p>
+<label>Length <input type="number" id="roomL" value="12"> ft</label>
+<label>Breadth <input type="number" id="roomB" value="16"> ft</label>
+<button class="action-btn" onclick="tileRoom()">Find Tile Size</button>
+<div class="tile-room" id="roomModel"></div>
+<div id="roomFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔍 Factor Explorer</h4>
+<label>Number <input type="number" id="factorN" value="24"></label>
+<button class="action-btn" onclick="showFactors()">Show Factors</button>
+<div id="factorOutput" class="number-list"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔁 Multiple Race</h4>
+<p>Find the first common multiple.</p>
+<label>Number A <input type="number" id="multA" value="6"></label>
+<label>Number B <input type="number" id="multB" value="8"></label>
+<button class="action-btn" onclick="multipleRace()">Start Race</button>
+<div id="multipleOutput" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>⚖️ HCF or LCM?</h4>
+<p id="choiceQuestion" style="font-weight:800;font-size:1.1rem"></p>
+<button class="action-btn" onclick="checkChoice('HCF')">HCF</button>
+<button class="action-btn" onclick="checkChoice('LCM')">LCM</button>
+<button class="action-btn secondary-btn" onclick="newChoice()">New</button>
+<div id="choiceFeedback" class="feedback-box hidden"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate HCF, LCM, tiling, grouping, and repeating-cycle problems.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Tiling:</strong> Use HCF to find the largest square tile with no leftovers.</div>
+<div class="highlight-card pink-card"><strong>Grouping:</strong> Use HCF to make the largest equal groups.</div>
+<div class="highlight-card yellow-card"><strong>Schedules:</strong> Use LCM to find when repeating events happen together.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul><li>List factors and multiples of numbers.</li><li>Find common factors and common multiples.</li><li>Calculate HCF and LCM using listing and prime-factor thinking.</li><li>Choose HCF or LCM based on real-life context.</li><li>Solve tiling, grouping, and schedule problems.</li></ul>
+<h4>Exit Ticket Prompts</h4>
+<ul><li>Why is HCF used for the largest square tile?</li><li>Find HCF and LCM of 12 and 18.</li><li>Two bells ring every 6 and 8 minutes. When will they ring together?</li></ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"Sameeksha's room is 12 ft by 16 ft. What is the largest square tile size that covers the floor with no leftovers?",a:"4 ft",accepted:["4","4ft","4 ft"],hint:"The tile side must divide both 12 and 16.",steps:"Step 1: The tile side must be a factor of both 12 and 16. Step 2: Factors of 12 are 1,2,3,4,6,12. Factors of 16 are 1,2,4,8,16. Step 3: Common factors are 1,2,4. Step 4: The largest common factor is 4, so the tile size is 4 ft."},
+{q:"Find HCF of 18 and 24.",a:"6",accepted:["6"],hint:"List common factors and choose the greatest.",steps:"Factors of 18: 1,2,3,6,9,18. Factors of 24: 1,2,3,4,6,8,12,24. HCF = 6."},
+{q:"Find LCM of 6 and 8.",a:"24",accepted:["24"],hint:"List multiples until the first common one.",steps:"Multiples of 6: 6,12,18,24. Multiples of 8: 8,16,24. LCM = 24."},
+{q:"Two bells ring every 5 and 7 minutes. After how many minutes will they ring together?",a:"35",accepted:["35","35 minutes"],hint:"Use LCM for repeating events.",steps:"Multiples of 5: 5,10,15,20,25,30,35. Multiples of 7: 7,14,21,28,35. They meet at 35."},
+{q:"Find the largest equal group size for 20 apples and 30 oranges.",a:"10",accepted:["10"],hint:"Use HCF for largest equal grouping.",steps:"HCF(20,30) = 10. So the largest equal group size is 10."},
+{q:"Find HCF and LCM of 12 and 16. Type as HCF, LCM.",a:"4, 48",accepted:["4,48","4, 48"],hint:"HCF is 4. Use product rule to find LCM.",steps:"HCF(12,16)=4. Product = 12×16=192. LCM = 192÷4 = 48."}
+];
+let qIdx=0,score=0,streak=0,currentChoice='HCF';const storageKey='mathable_hcf_lcm_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();buildIntroRoom();calcHcfLcm();tileRoom();showFactors();multipleRace();newChoice();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){let t=b;b=a%b;a=t;}return a||1;}
+function lcm(a,b){return Math.abs(a*b)/gcd(a,b);}
+function factors(n){let arr=[];for(let i=1;i<=n;i++)if(n%i===0)arr.push(i);return arr;}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Factor Finder';if(score>=150)badge='Common Ground Master';else if(score>=80)badge='LCM Linker';else if(score>=30)badge='HCF Hero';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see how to find the common factor or multiple.';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function drawRoom(id,l,b,tile){let room=document.getElementById(id);room.innerHTML='';let cols=Math.min(l,24),rows=Math.min(b,16);room.style.gridTemplateColumns=`repeat(${cols},22px)`;for(let r=0;r<rows;r++){for(let c=0;c<cols;c++){let cell=document.createElement('div');cell.className='room-cell '+(((r%tile===0)||(c%tile===0))?'edge':'');room.appendChild(cell);}}}
+function buildIntroRoom(){drawRoom('introRoom',16,12,4);}
+function calcHcfLcm(){let a=Number(document.getElementById('calcA').value)||12,b=Number(document.getElementById('calcB').value)||16,h=gcd(a,b),m=lcm(a,b);document.getElementById('calcFeedback').innerHTML=`HCF(${a}, ${b}) = <strong>${h}</strong><br>LCM(${a}, ${b}) = <strong>${m}</strong><br>Check: ${a}×${b} = ${a*b}, and HCF×LCM = ${h*m}.`;}
+function tileRoom(){let l=Number(document.getElementById('roomL').value)||12,b=Number(document.getElementById('roomB').value)||16,h=gcd(l,b);drawRoom('roomModel',l,b,h);document.getElementById('roomFeedback').innerHTML=`Largest square tile side = HCF(${l}, ${b}) = <strong>${h} ft</strong>.`;}
+function showFactors(){let n=Number(document.getElementById('factorN').value)||24;document.getElementById('factorOutput').innerHTML=factors(n).map(x=>`<span class="num-chip">${x}</span>`).join('');}
+function multipleRace(){let a=Number(document.getElementById('multA').value)||6,b=Number(document.getElementById('multB').value)||8,m=lcm(a,b);let ma=[],mb=[];for(let i=1;i<=m/a;i++)ma.push(a*i);for(let i=1;i<=m/b;i++)mb.push(b*i);document.getElementById('multipleOutput').innerHTML=`Multiples of ${a}: ${ma.join(', ')}<br>Multiples of ${b}: ${mb.join(', ')}<br>First common multiple = <strong>${m}</strong>.`;}
+function newChoice(){let items=[['Largest square tile with no leftovers','HCF'],['When two bells ring together again','LCM'],['Largest equal group size','HCF'],['Smallest time when two cycles meet','LCM'],['Biggest ribbon length to cut equal pieces','HCF']];let it=items[Math.floor(Math.random()*items.length)];document.getElementById('choiceQuestion').innerText=it[0];currentChoice=it[1];document.getElementById('choiceFeedback').classList.add('hidden');}
+function checkChoice(choice){let fb=document.getElementById('choiceFeedback');fb.innerHTML=choice===currentChoice?`✅ Correct. Use ${currentChoice}.`:`❌ Not quite. This situation needs ${currentChoice}.`;fb.classList.remove('hidden');}
+function loadRealCase(){let cases=[['Room Tiling','A 12 ft by 16 ft room needs the largest square tile.','Use HCF(12,16)=4 ft.'],['Bells','Two bells ring every 6 and 8 minutes.','Use LCM(6,8)=24 minutes.'],['Gift Packs','20 pencils and 30 erasers must be packed equally.','Use HCF(20,30)=10 items per group.'],['Traffic Lights','Lights change every 12 and 15 seconds.','Use LCM(12,15)=60 seconds.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*5);if(t===0){let a=12,b=18;return{q:`Find HCF of ${a} and ${b}.`,a:`${gcd(a,b)}`,s:`Common greatest factor is ${gcd(a,b)}.`};}if(t===1){let a=6,b=8;return{q:`Find LCM of ${a} and ${b}.`,a:`${lcm(a,b)}`,s:`First common multiple is ${lcm(a,b)}.`};}if(t===2){let a=12,b=16;return{q:`A room is ${a} ft by ${b} ft. Largest square tile size?`,a:`${gcd(a,b)} ft`,s:`Use HCF(${a},${b})=${gcd(a,b)}.`};}if(t===3){let a=5,b=7;return{q:`Two bells ring every ${a} and ${b} minutes. When together?`,a:`${lcm(a,b)} minutes`,s:`Use LCM(${a},${b})=${lcm(a,b)}.`};}let a=20,b=30;return{q:`Largest equal group size for ${a} apples and ${b} oranges?`,a:`${gcd(a,b)}`,s:`Use HCF(${a},${b})=${gcd(a,b)}.`};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VII: HCF and LCM Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'hcf-lcm-answer-key.pdf':'hcf-lcm-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

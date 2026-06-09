@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Squares & Cubes - Mathable Smart Lab</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--orange:#e67e22}
+body{font-family:Poppins,Segoe UI,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}header{background:#fff;padding:18px 24px;border-bottom:2px solid var(--brand-aqua)}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}.logo-block img{height:42px}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:700;font-size:.85rem}.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:white}
+.tab-content{display:none}.tab-content.active{display:block}.info-box{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.activity-card{background:white;border:1px solid rgba(39,43,106,.12);border-radius:14px;padding:20px;margin:18px 0;box-shadow:0 4px 12px rgba(0,0,0,.03)}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:white;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.orange-btn{background:var(--orange)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}.hidden{display:none}
+.hint-box,.solution-box,.feedback-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-yellow)}.solution-box{border-left-color:var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}
+.score-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.visual-zone{display:flex;justify-content:center;gap:24px;align-items:center;flex-wrap:wrap;margin:18px 0}.square-grid{display:grid;gap:3px;background:#fff;padding:10px;border:2px dashed var(--brand-aqua);border-radius:12px}.square-cell{width:24px;height:24px;background:var(--brand-pink);border-radius:4px}
+.cube-stack{display:grid;grid-template-columns:repeat(4,28px);gap:4px;transform:skewY(-8deg);padding:12px;background:#fff;border:2px dashed var(--brand-yellow);border-radius:12px}.cube-cell{width:28px;height:28px;background:var(--brand-aqua);border-radius:4px;box-shadow:4px 4px 0 rgba(39,43,106,.25)}
+.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:160px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}.pattern-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.pattern-box{background:#fff;border:1px solid rgba(39,43,106,.15);border-radius:10px;padding:14px;min-width:110px;text-align:center;font-weight:800}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.square-cell{width:18px;height:18px}}
+</style>
+</head>
+<body>
+<header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">TRACK 1 • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Strand: Number Sense and Arithmetic Operations</span></div>
+<h2 style="color:var(--brand-navy);margin-top:0;font-size:2.25rem;font-weight:800">Squares & Cubes Smart Lab</h2><p style="color:var(--text-muted);margin-top:-6px">Explore square numbers, cube numbers, roots, perfect squares/cubes, visual models, and real-life applications.</p>
+<nav class="tab-navigation"><button id="btn-fact" class="tab-btn active" onclick="switchLabTab('fact')">📖 Fact Sheet</button><button id="btn-rules" class="tab-btn" onclick="switchLabTab('rules')">🧪 Rules Hub</button><button id="btn-lab" class="tab-btn" onclick="switchLabTab('lab')">💻 Solve Lab</button><button id="btn-activities" class="tab-btn" onclick="switchLabTab('activities')">🎮 Activity Zone</button><button id="btn-generator" class="tab-btn" onclick="switchLabTab('generator')">🖨️ Worksheet Generator</button><button id="btn-real" class="tab-btn" onclick="switchLabTab('real')">🌍 Real-World Use</button><button id="btn-teacher" class="tab-btn" onclick="switchLabTab('teacher')">📊 Teacher Tools</button></nav>
+
+<section id="panel-fact" class="tab-content active"><h3>Squares and Cubes</h3><div class="info-box"><p>A <strong>square number</strong> is made by multiplying a number by itself. A <strong>cube number</strong> is made by multiplying a number by itself three times.</p><div class="highlight-card"><strong>Square:</strong> \(5^2 = 5 × 5 = 25\)</div><div class="highlight-card pink-card"><strong>Cube:</strong> \(5^3 = 5 × 5 × 5 = 125\)</div><div class="highlight-card yellow-card"><strong>Roots undo powers:</strong> \(\sqrt{49}=7\) and \(\sqrt[3]{64}=4\)</div><div class="visual-zone"><div><div id="squareVisual" class="square-grid"></div><p style="text-align:center"><strong>4² = 16</strong></p></div><div><div id="cubeVisual" class="cube-stack"></div><p style="text-align:center"><strong>4³ = 64</strong></p></div></div></div></section>
+
+<section id="panel-rules" class="tab-content"><h3>Rules Hub</h3><div class="info-box"><div class="formula-grid"><div class="formula-tile"><h4>Square Number</h4><p>\(n^2 = n × n\)</p><p>Used for area of a square.</p></div><div class="formula-tile"><h4>Cube Number</h4><p>\(n^3 = n × n × n\)</p><p>Used for volume of a cube.</p></div><div class="formula-tile"><h4>Square Root</h4><p>\(\sqrt{x}\) asks: which number squared gives x?</p><p>\(\sqrt{81}=9\)</p></div><div class="formula-tile"><h4>Cube Root</h4><p>\(\sqrt[3]{x}\) asks: which number cubed gives x?</p><p>\(\sqrt[3]{216}=6\)</p></div><div class="formula-tile"><h4>Odd Number Pattern</h4><p>Consecutive squares differ by odd numbers.</p><p>1, 3, 5, 7, 9...</p></div><div class="formula-tile"><h4>Perfect Square/Cube</h4><p>A number is a perfect square/cube if its root is a whole number.</p></div></div></div></section>
+
+<section id="panel-lab" class="tab-content"><h3>Guided Solve Lab</h3><div class="info-box"><div class="score-bar"><span id="lab-score-display">Score: 0</span><span id="lab-streak-display">Current Streak: 🔥 0</span><span id="lab-badge-display">Badge: Power Explorer</span></div><div class="activity-card"><p id="lab-question-field" style="font-size:1.15rem;font-weight:600;line-height:1.6"></p><input type="text" id="student-answer-input" placeholder="Type answer"><br><button class="action-btn" onclick="submitSandboxAnswer()">Check Answer</button><button class="action-btn secondary-btn" onclick="renderSandboxQuestion(true)">Next Question</button><button class="action-btn secondary-btn" onclick="toggleVisibilityBox('hint-box-container')">Show Hint</button><button class="action-btn pink-btn" onclick="toggleVisibilityBox('solution-box-container')">Step-by-Step</button><div id="feedback-box-container" class="feedback-box hidden"></div><div id="hint-box-container" class="hint-box hidden"></div><div id="solution-box-container" class="solution-box hidden"></div></div></div></section>
+
+<section id="panel-activities" class="tab-content"><h3>Activity Zone</h3>
+<div class="activity-card"><h4>🧮 Square & Cube Calculator</h4><label>Start <input id="calc-start" type="number" value="1"></label><label>End <input id="calc-end" type="number" value="20"></label><button class="action-btn" onclick="generateChart()">Generate Chart</button><div id="calc-output" class="table-wrap" style="margin-top:16px"></div></div>
+<div class="activity-card"><h4>🎛️ Visual Builder</h4><p>Choose a number and see its square/cube counts.</p><input type="range" min="1" max="10" value="4" id="visualSlider" oninput="updateVisualBuilder()"><span class="label-chip" id="visualNumber">n = 4</span><div id="visualFeedback" class="feedback-box"></div></div>
+<div class="activity-card"><h4>⚔️ Power Comparison</h4><p>Which is greater?</p><div class="compare-zone"><div class="num-card" id="compareA">8²</div><div class="num-card" id="compareB">4³</div></div><button class="action-btn" onclick="checkCompare('A')">Left</button><button class="action-btn" onclick="checkCompare('B')">Right</button><button class="action-btn secondary-btn" onclick="checkCompare('equal')">Equal</button><button class="action-btn pink-btn" onclick="newCompare()">New</button><div id="compareFeedback" class="feedback-box hidden"></div></div>
+<div class="activity-card"><h4>🔍 Perfect Square/Cube Checker</h4><input type="number" id="perfectInput" value="64"><button class="action-btn" onclick="checkPerfect()">Check</button><div id="perfectFeedback" class="feedback-box hidden"></div></div>
+<div class="activity-card"><h4>📈 Odd Difference Pattern</h4><p>Generate consecutive square differences.</p><button class="action-btn" onclick="showOddPattern()">Show Pattern</button><div id="patternFeedback" class="feedback-box hidden"></div></div>
+</section>
+
+<section id="panel-generator" class="tab-content"><h3>Worksheet Generator</h3><div class="info-box"><p>Generate printable practice on squares, cubes, square roots, cube roots, and perfect numbers.</p><label>Number of problems:</label><input type="number" id="pdf-quantity-input" min="5" max="50" value="12"><br><br><button class="action-btn" onclick="generateWorksheetPdf(false)">Download Worksheet PDF</button><button class="action-btn secondary-btn" onclick="generateWorksheetPdf(true)">Download Answer Key PDF</button></div><div id="pdf-printing-canvas" style="display:none"></div></section>
+
+<section id="panel-real" class="tab-content"><h3>Real-Life Lab</h3><div class="info-box"><div id="realCase"></div><button class="action-btn" onclick="loadRealLifeLab()">Next Case Study</button></div></section>
+
+<section id="panel-teacher" class="tab-content"><h3>Teacher Tools</h3><div class="info-box"><h4>Learning Outcomes</h4><ul><li>Define square numbers, cube numbers, square roots, and cube roots.</li><li>Recognize perfect squares and perfect cubes.</li><li>Use square numbers for area and cube numbers for volume.</li><li>Identify patterns in consecutive square numbers.</li><li>Solve root problems using factorization, estimation, and checking.</li></ul><h4>Exit Ticket Prompts</h4><ul><li>Why is 49 a perfect square?</li><li>Explain why \(3^3\) is not the same as \(3^2\).</li><li>Where do we use squares and cubes in real life?</li></ul></div></section>
+</main>
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const pool=[
+{q:"Evaluate 7².",a:"49",accepted:["49"],hint:"Square means multiply the number by itself.",steps:"7² = 7 × 7 = 49."},
+{q:"Evaluate 4³.",a:"64",accepted:["64"],hint:"Cube means multiply the number three times.",steps:"4³ = 4 × 4 × 4 = 64."},
+{q:"Find √81.",a:"9",accepted:["9"],hint:"Which number squared gives 81?",steps:"9 × 9 = 81, so √81 = 9."},
+{q:"Find ∛125.",a:"5",accepted:["5"],hint:"Which number cubed gives 125?",steps:"5 × 5 × 5 = 125, so ∛125 = 5."},
+{q:"Is 36 a perfect square? Type yes or no.",a:"yes",accepted:["yes","y"],hint:"Check whether its square root is a whole number.",steps:"√36 = 6, a whole number. So 36 is a perfect square."},
+{q:"Is 27 a perfect cube? Type yes or no.",a:"yes",accepted:["yes","y"],hint:"Check whether its cube root is a whole number.",steps:"∛27 = 3, so 27 is a perfect cube."},
+{q:"What is the difference between 6² and 5²?",a:"11",accepted:["11"],hint:"Consecutive squares differ by odd numbers.",steps:"6² = 36 and 5² = 25. Difference = 11."},
+{q:"A square floor has side 12 m. Find its area.",a:"144",accepted:["144","144m2","144 m2","144m²"],hint:"Area of square = side².",steps:"Area = 12² = 144 m²."},
+{q:"A cube has side 3 cm. Find its volume.",a:"27",accepted:["27","27cm3","27 cm3","27cm³"],hint:"Volume of cube = side³.",steps:"Volume = 3³ = 27 cm³."}
+];
+let idx=0,score=0,streak=0,comparePair=["8**2","4**3"];const storageKey="mathable_state_squares_cubes";
+window.onload=function(){try{let s=JSON.parse(localStorage.getItem(storageKey)||"{}");score=s.score||0;streak=s.streak||0;idx=s.index||0}catch(e){}renderSandboxQuestion();buildVisuals();generateChart();loadRealLifeLab();}
+function switchLabTab(id){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.getElementById('btn-'+id).classList.add('active')}
+function toggleVisibilityBox(id){document.getElementById(id).classList.toggle('hidden')}function norm(v){return String(v).trim().toLowerCase().replace(/\s+/g,'').replace(/,/g,'')}
+function updateScore(){document.getElementById('lab-score-display').innerText=`Score: ${score}`;document.getElementById('lab-streak-display').innerText=`Current Streak: 🔥 ${streak}`;let b="Power Explorer";if(score>=150)b="Root Champion";else if(score>=90)b="Cube Master";else if(score>=40)b="Square Star";document.getElementById('lab-badge-display').innerText=`Badge: ${b}`}
+function renderSandboxQuestion(next=false){if(next)idx++;let o=pool[idx%pool.length];document.getElementById('lab-question-field').innerHTML=`<strong>Question ${idx+1}:</strong> ${o.q}`;document.getElementById('hint-box-container').innerHTML=`<strong>Hint:</strong> ${o.hint}`;document.getElementById('solution-box-container').innerHTML=`<strong>Step-by-Step:</strong><br>${o.steps}`;['feedback-box-container','hint-box-container','solution-box-container'].forEach(id=>document.getElementById(id).classList.add('hidden'));document.getElementById('student-answer-input').value='';updateScore();if(window.MathJax)MathJax.typesetPromise();}
+function submitSandboxAnswer(){let o=pool[idx%pool.length],ans=norm(document.getElementById('student-answer-input').value),ok=o.accepted.map(norm).includes(ans),box=document.getElementById('feedback-box-container');if(ok){box.innerHTML="🎉 Correct! "+o.steps;score+=10;streak++;idx++;setTimeout(()=>renderSandboxQuestion(),900)}else{box.innerHTML=`Try again. Correct answer: <strong>${o.a}</strong>.`;streak=0}box.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,index:idx}));updateScore();}
+function buildVisuals(){let sq=document.getElementById('squareVisual');sq.style.gridTemplateColumns='repeat(4,24px)';sq.innerHTML='';for(let i=0;i<16;i++){let c=document.createElement('div');c.className='square-cell';sq.appendChild(c)}let cu=document.getElementById('cubeVisual');cu.innerHTML='';for(let i=0;i<16;i++){let c=document.createElement('div');c.className='cube-cell';cu.appendChild(c)}updateVisualBuilder();}
+function updateVisualBuilder(){let n=Number(document.getElementById('visualSlider').value);document.getElementById('visualNumber').innerText=`n = ${n}`;document.getElementById('visualFeedback').innerHTML=`<strong>${n}² = ${n*n}</strong> square units and <strong>${n}³ = ${n*n*n}</strong> cubic units.`;}
+function isPerfectSquare(n){return Number.isInteger(Math.sqrt(n))}function isPerfectCube(n){return Number.isInteger(Math.cbrt(n))}
+function generateChart(){let start=Number(document.getElementById('calc-start').value)||1,end=Number(document.getElementById('calc-end').value)||20;if(end<start)[start,end]=[end,start];let h='<table class="smart-table"><tr><th>Number</th><th>Square</th><th>Cube</th><th>Perfect Square?</th><th>Perfect Cube?</th></tr>';for(let i=start;i<=end;i++)h+=`<tr><td>${i}</td><td>${i*i}</td><td>${i*i*i}</td><td>${isPerfectSquare(i)?'✅':'❌'}</td><td>${isPerfectCube(i)?'✅':'❌'}</td></tr>`;h+='</table>';document.getElementById('calc-output').innerHTML=h;}
+function newCompare(){let bases=[2,3,4,5,6,7,8,9,10,11,12];let a=bases[Math.floor(Math.random()*bases.length)],b=bases[Math.floor(Math.random()*bases.length)],pa=Math.random()>.5?2:3,pb=Math.random()>.5?2:3;comparePair=[`${a}**${pa}`,`${b}**${pb}`];document.getElementById('compareA').innerText=`${a}${pa===2?'²':'³'}`;document.getElementById('compareB').innerText=`${b}${pb===2?'²':'³'}`;document.getElementById('compareFeedback').classList.add('hidden');}
+function checkCompare(choice){let a=Function('return '+comparePair[0])(),b=Function('return '+comparePair[1])(),correct=a>b?'A':a<b?'B':'equal',box=document.getElementById('compareFeedback');box.innerHTML=choice===correct?`✅ Correct. Left = ${a}, Right = ${b}.`:`❌ Not quite. Left = ${a}, Right = ${b}.`;box.classList.remove('hidden');}
+function checkPerfect(){let n=Number(document.getElementById('perfectInput').value)||0,box=document.getElementById('perfectFeedback');let text=`${n}: ${isPerfectSquare(n)?'✅ perfect square, √'+n+' = '+Math.sqrt(n):'❌ not a perfect square'}<br>${n}: ${isPerfectCube(n)?'✅ perfect cube, ∛'+n+' = '+Math.cbrt(n):'❌ not a perfect cube'}`;box.innerHTML=text;box.classList.remove('hidden');}
+function showOddPattern(){let h='<div class="pattern-row">';for(let n=1;n<=8;n++)h+=`<div class="pattern-box">${n+1}² - ${n}²<br>= ${(n+1)*(n+1)-n*n}</div>`;h+='</div><p>These differences are consecutive odd numbers.</p>';let box=document.getElementById('patternFeedback');box.innerHTML=h;box.classList.remove('hidden');}
+const realCases=[{title:"🏟️ Stadium Seating",story:"Seats are arranged in a perfect square grid.",q:"If there are 10,000 seats, how many per side?",steps:["side² = 10,000","side = √10,000","side = 100"],ans:"100 seats per side"},{title:"📦 Shipping Box Volume",story:"A cube-shaped box has volume 64 m³.",q:"What is the side length?",steps:["side³ = 64","side = ∛64","side = 4"],ans:"4 m"},{title:"🧱 Tiling a Floor",story:"A square floor has area 2,500 m².",q:"What is the side length?",steps:["side² = 2500","side = √2500","side = 50"],ans:"50 m"},{title:"🎁 Gift Box",story:"A cube-shaped gift box has side 5 cm.",q:"What is its volume?",steps:["Volume = side³","Volume = 5³","Volume = 125"],ans:"125 cm³"}];
+function loadRealLifeLab(){let c=realCases[Math.floor(Math.random()*realCases.length)];document.getElementById('realCase').innerHTML=`<h4>${c.title}</h4><p>${c.story}</p><p><strong>Problem:</strong> ${c.q}</p><ol>${c.steps.map(s=>`<li>${s}</li>`).join('')}</ol><div class="feedback-box">✅ Final Answer: ${c.ans}</div>`;}
+function randomQ(){let t=Math.floor(Math.random()*4),b=Math.floor(Math.random()*11)+2;if(t===0)return{q:`Evaluate ${b}².`,a:String(b*b),s:`${b} × ${b} = ${b*b}`};if(t===1)return{q:`Evaluate ${b}³.`,a:String(b*b*b),s:`${b} × ${b} × ${b} = ${b*b*b}`};if(t===2)return{q:`Find √${b*b}.`,a:String(b),s:`${b}² = ${b*b}`};return{q:`Find ∛${b*b*b}.`,a:String(b),s:`${b}³ = ${b*b*b}`};}
+function generateWorksheetPdf(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-quantity-input').value)||12)),canvas=document.getElementById('pdf-printing-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1 style="border-bottom:3px solid #4bc2c4;padding-bottom:12px;margin-bottom:5px">Squares & Cubes Worksheet</h1><p style="color:#5e6282">Mathable Smart Lab • Generated on ${new Date().toLocaleDateString()}</p><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomQ();h+=`<li style="margin-bottom:28px;page-break-inside:avoid"><strong>Question:</strong> ${it.q}<div style="height:42px;border-bottom:1px dashed #bbb;width:95%;display:${keys?'none':'block'}"></div>`;if(keys)h+=`<div style="background:rgba(75,194,196,.07);border-left:4px solid #ee4977;padding:12px;border-radius:6px"><strong>Answer:</strong> ${it.a}<br><strong>Solution:</strong> ${it.s}</div>`;h+=`</li>`}h+=`</ol></div>`;canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:`squares-cubes${keys?'-answer-key':'-worksheet'}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Class VI: A Peek Beyond the Point - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+
+
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:white}
+.tab-content{display:none}.tab-content.active{display:block}.info-box{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.activity-card{background:white;border:1px solid rgba(39,43,106,.12);border-radius:14px;padding:20px;margin:18px 0;box-shadow:0 4px 12px rgba(0,0,0,.03)}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}
+.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:white;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.hint-box,.solution-box,.feedback-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-yellow)}.solution-box{border-left-color:var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}
+.score-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.place-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:18px 0}.place-cell{padding:12px 6px;text-align:center;background:#fff;border:1px solid rgba(39,43,106,.18);border-radius:8px;font-weight:800}.place-cell small{display:block;color:var(--text-muted);font-weight:600}
+.decimal-bar{display:flex;width:100%;max-width:520px;height:42px;border:3px solid var(--brand-navy);border-radius:10px;overflow:hidden;background:white;margin:16px auto}.bar-part{flex:1;border-right:1px solid var(--brand-navy);background:#f0f0f0}.bar-part:last-child{border-right:none}.bar-part.fill{background:var(--brand-pink)}
+.hundred-grid{display:grid;grid-template-columns:repeat(10,24px);gap:2px;justify-content:center;background:white;border:2px dashed var(--brand-aqua);border-radius:12px;padding:12px;max-width:max-content;margin:16px auto}.hundred-cell{width:24px;height:24px;background:#eee;border-radius:4px}.hundred-cell.fill{background:var(--brand-aqua)}
+.number-line{position:relative;max-width:650px;height:90px;margin:24px auto}.axis{position:absolute;left:20px;right:20px;top:42px;height:4px;background:var(--brand-navy);border-radius:99px}.tick{position:absolute;top:30px;width:2px;height:28px;background:var(--brand-navy)}.tick-label{position:absolute;top:62px;transform:translateX(-50%);font-weight:700;font-size:.85rem}.marker{position:absolute;top:22px;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:var(--brand-pink);color:white;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:150px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.place-grid{grid-template-columns:repeat(2,1fr)}.hundred-grid{grid-template-columns:repeat(10,18px)}.hundred-cell{width:18px;height:18px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VI • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Decimals</span></div>
+<h2 style="color:var(--brand-navy);margin-top:0;font-size:2.2rem;font-weight:800">A Peek Beyond the Point</h2>
+<p style="color:var(--text-muted);margin-top:-6px">Explore tenths, hundredths, thousandths, decimal comparison, fractions, money, measurement, and precision.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-formula" class="tab-btn" onclick="switchTab('formula')">🧪 Formula Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet Generator</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real-World Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Decimals</h3>
+<div class="info-box">
+<p>Decimals help us measure the “little differences” between whole numbers. They are useful for length, weight, money, time, and science.</p>
+<div class="highlight-card"><strong>Decimal Point:</strong> The point separates whole-number places from fractional places.</div>
+<div class="highlight-card pink-card"><strong>Place Value:</strong> 4.372 means 4 ones, 3 tenths, 7 hundredths, and 2 thousandths.</div>
+<div class="highlight-card yellow-card"><strong>Fraction Connection:</strong> 0.1 = 1/10, 0.01 = 1/100, 0.001 = 1/1000.</div>
+<div class="place-grid"><div class="place-cell">Hundreds<small>100</small></div><div class="place-cell">Tens<small>10</small></div><div class="place-cell">Ones<small>1</small></div><div class="place-cell">.</div><div class="place-cell">Tenths<small>1/10</small></div><div class="place-cell">Hundredths<small>1/100</small></div><div class="place-cell">Thousandths<small>1/1000</small></div></div>
+<div class="decimal-bar" id="introTenths"></div>
+<p style="text-align:center"><span class="label-chip">0.7</span><span class="label-chip">7 tenths</span><span class="label-chip">7/10</span></p>
+</div>
+</section>
+
+<section id="panel-formula" class="tab-content">
+<h3>Formula Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Tenths</h4><p>1 tenth = 0.1 = 1/10</p><p>Example: 0.6 = 6/10</p></div>
+<div class="formula-tile"><h4>Hundredths</h4><p>1 hundredth = 0.01 = 1/100</p><p>Example: 0.45 = 45/100</p></div>
+<div class="formula-tile"><h4>Thousandths</h4><p>1 thousandth = 0.001 = 1/1000</p><p>Example: 0.125 = 125/1000</p></div>
+<div class="formula-tile"><h4>Comparing Decimals</h4><p>Compare from left to right.</p><p>Add trailing zeroes if needed: 0.5 = 0.50.</p></div>
+<div class="formula-tile"><h4>Decimal to Fraction</h4><p>Digits after decimal decide denominator.</p><p>0.37 = 37/100.</p></div>
+<div class="formula-tile"><h4>Money</h4><p>₹3.75 means ₹3 and 75 paise.</p><p>100 paise = ₹1.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Interactive Lab: Decimal Explorer</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Decimal Starter</span></div>
+<div class="activity-card">
+<p id="lab-question-field" style="font-size:1.15rem;font-weight:700;line-height:1.6"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hintBox')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleBox('steps-container')">Step-by-Step</button>
+<div id="feedbackBox" class="feedback-box hidden"></div>
+<div id="hintBox" class="hint-box hidden"></div>
+<div id="steps-container" class="solution-box hidden"><p><strong>Step-by-Step Guidance:</strong></p><div id="steps-content"></div></div>
+</div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🎛️ Decimal Bar Builder</h4>
+<p>Build tenths visually.</p>
+<input type="range" id="tenthsSlider" min="0" max="10" value="4" oninput="buildTenthsBar()">
+<span class="label-chip" id="tenthsText">0.4 = 4/10</span>
+<div class="decimal-bar" id="tenthsBar"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧱 Hundredths Grid</h4>
+<p>Shade hundredths and read the decimal.</p>
+<input type="range" id="hundredSlider" min="0" max="100" value="37" oninput="buildHundredGrid()">
+<span class="label-chip" id="hundredText">0.37 = 37/100</span>
+<div class="hundred-grid" id="hundredGrid"></div>
+</div>
+
+<div class="activity-card">
+<h4>📍 Decimal Number Line</h4>
+<p>Move the marker from 0 to 1.</p>
+<input type="range" id="lineSlider" min="0" max="100" value="65" oninput="drawNumberLine()">
+<span class="label-chip" id="lineText">0.65</span>
+<div class="number-line" id="numberLine"></div>
+</div>
+
+<div class="activity-card">
+<h4>⚖️ Decimal Comparison Challenge</h4>
+<p>Choose the greater value.</p>
+<div class="compare-zone"><div class="num-card" id="compareA">0.7</div><div class="num-card" id="compareB">0.65</div></div>
+<button class="action-btn" onclick="checkCompare('A')">Left</button>
+<button class="action-btn" onclick="checkCompare('B')">Right</button>
+<button class="action-btn secondary-btn" onclick="checkCompare('equal')">Equal</button>
+<button class="action-btn pink-btn" onclick="newCompare()">New</button>
+<div id="compareFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔁 Fraction ↔ Decimal Converter</h4>
+<select id="convertSelect">
+<option value="1/10">1/10</option><option value="25/100">25/100</option><option value="75/100">75/100</option><option value="125/1000">125/1000</option><option value="3/4">3/4</option><option value="1/2">1/2</option>
+</select>
+<button class="action-btn" onclick="convertFraction()">Convert</button>
+<div id="convertFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>💰 Money Decimal Lab</h4>
+<p>Add prices written as decimals.</p>
+<label>Item 1 ₹<input type="number" id="price1" value="12.50" step="0.01"></label>
+<label>Item 2 ₹<input type="number" id="price2" value="7.75" step="0.01"></label>
+<button class="action-btn" onclick="moneyLab()">Add Prices</button>
+<div id="moneyFeedback" class="feedback-box hidden"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Create printable decimal practice on place value, comparison, fraction conversion, money, measurement, and number lines.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" value="12" min="5" max="50">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div>
+<div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Measurement:</strong> 2.5 cm is more precise than saying “about 2 cm”.</div>
+<div class="highlight-card pink-card"><strong>Money:</strong> ₹4.75 means 4 rupees and 75 paise.</div>
+<div class="highlight-card yellow-card"><strong>Sports:</strong> Race timings like 10.42 seconds use decimals.</div>
+<div class="highlight-card"><strong>Science:</strong> Weight, temperature, and length often need decimal measurements.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Identify tenths, hundredths, and thousandths.</li>
+<li>Represent decimals using bars, grids, and number lines.</li>
+<li>Compare decimals using place value.</li>
+<li>Convert common fractions to decimals and decimals to fractions.</li>
+<li>Use decimals in money and measurement contexts.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Which is greater: 0.8 or 0.75? Explain.</li>
+<li>Write 0.36 as a fraction.</li>
+<li>What does the 7 mean in 4.72?</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"Which is greater: 10/1000 or 1/10?",a:"1/10",accepted:["1/10","0.1"],hint:"Convert both to thousandths.",steps:"1/10 = 100/1000. Compare 10/1000 and 100/1000. So 1/10 is greater."},
+{q:"Write 0.7 as a fraction.",a:"7/10",accepted:["7/10"],hint:"0.7 means 7 tenths.",steps:"There is one digit after the decimal, so denominator is 10. 0.7 = 7/10."},
+{q:"Write 0.45 as a fraction.",a:"45/100",accepted:["45/100","9/20"],hint:"0.45 means 45 hundredths.",steps:"There are two digits after the decimal, so denominator is 100. 0.45 = 45/100."},
+{q:"Which is greater: 0.5 or 0.47?",a:"0.5",accepted:["0.5","0.50"],hint:"Write 0.5 as 0.50.",steps:"0.5 = 0.50. Since 50 hundredths is greater than 47 hundredths, 0.5 is greater."},
+{q:"What is the value of the digit 6 in 3.64?",a:"6/10",accepted:["6/10","0.6","six tenths"],hint:"The first digit after decimal is tenths.",steps:"In 3.64, 6 is in the tenths place. Its value is 6/10 or 0.6."},
+{q:"Add: 2.5 + 1.25",a:"3.75",accepted:["3.75"],hint:"Align decimal points.",steps:"2.50 + 1.25 = 3.75."},
+{q:"Convert 75/100 into a decimal.",a:"0.75",accepted:["0.75"],hint:"Hundredths have two decimal places.",steps:"75/100 = 0.75."}
+];
+let qIdx=0,score=0,streak=0,comparePair=[0.7,0.65];const storageKey="mathable_decimals_lab";
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||"{}");score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();buildIntroTenths();buildTenthsBar();buildHundredGrid();drawNumberLine();newCompare();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge="Decimal Starter";if(score>=150)badge="Point Pro";else if(score>=80)badge="Hundredths Hero";else if(score>=30)badge="Tenths Tracker";document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hintBox').innerHTML=`<strong>Hint:</strong> ${q.hint}`;document.getElementById('steps-content').innerText=q.steps;document.getElementById('feedbackBox').classList.add('hidden');document.getElementById('hintBox').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');document.getElementById('ans-input').value='';updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedbackBox');if(ok){fb.innerHTML="🎉 Correct! "+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900)}else{fb.innerHTML=`❌ Try again. Correct answer: <strong>${q.a}</strong>.`;streak=0}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function nextQuestion(){qIdx++;renderQuestion();}
+function buildIntroTenths(){let box=document.getElementById('introTenths');box.innerHTML='';for(let i=0;i<10;i++){let p=document.createElement('div');p.className='bar-part '+(i<7?'fill':'');box.appendChild(p);}}
+function buildTenthsBar(){let n=Number(document.getElementById('tenthsSlider').value),box=document.getElementById('tenthsBar');box.innerHTML='';for(let i=0;i<10;i++){let p=document.createElement('div');p.className='bar-part '+(i<n?'fill':'');box.appendChild(p);}document.getElementById('tenthsText').innerText=`${(n/10).toFixed(1)} = ${n}/10`;}
+function buildHundredGrid(){let n=Number(document.getElementById('hundredSlider').value),grid=document.getElementById('hundredGrid');grid.innerHTML='';for(let i=0;i<100;i++){let c=document.createElement('div');c.className='hundred-cell '+(i<n?'fill':'');grid.appendChild(c);}document.getElementById('hundredText').innerText=`${(n/100).toFixed(2)} = ${n}/100`;}
+function drawNumberLine(){let v=Number(document.getElementById('lineSlider').value)/100,line=document.getElementById('numberLine');document.getElementById('lineText').innerText=v.toFixed(2);line.innerHTML='<div class="axis"></div>';for(let i=0;i<=10;i++){let x=20+i*(610/10);let t=document.createElement('div');t.className='tick';t.style.left=x+'px';line.appendChild(t);let l=document.createElement('div');l.className='tick-label';l.style.left=x+'px';l.innerText=(i/10).toFixed(1);line.appendChild(l);}let m=document.createElement('div');m.className='marker';m.style.left=(20+v*610)+'px';m.innerText=v.toFixed(2);line.appendChild(m);}
+function newCompare(){let vals=[0.3,0.35,0.4,0.04,0.5,0.50,0.65,0.7,0.75,0.08,0.8,0.82,0.9];let a=vals[Math.floor(Math.random()*vals.length)],b=vals[Math.floor(Math.random()*vals.length)];while(a===b)b=vals[Math.floor(Math.random()*vals.length)];comparePair=[a,b];document.getElementById('compareA').innerText=a.toString();document.getElementById('compareB').innerText=b.toString();document.getElementById('compareFeedback').classList.add('hidden');}
+function checkCompare(choice){let [a,b]=comparePair,correct=a>b?'A':a<b?'B':'equal',fb=document.getElementById('compareFeedback');fb.innerHTML=choice===correct?`✅ Correct. ${Math.max(a,b)} is greater.`:`❌ Not quite. Compare place values: ${Math.max(a,b)} is greater.`;fb.classList.remove('hidden');}
+function convertFraction(){let v=document.getElementById('convertSelect').value,[n,d]=v.split('/').map(Number),dec=n/d,fb=document.getElementById('convertFeedback');fb.innerHTML=`${v} = <strong>${dec}</strong>`;fb.classList.remove('hidden');}
+function moneyLab(){let a=Number(document.getElementById('price1').value)||0,b=Number(document.getElementById('price2').value)||0,total=(a+b).toFixed(2),fb=document.getElementById('moneyFeedback');fb.innerHTML=`₹${a.toFixed(2)} + ₹${b.toFixed(2)} = <strong>₹${total}</strong>`;fb.classList.remove('hidden');}
+function loadRealCase(){let cases=[["Screw Length","A screw is 2.4 cm long. Another is 2.35 cm long.","2.40 cm > 2.35 cm, so the first screw is longer."],["Shopping","A pencil costs ₹4.50 and an eraser costs ₹3.25.","Total = ₹4.50 + ₹3.25 = ₹7.75."],["Race Time","Runner A finishes in 12.6 s and Runner B in 12.48 s.","12.48 s is smaller, so Runner B is faster."],["Water Bottle","A bottle holds 0.75 L of water.","0.75 L = 75/100 L = 3/4 L."]];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomWorksheetItem(){let type=Math.floor(Math.random()*6);if(type===0){let n=Math.floor(Math.random()*9)+1;return{q:`Write 0.${n} as a fraction.`,a:`${n}/10`,s:`0.${n} means ${n} tenths.`};}if(type===1){let n=Math.floor(Math.random()*90)+10;return{q:`Write 0.${n} as a fraction.`,a:`${n}/100`,s:`Two decimal places means hundredths.`};}if(type===2){let a=(Math.floor(Math.random()*90)+10)/100,b=(Math.floor(Math.random()*90)+10)/100;return{q:`Which is greater: ${a.toFixed(2)} or ${b.toFixed(2)}?`,a:`${Math.max(a,b).toFixed(2)}`,s:`Compare tenths, then hundredths.`};}if(type===3){let n=[10,25,50,75,125,375][Math.floor(Math.random()*6)],d=n===125||n===375?1000:100;return{q:`Convert ${n}/${d} to a decimal.`,a:`${n/d}`,s:`Divide numerator by denominator.`};}if(type===4){let a=(Math.floor(Math.random()*90)+10)/10,b=(Math.floor(Math.random()*90)+10)/100;return{q:`Add ${a.toFixed(1)} + ${b.toFixed(2)}.`,a:`${(a+b).toFixed(2)}`,s:`Align decimal points before adding.`};}let num=(Math.floor(Math.random()*900)+100)/100;return{q:`What is the digit in the tenths place of ${num.toFixed(2)}?`,a:`${String(num.toFixed(2)).split('.')[1][0]}`,s:`The first digit after the decimal is the tenths place.`};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1 style="border-bottom:3px solid #4bc2c4;padding-bottom:12px;margin-bottom:5px">Class VI: Decimals Worksheet</h1><p style="color:#5e6282">Mathable Smart Lab • Generated on ${new Date().toLocaleDateString()}</p><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomWorksheetItem();h+=`<li style="margin-bottom:28px;page-break-inside:avoid"><strong>Question:</strong> ${it.q}<div style="height:42px;border-bottom:1px dashed #bbb;width:95%;display:${keys?'none':'block'}"></div>`;if(keys)h+=`<div style="background:rgba(75,194,196,.07);border-left:4px solid #ee4977;padding:12px;border-radius:6px"><strong>Answer:</strong> ${it.a}<br><strong>Solution:</strong> ${it.s}</div>`;h+=`</li>`;}h+=`</ol></div>`;canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:`class6-decimals${keys?'-answer-key':'-worksheet'}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" href="../style.css">
+  <title>Class VI: Number Play - Mathable Smart Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <style>
+    :root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft:#f7fbfb;--success:#178a50;--danger:#c93f5d;}
+    *{box-sizing:border-box} body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#fffdf2,#f4ffff);color:var(--brand-navy);margin:0;line-height:1.55} header{background:var(--white);border-bottom:3px solid var(--brand-aqua);box-shadow:0 4px 18px rgba(39,43,106,.06)} .header-container{max-width:1100px;margin:auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}.logo-text{font-weight:800;font-size:1.35rem}.logo-dot{color:var(--brand-pink)} a{color:var(--brand-navy)} .workspace-container{max-width:1050px;margin:32px auto;padding:22px}.hero{background:white;border-radius:22px;padding:26px;box-shadow:0 10px 30px rgba(39,43,106,.08);border:1px solid rgba(39,43,106,.08)}.badge{display:inline-block;background:var(--brand-yellow);color:#111;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}.hero h1{font-size:2.4rem;margin:12px 0 4px}.subtitle{color:var(--text-muted);margin:0}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.stat{background:rgba(75,194,196,.1);padding:12px 16px;border-radius:14px;font-weight:700}.tab-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.tab-btn{padding:12px 16px;border:0;border-radius:12px;background:#eef1f7;color:var(--brand-navy);font-weight:700;cursor:pointer}.tab-btn.active{background:var(--brand-aqua);color:white}.tab-content{display:none}.tab-content.active{display:block}.info-box,.activity-card{background:white;border:1px solid rgba(39,43,106,.1);border-radius:18px;padding:24px;box-shadow:0 8px 24px rgba(39,43,106,.06);margin-bottom:18px}.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.mini-card{background:var(--soft);border-left:5px solid var(--brand-pink);padding:16px;border-radius:12px}.action-btn{background:var(--brand-navy);color:white;border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-pink)}.aqua-btn{background:var(--brand-aqua)} input,select{padding:12px;border:2px solid rgba(39,43,106,.35);border-radius:10px;font-family:Poppins;font-size:1rem}.feedback{font-weight:800;margin-top:12px}.success{color:var(--success)}.danger{color:var(--danger)}.hidden{display:none}.game-grid{display:flex;justify-content:center;align-items:flex-end;gap:15px;margin:20px 0;background:#fffde8;padding:20px;border-radius:16px;border:2px dashed var(--brand-yellow);min-height:220px}.neighbor-block{width:72px;background:var(--brand-navy);color:white;text-align:center;border-radius:10px;font-weight:800;display:flex;flex-direction:column;justify-content:flex-end;padding:8px;font-size:.85rem;transition:.2s}.neighbor-block.active{background:var(--brand-pink);transform:translateY(-6px)}.number-chip{display:inline-block;background:#f0f1fb;border:2px solid transparent;border-radius:999px;padding:10px 14px;margin:5px;font-weight:800;cursor:pointer}.number-chip.selected{border-color:var(--brand-pink);background:#fff0f5}.sortable-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.digit-box{background:var(--brand-yellow);padding:14px 18px;border-radius:12px;font-size:1.35rem;font-weight:800;cursor:pointer}.answer-line{min-height:55px;border:2px dashed var(--brand-aqua);border-radius:12px;padding:8px;margin-top:12px}.progress-wrap{background:#e7e9f3;border-radius:999px;overflow:hidden;height:18px}.progress-bar{height:100%;width:0%;background:var(--brand-aqua);transition:.3s} table{border-collapse:collapse;width:100%;background:white}td,th{border:1px solid #e2e4ef;padding:10px;text-align:left}th{background:#f4ffff}footer{text-align:center;color:var(--text-muted);padding:28px;font-size:.9rem}@media(max-width:640px){.hero h1{font-size:1.8rem}.workspace-container{padding:14px}.game-grid{gap:8px}.neighbor-block{width:56px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+<main class="workspace-container">
+  <section class="hero">
+    <span class="badge">CLASS VI • NUMBER SENSE</span>
+    <h1>Number Play</h1>
+    <p class="subtitle">Explore patterns, place value, estimation, number arrangement, and logical puzzles through activities.</p>
+    <div class="stats"><div class="stat">Score: <span id="score">0</span></div><div class="stat">Streak: 🔥 <span id="streak">0</span></div><div class="stat">Badge: <span id="badge">Explorer</span></div></div>
+  </section>
+
+  <nav class="tab-navigation" role="tablist">
+    <button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+    <button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Rules Hub</button>
+    <button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+    <button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activities</button>
+    <button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+    <button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real-World Use</button>
+  </nav>
+
+  <section id="panel-fact" class="tab-content active">
+    <div class="info-box"><h2>What is Number Play?</h2><p>Number Play is about noticing patterns and making smart decisions with numbers. Instead of only calculating, you learn to compare, estimate, arrange, decode, and reason.</p>
+      <div class="grid-2"><div class="mini-card"><strong>Place Value</strong><br>Each digit has value based on its position.</div><div class="mini-card"><strong>Number Arrangement</strong><br>Digits can be rearranged to form greatest or smallest numbers.</div><div class="mini-card"><strong>Estimation</strong><br>Find quick approximate answers and compare closeness.</div><div class="mini-card"><strong>Local Logic</strong><br>Use immediate neighbours to solve puzzles.</div></div>
+    </div>
+    <div class="activity-card"><h3>Taller Neighbours Discovery</h3><p>A child says how many immediate neighbours are taller. End children can never say 2 because they have only one neighbour.</p><div class="game-grid" id="demo-bars"></div><button class="action-btn aqua-btn" onclick="shuffleBars()">Shuffle Heights</button></div>
+  </section>
+
+  <section id="panel-rules" class="tab-content">
+    <div class="info-box"><h2>Important Rules</h2><div class="grid-2"><div class="mini-card"><strong>Greatest Number Rule</strong><br>Arrange digits in descending order.</div><div class="mini-card"><strong>Smallest Number Rule</strong><br>Arrange digits in ascending order. Avoid zero at the first place if present.</div><div class="mini-card"><strong>Closeness Rule</strong><br>Compare absolute differences from the target.</div><div class="mini-card"><strong>Missing Addend Rule</strong><br>Missing number = Target − known sum.</div></div></div>
+  </section>
+
+  <section id="panel-lab" class="tab-content">
+    <div class="info-box"><h2>Random Practice Lab</h2><p id="question" style="font-size:1.15rem;font-weight:700"></p><input id="answer" placeholder="Type your answer"><br><button class="action-btn" onclick="checkAnswer()">Check</button><button class="action-btn secondary-btn" onclick="showHint()">Hint</button><button class="action-btn aqua-btn" onclick="nextQuestion()">Next</button><p id="lab-feedback" class="feedback"></p><div id="hint" class="mini-card hidden"></div><div class="progress-wrap"><div class="progress-bar" id="progress"></div></div></div>
+  </section>
+
+  <section id="panel-activities" class="tab-content">
+    <div class="grid-2">
+      <div class="activity-card"><h3>Build the Greatest Number</h3><p>Click digits from greatest to smallest.</p><div id="digit-bank" class="sortable-row"></div><div id="built-number" class="answer-line"></div><button class="action-btn" onclick="checkBuiltNumber()">Check Number</button><button class="action-btn aqua-btn" onclick="newDigitPuzzle()">New Puzzle</button><p id="build-feedback" class="feedback"></p></div>
+      <div class="activity-card"><h3>Closer to the Target</h3><p id="close-question"></p><button class="action-btn" id="opt-a" onclick="checkCloser(0)"></button><button class="action-btn" id="opt-b" onclick="checkCloser(1)"></button><p id="close-feedback" class="feedback"></p></div>
+      <div class="activity-card"><h3>Taller Neighbour Challenge</h3><p>Choose the number said by the highlighted child.</p><div class="game-grid" id="challenge-bars"></div><button class="action-btn" onclick="checkNeighbour(0)">0</button><button class="action-btn" onclick="checkNeighbour(1)">1</button><button class="action-btn" onclick="checkNeighbour(2)">2</button><p id="neighbour-feedback" class="feedback"></p></div>
+      <div class="activity-card"><h3>Place Value Picker</h3><p id="place-question"></p><input id="place-answer" placeholder="Type value"><button class="action-btn" onclick="checkPlaceValue()">Check</button><p id="place-feedback" class="feedback"></p></div>
+    </div>
+  </section>
+
+  <section id="panel-generator" class="tab-content"><div class="info-box"><h2>Worksheet Generator</h2><p>Create a printable worksheet or answer key.</p><label>Number of questions: </label><input type="number" id="qty" min="5" max="40" value="10"><br><button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button><button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button></div><div id="pdf-canvas" style="display:none"></div></section>
+
+  <section id="panel-real" class="tab-content"><div class="info-box"><h2>Where Number Play Helps</h2><div class="grid-2"><div class="mini-card"><strong>Shopping</strong><br>Estimate totals and compare offers quickly.</div><div class="mini-card"><strong>Banking</strong><br>Understand large numbers and digit positions.</div><div class="mini-card"><strong>Sports</strong><br>Compare scores, margins, and rankings.</div><div class="mini-card"><strong>Computing</strong><br>Logic puzzles build algorithmic thinking.</div></div></div></section>
+</main>
+<footer>📧 contact@abhyast.in | © 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</footer>
+<script>
+const questions=[
+{q:'Using digits 3, 5, 1, 7, 9 once each, form the greatest 5-digit number.',a:'97531',h:'Arrange digits in descending order.'},
+{q:'Which is closer to 50,000: 51,111 or 51,379?',a:'51111',h:'Find each distance from 50,000.'},
+{q:'Complete: 18,000 + 300 + ___ = 18,670',a:'370',h:'Subtract 18,300 from 18,670.'},
+{q:'Can an end child in a line say 2 in the Taller Neighbours game? Type yes or no.',a:'no',h:'An end child has only one neighbour.'},
+{q:'What is the place value of 6 in 76,482?',a:'6000',h:'6 is in the thousands place.'},
+{q:'Arrange 8, 0, 6, 2 to form the smallest 4-digit number.',a:'2068',h:'Zero cannot be the first digit.'}
+];
+let score=Number(localStorage.getItem('np-score')||0),streak=Number(localStorage.getItem('np-streak')||0),idx=0,built=[],digits=[],closer=[],target=50000,placeObj={},heights=[],activeChild=0;
+function save(){localStorage.setItem('np-score',score);localStorage.setItem('np-streak',streak);document.getElementById('score').textContent=score;document.getElementById('streak').textContent=streak;document.getElementById('badge').textContent=score>=100?'Number Champion':score>=50?'Pattern Pro':'Explorer';document.getElementById('progress').style.width=Math.min(100,score)+'%'}
+function addScore(ok){if(ok){score+=10;streak++}else{streak=0}save()}
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.getElementById('btn-'+id).classList.add('active')}
+function norm(x){return String(x).toLowerCase().replace(/,/g,'').replace(/\s/g,'')}
+function renderQuestion(){document.getElementById('question').textContent=questions[idx].q;document.getElementById('answer').value='';document.getElementById('lab-feedback').textContent='';document.getElementById('hint').classList.add('hidden')}
+function checkAnswer(){let ok=norm(document.getElementById('answer').value)===norm(questions[idx].a);document.getElementById('lab-feedback').textContent=ok?'✅ Correct!':'❌ Try again. Answer: '+questions[idx].a;document.getElementById('lab-feedback').className='feedback '+(ok?'success':'danger');addScore(ok)}
+function showHint(){let h=document.getElementById('hint');h.textContent='Hint: '+questions[idx].h;h.classList.remove('hidden')}
+function nextQuestion(){idx=Math.floor(Math.random()*questions.length);renderQuestion()}
+function shuffleBars(){let arr=[100,135,115,160,125];arr.sort(()=>Math.random()-.5);document.getElementById('demo-bars').innerHTML=arr.map((h,i)=>`<div class='neighbor-block' style='height:${h}px'>Child ${i+1}<span>${h} cm</span></div>`).join('')}
+function newDigitPuzzle(){digits=Array.from({length:5},()=>Math.floor(Math.random()*9)+1);built=[];document.getElementById('digit-bank').innerHTML=digits.map((d,i)=>`<button class='digit-box' onclick='pickDigit(${i})' id='dig${i}'>${d}</button>`).join('');document.getElementById('built-number').textContent='';document.getElementById('build-feedback').textContent=''}
+function pickDigit(i){built.push(digits[i]);document.getElementById('dig'+i).disabled=true;document.getElementById('built-number').textContent=built.join('')}
+function checkBuiltNumber(){let ans=[...digits].sort((a,b)=>b-a).join('');let ok=built.join('')===ans;document.getElementById('build-feedback').textContent=ok?'✅ Correct!':'❌ Correct number is '+ans;document.getElementById('build-feedback').className='feedback '+(ok?'success':'danger');addScore(ok)}
+function newCloser(){target=[1000,10000,50000,100000][Math.floor(Math.random()*4)];let a=target+Math.floor(Math.random()*3000)+100,b=target+Math.floor(Math.random()*3000)+100;closer=[a,b];document.getElementById('close-question').textContent='Which number is closer to '+target.toLocaleString()+'?';document.getElementById('opt-a').textContent=a.toLocaleString();document.getElementById('opt-b').textContent=b.toLocaleString();document.getElementById('close-feedback').textContent=''}
+function checkCloser(choice){let correct=Math.abs(closer[0]-target)<=Math.abs(closer[1]-target)?0:1;let ok=choice===correct;document.getElementById('close-feedback').textContent=ok?'✅ Correct!':'❌ Compare the distances from the target.';document.getElementById('close-feedback').className='feedback '+(ok?'success':'danger');addScore(ok);setTimeout(newCloser,700)}
+function newNeighbour(){heights=Array.from({length:5},()=>90+Math.floor(Math.random()*90));activeChild=1+Math.floor(Math.random()*3);document.getElementById('challenge-bars').innerHTML=heights.map((h,i)=>`<div class='neighbor-block ${i===activeChild?'active':''}' style='height:${h}px'>${i===activeChild?'You':i+1}<span>${h}</span></div>`).join('');document.getElementById('neighbour-feedback').textContent=''}
+function checkNeighbour(v){let ans=(heights[activeChild-1]>heights[activeChild]?1:0)+(heights[activeChild+1]>heights[activeChild]?1:0);let ok=v===ans;document.getElementById('neighbour-feedback').textContent=ok?'✅ Correct!':'❌ This child says '+ans;document.getElementById('neighbour-feedback').className='feedback '+(ok?'success':'danger');addScore(ok);setTimeout(newNeighbour,700)}
+function newPlace(){let n=10000+Math.floor(Math.random()*89999),s=String(n),pos=Math.floor(Math.random()*s.length),digit=s[pos],place=Math.pow(10,s.length-pos-1);placeObj={n,digit,value:digit*place};document.getElementById('place-question').textContent='What is the place value of '+digit+' in '+n.toLocaleString()+'?';document.getElementById('place-answer').value='';document.getElementById('place-feedback').textContent=''}
+function checkPlaceValue(){let ok=norm(document.getElementById('place-answer').value)===String(placeObj.value);document.getElementById('place-feedback').textContent=ok?'✅ Correct!':'❌ Correct value is '+placeObj.value.toLocaleString();document.getElementById('place-feedback').className='feedback '+(ok?'success':'danger');addScore(ok);setTimeout(newPlace,700)}
+function generatePDF(key){let qty=Math.min(40,Math.max(5,parseInt(document.getElementById('qty').value)||10));let html=`<div style="font-family:Poppins,sans-serif;padding:30px;color:#272b6a"><h1>Class VI: Number Play Worksheet</h1><p>Name: __________ Date: __________</p><ol>`;for(let i=0;i<qty;i++){let q=questions[i%questions.length];html+=`<li style="margin-bottom:24px"><b>${q.q}</b>${key?`<p><b>Answer:</b> ${q.a}<br><b>Hint:</b> ${q.h}</p>`:'<div style="height:45px;border-bottom:1px dashed #aaa"></div>'}</li>`}html+='</ol></div>';let el=document.getElementById('pdf-canvas');el.innerHTML=html;html2pdf().from(el).set({margin:12,filename:key?'Number-Play-Answer-Key.pdf':'Number-Play-Worksheet.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4'}}).save()}
+window.onload=()=>{save();renderQuestion();shuffleBars();newDigitPuzzle();newCloser();newNeighbour();newPlace()}
+</script>
+</body>
+</html>

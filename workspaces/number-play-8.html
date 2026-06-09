@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VIII: Number Play - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--red:#d64242}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}.header-container img{height:42px}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.red-btn{background:var(--red)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.number-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}.num-chip{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:12px;padding:12px 16px;font-weight:800;min-width:70px;text-align:center}.num-chip.good{background:var(--brand-yellow)}.num-chip.answer{background:var(--brand-pink);color:#fff}
+.grid-wrap{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;max-width:650px;margin:18px auto}.grid-cell{padding:10px;text-align:center;border-radius:8px;background:#fff;border:1px solid rgba(39,43,106,.15);font-weight:800}.grid-cell.mark{background:var(--brand-aqua);color:white}.grid-cell.mark2{background:var(--brand-pink);color:white}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:150px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.grid-wrap{grid-template-columns:repeat(5,1fr)}.num-card{min-width:120px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VIII • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Patterns & Divisibility</span></div>
+<h2 style="font-size:2.2rem;margin-top:0">Class VIII: Number Play</h2>
+<p style="color:var(--text-muted)">Investigate divisibility, products of consecutive integers, pattern rules, remainders, and mathematical reasoning.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Investigation Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Patterns and Divisibility</h3>
+<div class="info-box">
+<p>Number play is not just about calculating. It is about investigating patterns, making claims, testing examples, and explaining why something always works.</p>
+<div class="highlight-card"><strong>Key Claim:</strong> The product of three consecutive integers is always divisible by 6.</div>
+<div class="number-row"><span class="num-chip">n</span><span class="num-chip">n+1</span><span class="num-chip">n+2</span><span class="num-chip answer">multiple of 6</span></div>
+<div class="highlight-card pink-card">Why? In any three consecutive integers, one number is even and one number is divisible by 3. Together, they provide factors 2 and 3, so the product is divisible by 6.</div>
+<div class="highlight-card yellow-card">Good mathematical explanation uses both <strong>examples</strong> and a <strong>general reason</strong>.</div>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Investigation Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Consecutive Integers</h4><p>Numbers one after another.</p><p>Example: 7, 8, 9.</p></div>
+<div class="formula-tile"><h4>Multiple of 2</h4><p>Every second integer is even.</p><p>So any 2 consecutive numbers contain one multiple of 2.</p></div>
+<div class="formula-tile"><h4>Multiple of 3</h4><p>Every third integer is a multiple of 3.</p><p>So any 3 consecutive numbers contain one multiple of 3.</p></div>
+<div class="formula-tile"><h4>Why Multiple of 6?</h4><p>6 = 2 × 3.</p><p>If a product has factors 2 and 3, it is divisible by 6.</p></div>
+<div class="formula-tile"><h4>Testing a Claim</h4><p>Try examples first, then give a general argument.</p></div>
+<div class="formula-tile"><h4>Counterexample</h4><p>One example that fails is enough to disprove an “always” claim.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Divisibility Detective</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Pattern Starter</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Logical Investigation:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🔢 Consecutive Product Tester</h4>
+<label>Start integer <input type="number" id="consecStart" value="4"></label>
+<label>How many consecutive numbers? <input type="number" id="consecCount" value="3" min="2" max="6"></label>
+<button class="action-btn" onclick="testConsecutive()">Test Product</button>
+<div id="consecRow" class="number-row"></div>
+<div id="consecFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧮 Divisibility Highlighter</h4>
+<p>Highlight multiples of 2, 3, or 6 from 1 to 60.</p>
+<select id="highlightRule"><option value="2">Multiples of 2</option><option value="3">Multiples of 3</option><option value="6">Multiples of 6</option></select>
+<button class="action-btn" onclick="highlightMultiples()">Highlight</button>
+<div id="numberGrid" class="grid-wrap"></div>
+</div>
+
+<div class="activity-card">
+<h4>✅ Always, Sometimes, Never?</h4>
+<p id="claimQuestion" style="font-weight:800;font-size:1.1rem"></p>
+<button class="action-btn" onclick="checkClaim('always')">Always</button>
+<button class="action-btn" onclick="checkClaim('sometimes')">Sometimes</button>
+<button class="action-btn" onclick="checkClaim('never')">Never</button>
+<button class="action-btn secondary-btn" onclick="newClaim()">New</button>
+<div id="claimFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔍 Counterexample Finder</h4>
+<p>Test whether a claim works for numbers you choose.</p>
+<label>Number n <input type="number" id="counterN" value="5"></label>
+<button class="action-btn" onclick="counterExample()">Test n(n+1)</button>
+<div id="counterFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>📋 Pattern Table Generator</h4>
+<button class="action-btn" onclick="generateTable()">Generate Investigation Table</button>
+<div id="patternTable" class="table-wrap"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on consecutive integers, divisibility by 2, 3, 6, claims, examples, and counterexamples.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Grouping:</strong> Divisibility helps decide whether objects can be equally grouped.</div>
+<div class="highlight-card pink-card"><strong>Scheduling:</strong> Multiples help identify repeated patterns and common times.</div>
+<div class="highlight-card yellow-card"><strong>Proof Thinking:</strong> Testing claims and finding counterexamples builds mathematical reasoning.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Test divisibility claims using examples.</li>
+<li>Explain why the product of three consecutive integers is divisible by 6.</li>
+<li>Identify multiples of 2, 3, and 6.</li>
+<li>Distinguish between always, sometimes, and never statements.</li>
+<li>Use counterexamples to disprove false claims.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Why must one of three consecutive integers be divisible by 3?</li>
+<li>Give an example of three consecutive integers and show the product is divisible by 6.</li>
+<li>Find a counterexample for a false “always” statement.</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"Is the product of three consecutive integers always a multiple of 6?",a:"Yes",accepted:["yes","y"],hint:"Look for factors 2 and 3 among any three consecutive integers.",steps:"Step 1: Consider three consecutive integers n, n+1, n+2. Step 2: In any three consecutive numbers, at least one is a multiple of 2 and one is a multiple of 3. Step 3: Since 2 and 3 are co-prime, their product 6 divides the product of the three numbers. So yes, it is always a multiple of 6."},
+{q:"Find the product of 4, 5, and 6. Is it divisible by 6?",a:"Yes",accepted:["yes","y","120"],hint:"Multiply and check divisibility by 6.",steps:"4 × 5 × 6 = 120. Since 120 ÷ 6 = 20, it is divisible by 6."},
+{q:"Which factor guarantees evenness in the product of three consecutive integers: 2 or 5?",a:"2",accepted:["2"],hint:"Even means divisible by 2.",steps:"Among any three consecutive integers, at least one is even. Therefore factor 2 is always present."},
+{q:"Is the product of two consecutive integers always divisible by 2?",a:"Yes",accepted:["yes","y"],hint:"One of any two consecutive integers is even.",steps:"In any two consecutive integers, one is even. So the product has a factor 2 and is divisible by 2."},
+{q:"Is the product of four consecutive integers always divisible by 24?",a:"Yes",accepted:["yes","y"],hint:"24 = 3 × 8. Look for enough factors among four consecutive integers.",steps:"In four consecutive integers, one is a multiple of 4, another even number gives another factor 2, and one is a multiple of 3. Together they give 4×2×3 = 24. So yes."},
+{q:"Give the next multiple of 6 after 42.",a:"48",accepted:["48"],hint:"Add 6.",steps:"Multiples of 6 go 36, 42, 48, 54... So the next multiple is 48."}
+];
+let qIdx=0,score=0,streak=0,currentClaim='always';const storageKey='mathable_number_play_divisibility_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();testConsecutive();highlightMultiples();newClaim();generateTable();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\\s/g,'');}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Pattern Starter';if(score>=150)badge='Proof Master';else if(score>=80)badge='Divisibility Detective';else if(score>=30)badge='Pattern Investigator';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see the investigation.';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function testConsecutive(){let start=Number(document.getElementById('consecStart').value)||4,count=Number(document.getElementById('consecCount').value)||3,arr=[],prod=1;for(let i=0;i<count;i++){arr.push(start+i);prod*=start+i;}document.getElementById('consecRow').innerHTML=arr.map(n=>`<span class="num-chip">${n}</span>`).join('')+`<span class="num-chip answer">Product = ${prod}</span>`;let divs=[2,3,4,6,12,24].filter(d=>prod%d===0);document.getElementById('consecFeedback').innerHTML=`${arr.join(' × ')} = <strong>${prod}</strong><br>Divisible by: ${divs.join(', ')}.`;}
+function highlightMultiples(){let rule=Number(document.getElementById('highlightRule').value)||6,grid=document.getElementById('numberGrid');grid.innerHTML='';for(let i=1;i<=60;i++){let c=document.createElement('div');c.className='grid-cell '+(i%rule===0?'mark':'');c.innerText=i;grid.appendChild(c);}}
+function newClaim(){let claims=[['Product of three consecutive integers is always divisible by 6.','always'],['Product of two consecutive integers is always divisible by 2.','always'],['Product of two consecutive integers is always divisible by 3.','sometimes'],['A multiple of 6 is always even.','always'],['An odd number is divisible by 2.','never'],['A multiple of 3 is always a multiple of 6.','sometimes']];let c=claims[Math.floor(Math.random()*claims.length)];document.getElementById('claimQuestion').innerText=c[0];currentClaim=c[1];document.getElementById('claimFeedback').classList.add('hidden');}
+function checkClaim(ans){let fb=document.getElementById('claimFeedback');fb.innerHTML=ans===currentClaim?`✅ Correct. This statement is ${currentClaim}.`:`❌ Not quite. This statement is ${currentClaim}.`;fb.classList.remove('hidden');}
+function counterExample(){let n=Number(document.getElementById('counterN').value)||5,prod=n*(n+1),fb=document.getElementById('counterFeedback');fb.innerHTML=`n(n+1) = ${n} × ${n+1} = ${prod}. It is ${prod%3===0?'':'not '}divisible by 3. This helps test the claim “product of two consecutive integers is always divisible by 3.”`;fb.classList.remove('hidden');}
+function generateTable(){let h='<table class="smart-table"><tr><th>Numbers</th><th>Product</th><th>Divisible by 6?</th><th>Reason</th></tr>';for(let n=1;n<=8;n++){let p=n*(n+1)*(n+2);h+=`<tr><td>${n}, ${n+1}, ${n+2}</td><td>${p}</td><td>${p%6===0?'Yes':'No'}</td><td>Contains a multiple of 2 and a multiple of 3</td></tr>`;}h+='</table>';document.getElementById('patternTable').innerHTML=h;}
+function loadRealCase(){let cases=[['Team Grouping','If 42 students are arranged in groups of 6, will anyone be left out?','42 is divisible by 6, so no one is left out.'],['Consecutive Challenge','Try 8, 9, 10.','8×9×10=720, and 720 is divisible by 6.'],['Counterexample Thinking','Claim: product of two consecutive numbers is always divisible by 3.','2×3 works, but 3×4=12 also works; 4×5=20 does not. So it is only sometimes true.'],['Calendar Pattern','Events every 6 days land on multiples of 6.','Divisibility helps predict repeated events.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*5);if(t===0)return{q:'Is the product of three consecutive integers always divisible by 6?',a:'Yes',s:'One factor is even and one is divisible by 3.'};if(t===1){let n=Math.floor(Math.random()*10)+1,p=n*(n+1)*(n+2);return{q:`Find product of ${n}, ${n+1}, ${n+2}. Is it divisible by 6?`,a:`${p}, Yes`,s:`${p} ÷ 6 = ${p/6}.`};}if(t===2)return{q:'Is product of two consecutive integers always divisible by 2?',a:'Yes',s:'One of two consecutive integers is even.'};if(t===3)return{q:'Give next multiple of 6 after 42.',a:'48',s:'Add 6.'};return{q:'Is every multiple of 3 also a multiple of 6?',a:'Sometimes',s:'6 is, but 9 is not.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VIII: Number Play Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'number-play-divisibility-answer-key.pdf':'number-play-divisibility-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

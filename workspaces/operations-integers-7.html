@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VII: Operations with Integers - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--red:#d64242}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-container img{height:42px}.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.red-btn{background:var(--red)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.number-line{position:relative;max-width:760px;height:100px;margin:20px auto;overflow-x:auto}.axis{position:absolute;left:25px;right:25px;top:45px;height:4px;background:var(--brand-navy);border-radius:99px}.tick{position:absolute;top:32px;width:2px;height:30px;background:var(--brand-navy)}.tick-label{position:absolute;top:66px;transform:translateX(-50%);font-weight:700;font-size:.8rem}.marker{position:absolute;top:24px;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:var(--brand-pink);color:white;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800}
+.token-zone{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;min-height:60px;padding:12px;border:2px dashed rgba(39,43,106,.2);border-radius:12px;background:#fff;margin:14px 0}.token{width:42px;height:42px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:1.3rem}.token.pos{background:var(--green)}.token.neg{background:var(--red)}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:150px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.num-card{min-width:120px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VII • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Operations with Integers</span></div>
+<h2 style="font-size:2.2rem;margin-top:0">Class VII: Operations with Integers</h2>
+<p style="color:var(--text-muted)">Explore integer addition, subtraction, missing numbers, sum–difference puzzles, number-line movement, and zero pairs.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Rules Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Integer Operations</h3>
+<div class="info-box">
+<p>Integers include negative numbers, zero, and positive numbers. Operations with integers help us solve problems involving gains, losses, movement, temperature, debt, and height.</p>
+<div class="highlight-card"><strong>Addition:</strong> Moving right on a number line means adding a positive number. Moving left means adding a negative number.</div>
+<div class="highlight-card pink-card"><strong>Subtraction:</strong> Subtracting can be understood as finding the distance or movement from one number to another.</div>
+<div class="highlight-card yellow-card"><strong>Sum–Difference Puzzle:</strong> If two numbers have sum 25 and difference 11, the numbers are 18 and 7.</div>
+<div class="number-line" id="introLine"></div>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Rules Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Same Sign Addition</h4><p>Add the values and keep the sign.</p><p>-4 + -5 = -9</p></div>
+<div class="formula-tile"><h4>Different Sign Addition</h4><p>Subtract values and keep the sign of the larger absolute value.</p><p>-8 + 3 = -5</p></div>
+<div class="formula-tile"><h4>Subtraction Rule</h4><p>Subtracting an integer is adding its opposite.</p><p>7 - (-3) = 7 + 3 = 10</p></div>
+<div class="formula-tile"><h4>Zero Pairs</h4><p>+1 and -1 cancel to make zero.</p><p>5 + (-5) = 0</p></div>
+<div class="formula-tile"><h4>Sum and Difference</h4><p>Larger number = (sum + difference) ÷ 2</p><p>Smaller number = (sum - difference) ÷ 2</p></div>
+<div class="formula-tile"><h4>Check Method</h4><p>Always check both conditions: sum and difference.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Integer Explorer</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Integer Starter</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Here is the logical approach:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+<div class="activity-card">
+<h4>🎯 Sum–Difference Puzzle Solver</h4>
+<p>Enter sum and difference. The machine finds the two numbers.</p>
+<label>Sum <input type="number" id="sumInput" value="25"></label>
+<label>Difference <input type="number" id="diffInput" value="11"></label>
+<button class="action-btn" onclick="solveSumDiff()">Solve</button>
+<div id="sumDiffFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>📍 Number Line Movement</h4>
+<label>Start <input type="number" id="lineStart" value="-3"></label>
+<label>Move <input type="number" id="lineMove" value="7"></label>
+<button class="action-btn" onclick="numberLineMove()">Move</button>
+<div class="number-line" id="moveLine"></div>
+<div id="lineFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔴🟢 Zero Pair Token Model</h4>
+<button class="action-btn green-btn" onclick="addToken('pos')">Add +1</button>
+<button class="action-btn red-btn" onclick="addToken('neg')">Add -1</button>
+<button class="action-btn secondary-btn" onclick="removeZeroPairs()">Remove Zero Pairs</button>
+<button class="action-btn" onclick="clearTokens()">Clear</button>
+<div class="token-zone" id="tokenZone"></div>
+<span class="label-chip" id="tokenValueText">Value: 0</span>
+</div>
+
+<div class="activity-card">
+<h4>🌡️ Temperature Operation Lab</h4>
+<label>Start temperature <input type="number" id="tempStart" value="-5"> °C</label>
+<label>Change <input type="number" id="tempChange" value="8"> °C</label>
+<button class="action-btn" onclick="tempLab()">Calculate</button>
+<div id="tempFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>⚖️ Integer Compare</h4>
+<div class="compare-zone"><div class="num-card" id="compareA">-4</div><div class="num-card" id="compareB">3</div></div>
+<button class="action-btn" onclick="checkCompare('A')">Left greater</button>
+<button class="action-btn" onclick="checkCompare('B')">Right greater</button>
+<button class="action-btn secondary-btn" onclick="newCompare()">New</button>
+<div id="compareFeedback" class="feedback-box hidden"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on integer addition, subtraction, sum–difference puzzles, number-line movement, and real-life integer situations.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Banking:</strong> Deposits are positive; withdrawals and debt are negative.</div>
+<div class="highlight-card pink-card"><strong>Temperature:</strong> A rise or fall in temperature can be modelled using integer addition.</div>
+<div class="highlight-card yellow-card"><strong>Elevators:</strong> Moving above or below ground floors is integer movement.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul><li>Add and subtract integers using rules and number-line movement.</li><li>Use zero pairs to simplify integer sums.</li><li>Solve sum–difference puzzles logically.</li><li>Apply integers in temperature, banking, and movement contexts.</li><li>Check answers using both sum and difference conditions.</li></ul>
+<h4>Exit Ticket Prompts</h4>
+<ul><li>Find two numbers whose sum is 25 and difference is 11.</li><li>Explain why 7 - (-3) = 10.</li><li>Show -4 + 6 on a number line.</li></ul>
+</div>
+</section>
+</main>
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"Rakesh challenged: 'I have two numbers. Their sum is 25, and their difference is 11.' Find the two numbers.",a:"18, 7",accepted:["18,7","18, 7","7,18","7, 18"],hint:"Use larger = (sum + difference) ÷ 2.",steps:"Step 1: Sum = 25 and difference = 11. Step 2: Larger number = (25 + 11) ÷ 2 = 36 ÷ 2 = 18. Step 3: Smaller number = (25 - 11) ÷ 2 = 14 ÷ 2 = 7. Step 4: Check: 18 + 7 = 25 and 18 - 7 = 11."},
+{q:"Calculate: -8 + 3.",a:"-5",accepted:["-5"],hint:"Different signs: subtract 3 from 8 and keep the sign of 8.",steps:"|-8| is greater than |3|. Difference = 8 - 3 = 5. Keep negative sign: -5."},
+{q:"Calculate: 7 - (-3).",a:"10",accepted:["10"],hint:"Subtracting a negative means adding the positive.",steps:"7 - (-3) = 7 + 3 = 10."},
+{q:"From floor -2, an elevator moves up 8 floors. Which floor does it reach?",a:"6",accepted:["6","+6"],hint:"Moving up means add 8.",steps:"-2 + 8 = 6. The elevator reaches floor +6."},
+{q:"A temperature is -5°C and rises by 12°C. What is the new temperature?",a:"7",accepted:["7","7c","7°c","+7"],hint:"A rise means addition.",steps:"-5 + 12 = 7. The new temperature is 7°C."},
+{q:"Find two numbers whose sum is 40 and difference is 8.",a:"24, 16",accepted:["24,16","24, 16","16,24","16, 24"],hint:"Larger = (40 + 8) ÷ 2.",steps:"Larger = (40 + 8) ÷ 2 = 24. Smaller = (40 - 8) ÷ 2 = 16."}
+];
+let qIdx=0,score=0,streak=0,tokens=[],comparePair=[-4,3];const storageKey='mathable_integer_operations_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();drawLine('introLine',-10,10,0);numberLineMove();updateTokenZone();newCompare();loadRealCase();solveSumDiff();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Integer Starter';if(score>=150)badge='Integer Master';else if(score>=80)badge='Puzzle Solver';else if(score>=30)badge='Number Line Navigator';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to see the process!';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function drawLine(id,min,max,marker){let line=document.getElementById(id);line.innerHTML='<div class="axis"></div>';let width=700,left=25;for(let n=min;n<=max;n++){let x=left+((n-min)/(max-min))*width;let t=document.createElement('div');t.className='tick';t.style.left=x+'px';line.appendChild(t);if(n%2===0||n===0){let l=document.createElement('div');l.className='tick-label';l.style.left=x+'px';l.innerText=n;line.appendChild(l);}}let m=document.createElement('div');m.className='marker';m.style.left=(left+((marker-min)/(max-min))*width)+'px';m.innerText=marker;line.appendChild(m);}
+function solveSumDiff(){let s=Number(document.getElementById('sumInput').value)||25,d=Number(document.getElementById('diffInput').value)||11,large=(s+d)/2,small=(s-d)/2;document.getElementById('sumDiffFeedback').innerHTML=`Larger = (${s}+${d}) ÷ 2 = <strong>${large}</strong><br>Smaller = (${s}-${d}) ÷ 2 = <strong>${small}</strong><br>Check: ${large}+${small}=${large+small}, ${large}-${small}=${large-small}.`;}
+function numberLineMove(){let start=Number(document.getElementById('lineStart').value)||-3,move=Number(document.getElementById('lineMove').value)||7,end=start+move;drawLine('moveLine',-15,15,end);document.getElementById('lineFeedback').innerHTML=`Start at ${start}. Move ${move>=0?'right/up':'left/down'} ${Math.abs(move)} spaces. End at <strong>${end}</strong>.`;}
+function addToken(type){tokens.push(type);updateTokenZone();}
+function updateTokenZone(){let zone=document.getElementById('tokenZone');zone.innerHTML='';tokens.forEach(type=>{let t=document.createElement('div');t.className='token '+type;t.innerText=type==='pos'?'+':'−';zone.appendChild(t)});let val=tokens.filter(t=>t==='pos').length-tokens.filter(t=>t==='neg').length;document.getElementById('tokenValueText').innerText=`Value: ${val}`;}
+function removeZeroPairs(){let p=tokens.filter(t=>t==='pos').length,n=tokens.filter(t=>t==='neg').length,pairs=Math.min(p,n);tokens=[];for(let i=0;i<p-pairs;i++)tokens.push('pos');for(let i=0;i<n-pairs;i++)tokens.push('neg');updateTokenZone();}
+function clearTokens(){tokens=[];updateTokenZone();}
+function tempLab(){let s=Number(document.getElementById('tempStart').value)||-5,c=Number(document.getElementById('tempChange').value)||8,fb=document.getElementById('tempFeedback');fb.innerHTML=`${s} + (${c}) = <strong>${s+c}°C</strong>.`;fb.classList.remove('hidden');}
+function newCompare(){let a=Math.floor(Math.random()*21)-10,b=Math.floor(Math.random()*21)-10;while(a===b)b=Math.floor(Math.random()*21)-10;comparePair=[a,b];document.getElementById('compareA').innerText=a;document.getElementById('compareB').innerText=b;document.getElementById('compareFeedback').classList.add('hidden');}
+function checkCompare(choice){let [a,b]=comparePair,correct=a>b?'A':'B',fb=document.getElementById('compareFeedback');fb.innerHTML=choice===correct?`✅ Correct. ${Math.max(a,b)} is greater.`:`❌ Not quite. On the number line, the number to the right is greater.`;fb.classList.remove('hidden');}
+function loadRealCase(){let cases=[['Bank Balance','You have ₹200 and withdraw ₹350.','200 - 350 = -150, so balance is -₹150.'],['Temperature','It is -4°C and rises by 9°C.','-4 + 9 = 5°C.'],['Elevator','You are at basement -3 and move up 5 floors.','-3 + 5 = 2.'],['Game Score','You lose 8 points and then gain 13 points.','-8 + 13 = 5 points.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*5);if(t===0){let a=Math.floor(Math.random()*15)-10,b=Math.floor(Math.random()*15)-5;return{q:`Calculate ${a} + (${b}).`,a:`${a+b}`,s:`Add the integers to get ${a+b}.`};}if(t===1){let a=Math.floor(Math.random()*15)-5,b=Math.floor(Math.random()*10)-5;return{q:`Calculate ${a} - (${b}).`,a:`${a-b}`,s:`Subtracting ${b} gives ${a-b}.`};}if(t===2){let s=30,d=10;return{q:`Find two numbers whose sum is ${s} and difference is ${d}.`,a:`20, 10`,s:`Larger=(${s}+${d})/2=20; smaller=10.`};}if(t===3)return{q:'A temperature is -5°C and rises by 12°C. New temperature?',a:'7',s:'-5 + 12 = 7.'};return{q:'From floor -2, move up 8 floors. Which floor?',a:'6',s:'-2 + 8 = 6.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VII: Operations with Integers Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'integer-operations-answer-key.pdf':'integer-operations-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Baudhāyana-Pythagoras Theorem - Mathable Smart Lab</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--orange:#e67e22;--shadow:0 4px 24px rgba(0,0,0,.06)}
+body{font-family:Poppins,Segoe UI,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header{background:rgba(255,255,255,.92);padding:18px 28px;border-bottom:3px solid var(--brand-aqua);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}
+.logo-wrap{display:flex;align-items:center;gap:12px}.logo-fallback{height:44px;width:44px;border-radius:14px;background:var(--brand-yellow);display:grid;place-items:center;font-weight:800;box-shadow:var(--shadow)}
+header h1{font-size:1.05rem;margin:0}header a{text-decoration:none;color:var(--brand-navy);font-weight:700}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:var(--shadow)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:700;font-size:.85rem}.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:white}
+.tab-content{display:none}.tab-content.active{display:block}.info-box{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.activity-card{background:white;border:1px solid rgba(39,43,106,.12);border-radius:14px;padding:20px;margin:18px 0;box-shadow:0 4px 12px rgba(0,0,0,.03)}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:white;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.orange-btn{background:var(--orange)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}.hidden{display:none}
+.hint-box,.solution-box,.feedback-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-yellow)}.solution-box{border-left-color:var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}
+.score-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.line-stage{background:#fffde8;border:2px dashed var(--brand-yellow);border-radius:16px;margin:16px 0;padding:10px;display:grid;place-items:center;min-height:300px}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:160px;text-align:center;font-size:1.15rem;font-weight:800}
+svg{max-width:100%;height:auto}.small-note{font-size:.92rem;color:var(--text-muted)}footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.num-card{min-width:130px}header{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="logo-wrap"><img src="../assets/Logo.png" alt="Mathable Logo" style="height:42px" onerror="this.style.display='none';document.getElementById('fallbackLogo').style.display='grid';"><div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div><h1>Mathable Smart Lab</h1></div><nav><a href="../index.html">← Back to Dashboard</a></nav></header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+<span class="card-badge" style="background:var(--brand-yellow);color:#000">GRADE 8 • GEOMETRY</span>
+<span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Strand: Area, Right Triangles and Square Roots</span></div>
+<h2 style="color:var(--brand-navy);margin-top:0;font-size:2.25rem;font-weight:800">The Baudhāyana-Pythagoras Theorem Smart Lab</h2>
+<p style="color:var(--text-muted);margin-top:-6px">Double and halve squares, explore \(\sqrt2\), combine squares, apply \(a^2+b^2=c^2\), and discover Baudhāyana triples.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchLabTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchLabTab('rules')">📑 Rules Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchLabTab('lab')">🧠 Solve Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchLabTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchLabTab('generator')">🖨️ Worksheet Generator</button>
+<button id="btn-real" class="tab-btn" onclick="switchLabTab('real')">🌍 Real-Life Lab</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchLabTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>What is the Baudhāyana-Pythagoras Theorem?</h3>
+<div class="info-box">
+<p>Baudhāyana described how the square on the diagonal of a right triangle relates to the squares on its two perpendicular sides. In modern notation, this is \(a^2+b^2=c^2\), where \(c\) is the hypotenuse.</p>
+<div class="highlight-card"><strong>Doubling a square:</strong> A square constructed on the diagonal of a given square has double the area of the original square.</div>
+<div class="highlight-card pink-card"><strong>Halving a square:</strong> Joining the midpoints of a square’s sides forms a smaller tilted square with half the original area.</div>
+<div class="highlight-card yellow-card"><strong>Right triangle theorem:</strong> For a right triangle, area of square on hypotenuse = sum of areas of squares on the other two sides.</div>
+<div class="line-stage"><svg id="introSvg" viewBox="0 0 660 320"></svg></div>
+<p class="small-note">Move the side length. The diagonal square has twice the area of the original square.</p>
+<label>Original square side <input type="range" min="50" max="110" value="75" id="squareSide" oninput="drawIntro()"></label>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Rules Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Square Area</h4><p>If side length is \(s\), area is \(s^2\).</p></div>
+<div class="formula-tile"><h4>Doubling Square</h4><p>The square on a square’s diagonal has area \(2s^2\).</p></div>
+<div class="formula-tile"><h4>Isosceles Right Triangle</h4><p>If equal sides are \(a\), then \(c^2=2a^2\), so \(c=a\sqrt2\).</p></div>
+<div class="formula-tile"><h4>\(\sqrt2\)</h4><p>\(\sqrt2\approx1.41421356...\), a non-terminating, non-fractional number.</p></div>
+<div class="formula-tile"><h4>Baudhāyana Theorem</h4><p>For a right triangle: \(a^2+b^2=c^2\).</p></div>
+<div class="formula-tile"><h4>Baudhāyana Triples</h4><p>Integer triples such as \((3,4,5)\), \((5,12,13)\), \((8,15,17)\) satisfy \(a^2+b^2=c^2\).</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Guided Solve Lab</h3>
+<div class="info-box">
+<div class="score-bar"><span id="lab-score-display">Score: 0</span><span id="lab-streak-display">Current Streak: 🔥 0</span><span id="lab-badge-display">Badge: Theorem Explorer</span></div>
+<div class="activity-card">
+<p id="lab-question-field" style="font-size:1.15rem;font-weight:600;line-height:1.6"></p>
+<input type="text" id="student-answer-input" placeholder="Type answer"><br>
+<button class="action-btn" onclick="submitSandboxAnswer()">Check Answer</button>
+<button class="action-btn secondary-btn" onclick="renderSandboxQuestion(true)">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleVisibilityBox('hint-box-container')">Show Hint</button>
+<button class="action-btn pink-btn" onclick="toggleVisibilityBox('solution-box-container')">Step-by-Step</button>
+<div id="feedback-box-container" class="feedback-box hidden"></div>
+<div id="hint-box-container" class="hint-box hidden"></div>
+<div id="solution-box-container" class="solution-box hidden"></div>
+</div></div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card"><h4>🎛️ Right Triangle Calculator</h4>
+<p>Enter two shorter sides. The lab computes the hypotenuse using \(a^2+b^2=c^2\).</p>
+<div class="compare-zone"><div class="num-card">a<br><input type="number" id="sideA" value="3" min="0.1" step="0.1" oninput="pythagLab()"></div><div class="num-card">b<br><input type="number" id="sideB" value="4" min="0.1" step="0.1" oninput="pythagLab()"></div><div class="num-card">c<br><span id="hypC">5</span></div></div>
+<div class="line-stage"><svg id="triSvg" viewBox="0 0 580 320"></svg></div>
+<div id="pythagFeedback" class="feedback-box"></div></div>
+
+<div class="activity-card"><h4>🔍 Baudhāyana Triple Checker</h4>
+<p>Check whether three integers can be the sides of a right triangle.</p>
+<input type="number" id="trA" value="5" oninput="tripleCheck()"> <input type="number" id="trB" value="12" oninput="tripleCheck()"> <input type="number" id="trC" value="13" oninput="tripleCheck()">
+<div id="tripleFeedback" class="feedback-box"></div></div>
+
+<div class="activity-card"><h4>⬛ Square Area Combiner</h4>
+<p>Choose two square side lengths. The larger square side is the hypotenuse.</p>
+<div class="line-stage"><svg id="combineSvg" viewBox="0 0 620 330"></svg></div>
+<label>Square side a <input type="range" id="combA" min="30" max="110" value="60" oninput="drawCombine()"></label>
+<label>Square side b <input type="range" id="combB" min="30" max="130" value="90" oninput="drawCombine()"></label>
+<div id="combineFeedback" class="feedback-box"></div></div>
+
+<div class="activity-card"><h4>🧩 Rule Identifier</h4>
+<p id="ruleQuestion">Square on the diagonal of a square has double area.</p>
+<button class="action-btn" onclick="checkRule('Doubling Square')">Doubling Square</button>
+<button class="action-btn" onclick="checkRule('Halving Square')">Halving Square</button>
+<button class="action-btn" onclick="checkRule('Baudhāyana Theorem')">Baudhāyana Theorem</button>
+<button class="action-btn" onclick="checkRule('Triple')">Triple</button>
+<button class="action-btn secondary-btn" onclick="newRule()">New</button>
+<div id="ruleFeedback" class="feedback-box hidden"></div></div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box"><p>Generate printable practice on doubling/halving squares, \(\sqrt2\), right-triangle calculations, missing sides, and Baudhāyana triples.</p>
+<label>Number of problems:</label><input type="number" id="pdf-quantity-input" min="5" max="50" value="12"><br><br>
+<button class="action-btn" onclick="generateWorksheetPdf(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generateWorksheetPdf(true)">Download Answer Key PDF</button>
+</div><div id="pdf-printing-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content"><h3>Real-Life Lab</h3><div class="info-box"><div id="realCase"></div><button class="action-btn" onclick="loadRealLifeLab()">Next Case Study</button></div></section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box"><h4>Learning Outcomes</h4>
+<ul><li>Explain why a square on a diagonal doubles area.</li><li>Construct or reason about a square with half area.</li><li>Relate an isosceles right triangle to \(\sqrt2\).</li><li>Apply \(a^2+b^2=c^2\) to find missing sides of right triangles.</li><li>Identify and generate Baudhāyana triples.</li></ul>
+<h4>Exit Ticket Prompts</h4><ul><li>Why does doubling the side of a square create four times, not double, the area?</li><li>Find the hypotenuse when sides are 5 cm and 12 cm.</li><li>Check whether \((8,15,17)\) is a Baudhāyana triple.</li></ul></div>
+</section>
+</main>
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const pool=[
+{q:"If a square has side 4, what is its area?",a:"16",accepted:["16"],hint:"Area of a square is side × side.",steps:"4² = 16."},
+{q:"A square is built on the diagonal of a square of area 25. What is the new square's area?",a:"50",accepted:["50"],hint:"The diagonal square has double the area.",steps:"New area = 2 × 25 = 50."},
+{q:"In an isosceles right triangle with equal sides 1 and 1, what is the hypotenuse?",a:"sqrt2",accepted:["sqrt2","√2","root2","square root of 2"],hint:"c² = 1² + 1².",steps:"c² = 2, so c = √2."},
+{q:"Find the hypotenuse if the shorter sides are 3 and 4.",a:"5",accepted:["5"],hint:"Use a² + b² = c².",steps:"3² + 4² = 9 + 16 = 25, so c = 5."},
+{q:"Find the hypotenuse if the shorter sides are 5 and 12.",a:"13",accepted:["13"],hint:"Use a² + b² = c².",steps:"5² + 12² = 25 + 144 = 169, so c = 13."},
+{q:"If one short side is 8 and hypotenuse is 17, find the other short side.",a:"15",accepted:["15"],hint:"Use b² = c² − a².",steps:"b² = 17² − 8² = 289 − 64 = 225, so b = 15."},
+{q:"Is (6, 8, 10) a Baudhāyana triple? Type yes or no.",a:"yes",accepted:["yes","y"],hint:"It is 2 × (3,4,5).",steps:"6² + 8² = 36 + 64 = 100 = 10²."}
+];
+const ruleItems=[
+{q:"Square on the diagonal of a square has double area.",a:"Doubling Square"},
+{q:"A tilted square through side midpoints has half the area.",a:"Halving Square"},
+{q:"For a right triangle, a² + b² = c².",a:"Baudhāyana Theorem"},
+{q:"Three integers satisfying a² + b² = c².",a:"Triple"}
+];
+const realCases=[
+"<h4>Altar Construction</h4><p>The Śulba-Sūtra methods helped construct squares of required areas using diagonals and right triangles.</p>",
+"<h4>Carpentry and Layouts</h4><p>The 3-4-5 triangle is often used to create exact right angles on the ground.</p>",
+"<h4>Architecture</h4><p>Right-triangle calculations help plan ramps, diagonals, roof supports and brace lengths.</p>",
+"<h4>Paper Rearrangements</h4><p>Cutting and rearranging square pieces visually proves area relationships.</p>",
+"<h4>Measuring Diagonals</h4><p>The diagonal of a unit square has length √2, useful in grids, tiling and design.</p>"
+];
+let idx=0,score=0,streak=0,currentRule=ruleItems[0],realIdx=0;
+const storageKey="mathable_state_baudhayana_pythagoras";
+window.onload=function(){try{let s=JSON.parse(localStorage.getItem(storageKey)||"{}");score=s.score||0;streak=s.streak||0;idx=s.index||0}catch(e){}renderSandboxQuestion();drawIntro();pythagLab();tripleCheck();drawCombine();newRule();loadRealLifeLab();updateScore();}
+function switchLabTab(id){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.getElementById('btn-'+id).classList.add('active')}
+function toggleVisibilityBox(id){document.getElementById(id).classList.toggle('hidden')}
+function norm(v){return String(v).trim().toLowerCase().replace(/°/g,'').replace(/\s+/g,'')}
+function updateScore(){document.getElementById('lab-score-display').innerText=`Score: ${score}`;document.getElementById('lab-streak-display').innerText=`Current Streak: 🔥 ${streak}`;let b="Theorem Explorer";if(score>=150)b="Baudhāyana Champion";else if(score>=90)b="Triple Pro";else if(score>=40)b="Right Triangle Star";document.getElementById('lab-badge-display').innerText=`Badge: ${b}`;localStorage.setItem(storageKey,JSON.stringify({score,streak,index:idx}))}
+function renderSandboxQuestion(next=false){if(next)idx++;let o=pool[idx%pool.length];document.getElementById('lab-question-field').innerHTML=`<strong>Question ${idx+1}:</strong> ${o.q}`;document.getElementById('hint-box-container').innerHTML=`<strong>Hint:</strong> ${o.hint}`;document.getElementById('solution-box-container').innerHTML=`<strong>Step-by-Step:</strong><br>${o.steps}`;['feedback-box-container','hint-box-container','solution-box-container'].forEach(id=>document.getElementById(id).classList.add('hidden'));document.getElementById('student-answer-input').value='';updateScore();if(window.MathJax)MathJax.typesetPromise();}
+function submitSandboxAnswer(){let o=pool[idx%pool.length],ans=norm(document.getElementById('student-answer-input').value),ok=o.accepted.map(norm).includes(ans),box=document.getElementById('feedback-box-container');if(ok){box.innerHTML="🎉 Correct! "+o.steps;score+=10;streak++;idx++;setTimeout(()=>renderSandboxQuestion(),900)}else{box.innerHTML="Try again. Hint: "+o.hint;streak=0}box.classList.remove('hidden');updateScore();}
+function drawIntro(){let s=+document.getElementById('squareSide').value,svg=document.getElementById('introSvg'),x=130,y=190;let cx=x+s,cy=y;svg.innerHTML=`<rect x="${x}" y="${y-s}" width="${s}" height="${s}" fill="rgba(75,194,196,.18)" stroke="#272b6a" stroke-width="4"/><line x1="${x}" y1="${y}" x2="${x+s}" y2="${y-s}" stroke="#ee4977" stroke-width="4"/><text x="${x}" y="${y+28}" font-size="16" font-weight="800">Area = ${s*s}</text>`;
+let p=[[x,y],[x+s,y-s],[x+2*s,y],[x+s,y+s]];svg.innerHTML+=`<polygon points="${p.map(q=>q.join(',')).join(' ')}" fill="rgba(238,73,119,.12)" stroke="#ee4977" stroke-width="4" stroke-dasharray="8 6"/><text x="${x+s+85}" y="${y+28}" font-size="16" font-weight="800">Diagonal square area = ${2*s*s}</text><text x="25" y="40" font-size="19" font-weight="800">Diagonal square = double area</text>`}
+function pythagLab(){let a=+document.getElementById('sideA').value||0,b=+document.getElementById('sideB').value||0,c=Math.sqrt(a*a+b*b);document.getElementById('hypC').textContent=Number.isInteger(c)?c:c.toFixed(3);document.getElementById('pythagFeedback').innerHTML=`c² = ${a}² + ${b}² = ${(a*a+b*b).toFixed(2)}, so c ≈ ${c.toFixed(3)}.`;drawTriangle(a,b,c)}
+function drawTriangle(a,b,c){let svg=document.getElementById('triSvg'),scale=220/Math.max(a,b,c,1),x=120,y=245,A=[x,y],B=[x+a*scale,y],C=[x,y-b*scale];svg.innerHTML=`<polygon points="${A.join(',')} ${B.join(',')} ${C.join(',')}" fill="rgba(75,194,196,.15)" stroke="#272b6a" stroke-width="4"/><text x="${(A[0]+B[0])/2-10}" y="${y+24}" font-size="18" font-weight="800">a=${a}</text><text x="${x-70}" y="${(A[1]+C[1])/2}" font-size="18" font-weight="800">b=${b}</text><text x="${(B[0]+C[0])/2+10}" y="${(B[1]+C[1])/2}" font-size="18" font-weight="800">c≈${c.toFixed(2)}</text><rect x="${x}" y="${y-24}" width="24" height="24" fill="none" stroke="#ee4977" stroke-width="3"/>`}
+function tripleCheck(){let arr=[+trA.value||0,+trB.value||0,+trC.value||0].sort((x,y)=>x-y),ok=Math.abs(arr[0]*arr[0]+arr[1]*arr[1]-arr[2]*arr[2])<1e-9;let box=document.getElementById('tripleFeedback');box.innerHTML=ok?`✅ ${arr.join(", ")} is a Baudhāyana triple: ${arr[0]}² + ${arr[1]}² = ${arr[2]}².`:`❌ Not a triple: ${arr[0]}² + ${arr[1]}² ≠ ${arr[2]}².`;box.style.borderLeftColor=ok?'var(--green)':'var(--brand-pink)'}
+function drawCombine(){let a=+document.getElementById('combA').value,b=+document.getElementById('combB').value,c=Math.sqrt(a*a+b*b),svg=document.getElementById('combineSvg');let x=70,y=230;svg.innerHTML=`<rect x="${x}" y="${y-a}" width="${a}" height="${a}" fill="rgba(238,73,119,.25)" stroke="#ee4977" stroke-width="3"/><rect x="${x+a+25}" y="${y-b}" width="${b}" height="${b}" fill="rgba(253,227,45,.35)" stroke="#d99a00" stroke-width="3"/><line x1="${x+a+25}" y1="${y}" x2="${x+a+25+b}" y2="${y-b}" stroke="#272b6a" stroke-width="4"/><text x="${x}" y="${y+25}" font-size="16" font-weight="800">a²=${a*a}</text><text x="${x+a+25}" y="${y+25}" font-size="16" font-weight="800">b²=${b*b}</text><text x="360" y="95" font-size="18" font-weight="800">c² = a² + b²</text><text x="360" y="125" font-size="18" font-weight="800">c ≈ ${c.toFixed(2)}</text>`;document.getElementById('combineFeedback').innerHTML=`The combined square area is ${a*a+b*b}. Its side length is c ≈ ${c.toFixed(2)}.`}
+function newRule(){currentRule=ruleItems[Math.floor(Math.random()*ruleItems.length)];document.getElementById('ruleQuestion').textContent=currentRule.q;document.getElementById('ruleFeedback').classList.add('hidden')}
+function checkRule(choice){let ok=choice===currentRule.a,box=document.getElementById('ruleFeedback');box.innerHTML=ok?'🎉 Correct!':'Try again. Best answer: '+currentRule.a+'.';box.classList.remove('hidden');if(ok){score+=10;streak++}else streak=0;updateScore();}
+function loadRealLifeLab(){document.getElementById('realCase').innerHTML=realCases[realIdx%realCases.length];realIdx++}
+function generateWorksheetPdf(key){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-quantity-input').value)||12));let html=`<div style="font-family:Poppins,Arial,sans-serif;padding:30px;color:#272b6a"><h1>The Baudhāyana-Pythagoras Theorem Worksheet</h1><p>Name: __________________ Date: __________________</p><ol>`;for(let i=0;i<qty;i++){let q=pool[i%pool.length];html+=`<li style="margin-bottom:24px"><b>${q.q}</b>${key?`<p><b>Answer:</b> ${q.a}<br><b>Reason:</b> ${q.steps}</p>`:'<div style="height:44px;border-bottom:1px dashed #aaa"></div>'}</li>`}html+='</ol></div>';let el=document.getElementById('pdf-printing-canvas');el.innerHTML=html;html2pdf().from(el).set({margin:12,filename:key?'Baudhayana-Pythagoras-Answer-Key.pdf':'Baudhayana-Pythagoras-Worksheet.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4'}}).save()}
+</script>
+</body>
+</html>

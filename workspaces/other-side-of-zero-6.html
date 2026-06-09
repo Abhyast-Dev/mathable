@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class VI: The Other Side of Zero - Mathable Smart Lab</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --brand-yellow: #fde32d;
+            --brand-pink: #ee4977;
+            --brand-navy: #272b6a;
+            --brand-aqua: #4bc2c4;
+            --text-muted: #5e6282;
+            --white: #ffffff;
+            --soft-bg: #fafafa;
+            --transition-smooth: all 0.25s ease;
+            --positive: #25a55f;
+            --negative: #d64242;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: var(--soft-bg);
+            color: var(--brand-navy);
+            margin: 0;
+        }
+
+
+        .workspace-container {
+            max-width: 1050px;
+            margin: 32px auto;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .tab-navigation {
+            display: flex;
+            gap: 10px;
+            margin: 24px 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 16px;
+            cursor: pointer;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 10px;
+            font-weight: 700;
+            color: var(--brand-navy);
+            transition: var(--transition-smooth);
+        }
+
+        .tab-btn.active {
+            background-color: var(--brand-aqua);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .info-box {
+            background: rgba(39, 43, 106, 0.03);
+            border: 1px solid rgba(39,43,106,0.1);
+            padding: 24px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+
+        .activity-card {
+            background: var(--white);
+            border: 1px solid rgba(39,43,106,0.12);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 18px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .highlight-card {
+            background-color: rgba(75, 194, 196, 0.08);
+            border-left: 5px solid var(--brand-aqua);
+            padding: 16px;
+            margin: 14px 0;
+            border-radius: 8px;
+        }
+
+        .pink-card {
+            border-left-color: var(--brand-pink);
+            background-color: rgba(238, 73, 119, 0.07);
+        }
+
+        .yellow-card {
+            border-left-color: var(--brand-yellow);
+            background-color: rgba(253, 227, 45, 0.14);
+        }
+
+        .action-btn {
+            background: var(--brand-navy);
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+            margin: 6px 6px 6px 0;
+            transition: var(--transition-smooth);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.92;
+        }
+
+        .secondary-btn { background: var(--brand-aqua); }
+        .pink-btn { background: var(--brand-pink); }
+        .green-btn { background: var(--positive); }
+        .red-btn { background: var(--negative); }
+
+        input, select {
+            padding: 10px;
+            border: 2px solid rgba(39,43,106,0.35);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin: 4px;
+        }
+
+        .hidden { display: none; }
+
+        .hint-box, .solution-box, .feedback-box {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 10px;
+            background: #fff;
+            border-left: 5px solid var(--brand-yellow);
+        }
+
+        .solution-box { border-left-color: var(--brand-pink); }
+        .feedback-box {
+            border-left-color: var(--brand-aqua);
+            font-weight: 700;
+        }
+
+        .score-bar {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            color: var(--brand-pink);
+            font-weight: 700;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .formula-tile {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(39,43,106,0.12);
+            padding: 18px;
+        }
+
+        .formula-tile h4 {
+            margin-top: 0;
+            color: var(--brand-pink);
+        }
+
+        .number-line-wrap {
+            overflow-x: auto;
+            padding: 18px 8px;
+        }
+
+        .number-line {
+            min-width: 720px;
+            height: 90px;
+            position: relative;
+            margin: 12px auto;
+        }
+
+        .axis {
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            right: 30px;
+            height: 4px;
+            background: var(--brand-navy);
+            border-radius: 999px;
+        }
+
+        .tick {
+            position: absolute;
+            top: 26px;
+            width: 2px;
+            height: 30px;
+            background: var(--brand-navy);
+        }
+
+        .tick-label {
+            position: absolute;
+            top: 60px;
+            transform: translateX(-50%);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .marker {
+            position: absolute;
+            top: 24px;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--brand-pink);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            box-shadow: 0 3px 10px rgba(238,73,119,0.4);
+        }
+
+        .building {
+            max-width: 360px;
+            margin: 18px auto;
+            border: 4px solid var(--brand-navy);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .floor {
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            border-bottom: 1px solid rgba(39,43,106,0.16);
+            font-weight: 700;
+        }
+
+        .floor:last-child { border-bottom: none; }
+
+        .floor.positive { background: rgba(37,165,95,0.12); }
+        .floor.zero { background: rgba(253,227,45,0.45); }
+        .floor.negative { background: rgba(214,66,66,0.12); }
+        .floor.active {
+            outline: 4px solid var(--brand-pink);
+            outline-offset: -4px;
+            background: rgba(238,73,119,0.18);
+        }
+
+        .token-zone {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+            padding: 12px;
+            border: 2px dashed rgba(39,43,106,0.2);
+            border-radius: 12px;
+            background: #fff;
+            margin: 14px 0;
+        }
+
+        .token {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        .token.pos { background: var(--positive); }
+        .token.neg { background: var(--negative); }
+
+        .compare-options {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 14px 0;
+        }
+
+        .integer-card {
+            background: #fff;
+            border: 2px solid rgba(39,43,106,0.14);
+            border-radius: 14px;
+            padding: 18px;
+            text-align: center;
+            min-width: 150px;
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+
+        .label-chip {
+            display: inline-block;
+            background: rgba(39,43,106,0.08);
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .real-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .real-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(39,43,106,0.12);
+        }
+
+        footer {
+            padding: 36px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .workspace-container {
+                margin: 14px;
+                padding: 16px;
+            }
+            .integer-card {
+                min-width: 110px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+        <span class="card-badge" style="background-color:var(--brand-pink); color:white;">TRACK 1 • NUMBER SENSE</span>
+        <span style="font-size:0.9rem; font-weight:700; color:var(--text-muted);">Strand: Integers • Grade 6</span>
+    </div>
+
+    <h2 style="color:var(--brand-navy); margin-top:0; font-size:2.25rem; font-weight:800;">Class VI: The Other Side of Zero</h2>
+    <p style="color:var(--text-muted); margin-top:-6px;">Introduction to integers, zero, number lines, building floors, movement, comparison, and zero pairs.</p>
+
+    <nav class="tab-navigation" role="tablist" aria-label="Learning Pillars">
+        <button id="btn-fact" class="tab-btn active" role="tab" onclick="switchLabTab('fact')">📖 Fact Sheet</button>
+        <button id="btn-rules" class="tab-btn" role="tab" onclick="switchLabTab('rules')">🧪 Rules Hub</button>
+        <button id="btn-lab" class="tab-btn" role="tab" onclick="switchLabTab('lab')">💻 Online Lab</button>
+        <button id="btn-activities" class="tab-btn" role="tab" onclick="switchLabTab('activities')">🎮 Activity Zone</button>
+        <button id="btn-generator" class="tab-btn" role="tab" onclick="switchLabTab('generator')">🖨️ Worksheet Generator</button>
+        <button id="btn-real" class="tab-btn" role="tab" onclick="switchLabTab('real')">🌍 Real-World Use</button>
+        <button id="btn-teacher" class="tab-btn" role="tab" onclick="switchLabTab('teacher')">📊 Teacher Tools</button>
+    </nav>
+
+    <section id="panel-fact" class="tab-content active" role="tabpanel">
+        <h3>Why Do We Need Numbers Less Than Zero?</h3>
+        <div class="info-box">
+            <p>Whole numbers like 0, 1, 2, 3 help us count objects. But in real life, we also need numbers to describe <strong>below zero</strong>, <strong>below ground</strong>, <strong>debt</strong>, and <strong>temperatures below 0°C</strong>.</p>
+
+            <div class="highlight-card">
+                <strong>Integers</strong> are numbers like ..., -3, -2, -1, 0, 1, 2, 3, ... They include negative numbers, zero, and positive numbers.
+            </div>
+
+            <div class="highlight-card pink-card">
+                <strong>Zero</strong> is the reference point. It is neither positive nor negative. It helps us compare opposite directions.
+            </div>
+
+            <div class="number-line-wrap">
+                <div class="number-line" id="introNumberLine"></div>
+            </div>
+
+            <p><span class="label-chip">Positive numbers: right/up/above</span> <span class="label-chip">Negative numbers: left/down/below</span> <span class="label-chip">Zero: starting point</span></p>
+        </div>
+    </section>
+
+    <section id="panel-rules" class="tab-content" role="tabpanel">
+        <h3>Rules Hub</h3>
+        <div class="info-box">
+            <div class="formula-grid">
+                <div class="formula-tile">
+                    <h4>Positive Integers</h4>
+                    <p>Numbers greater than zero: <strong>+1, +2, +3, ...</strong></p>
+                    <p>They can mean above ground, gain, deposit, or temperature above 0°C.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Negative Integers</h4>
+                    <p>Numbers less than zero: <strong>-1, -2, -3, ...</strong></p>
+                    <p>They can mean below ground, loss, debit, or temperature below 0°C.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Comparing Integers</h4>
+                    <p>On a number line, the number to the <strong>right</strong> is greater.</p>
+                    <p>Example: -2 is greater than -5.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Additive Inverse</h4>
+                    <p>Two numbers that add to zero are inverses.</p>
+                    <p><strong>+5 and -5</strong> form a zero pair.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Addition as Movement</h4>
+                    <p>Adding a positive number moves right/up.</p>
+                    <p>Adding a negative number moves left/down.</p>
+                </div>
+                <div class="formula-tile">
+                    <h4>Subtraction as Difference</h4>
+                    <p>Subtraction can mean: target position minus starting position.</p>
+                    <p>Example: from -2 to +3 is a movement of +5.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-lab" class="tab-content" role="tabpanel">
+        <h3>Interactive Integer Problem Lab</h3>
+        <div class="info-box">
+            <div class="score-bar">
+                <span id="lab-score-display">Score: 0</span>
+                <span id="lab-streak-display">Current Streak: 🔥 0</span>
+                <span id="lab-badge-display">Badge: Zero Explorer</span>
+            </div>
+
+            <div class="activity-card">
+                <p id="lab-question-field" style="font-size:1.15rem; font-weight:600; line-height:1.6;"></p>
+                <input type="text" id="student-answer-input" placeholder="Type answer, e.g. -3 or greater">
+                <br>
+                <button class="action-btn" onclick="submitSandboxAnswer()">Check Answer</button>
+                <button class="action-btn secondary-btn" onclick="renderSandboxQuestion(true)">Next Question</button>
+                <button class="action-btn secondary-btn" onclick="toggleVisibilityBox('hint-box-container')">Show Hint</button>
+                <button class="action-btn pink-btn" onclick="toggleVisibilityBox('solution-box-container')">Step-by-Step</button>
+
+                <div id="feedback-box-container" class="feedback-box hidden"></div>
+                <div id="hint-box-container" class="hint-box hidden"></div>
+                <div id="solution-box-container" class="solution-box hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-activities" class="tab-content" role="tabpanel">
+        <h3>Activity Zone</h3>
+
+        <div class="activity-card">
+            <h4>🏢 Bela’s Building of Fun: Floor Elevator</h4>
+            <p>Zero is the ground floor. Positive floors are above ground. Negative floors are below ground.</p>
+            <div class="building" id="buildingModel"></div>
+            <p style="text-align:center; font-weight:800;">Current Floor: <span id="currentFloorText">0</span></p>
+            <div style="text-align:center;">
+                <button class="action-btn green-btn" onclick="moveFloor(1)">+1 Up</button>
+                <button class="action-btn red-btn" onclick="moveFloor(-1)">-1 Down</button>
+                <button class="action-btn secondary-btn" onclick="resetFloor()">Back to 0</button>
+            </div>
+            <div id="floorFeedback" class="feedback-box hidden"></div>
+        </div>
+
+        <div class="activity-card">
+            <h4>📍 Number Line Slider</h4>
+            <p>Move the marker and observe how integers are arranged around zero.</p>
+            <input type="range" id="lineSlider" min="-10" max="10" value="0" oninput="updateNumberLineSlider()">
+            <p style="font-weight:800;">Selected Integer: <span id="lineSliderText">0</span></p>
+            <div class="number-line-wrap">
+                <div class="number-line" id="sliderNumberLine"></div>
+            </div>
+        </div>
+
+        <div class="activity-card">
+            <h4>⚔️ Integer Comparison Challenge</h4>
+            <p>Choose the greater integer.</p>
+            <div class="compare-options">
+                <div class="integer-card" id="compareA">-3</div>
+                <div class="integer-card" id="compareB">2</div>
+            </div>
+            <button class="action-btn" onclick="checkCompare('A')">Left is greater</button>
+            <button class="action-btn" onclick="checkCompare('B')">Right is greater</button>
+            <button class="action-btn secondary-btn" onclick="newCompareChallenge()">New Pair</button>
+            <div id="compareFeedback" class="feedback-box hidden"></div>
+        </div>
+
+        <div class="activity-card">
+            <h4>🔴🟢 Token Model: Zero Pairs</h4>
+            <p>Green tokens are +1. Red tokens are -1. One green and one red cancel to make zero.</p>
+            <div>
+                <button class="action-btn green-btn" onclick="addToken('pos')">Add + Token</button>
+                <button class="action-btn red-btn" onclick="addToken('neg')">Add - Token</button>
+                <button class="action-btn secondary-btn" onclick="removeZeroPairs()">Remove Zero Pairs</button>
+                <button class="action-btn" onclick="clearTokens()">Clear Tokens</button>
+            </div>
+            <div class="token-zone" id="tokenZone"></div>
+            <p><span class="label-chip" id="tokenValueText">Integer Value: 0</span></p>
+        </div>
+
+        <div class="activity-card">
+            <h4>🧊 Temperature Jump Simulator</h4>
+            <p>Start at a temperature, then apply a rise or fall.</p>
+            <label>Start temperature:
+                <input type="number" id="tempStart" value="-3"> °C
+            </label>
+            <label>Change:
+                <input type="number" id="tempChange" value="7"> °C
+            </label>
+            <button class="action-btn" onclick="calculateTemperature()">Calculate Final Temperature</button>
+            <div id="temperatureFeedback" class="feedback-box hidden"></div>
+        </div>
+    </section>
+
+    <section id="panel-generator" class="tab-content" role="tabpanel">
+        <h3>Worksheet Generator</h3>
+        <div class="info-box">
+            <p>Create printable worksheets on integers, number lines, comparing integers, floors, temperatures, and zero pairs.</p>
+            <label for="pdf-quantity-input" style="font-weight:700;">Number of problems:</label>
+            <input type="number" id="pdf-quantity-input" min="5" max="50" value="12">
+            <br><br>
+            <button class="action-btn" onclick="generateWorksheetPdf(false)">Download Worksheet PDF</button>
+            <button class="action-btn secondary-btn" onclick="generateWorksheetPdf(true)">Download Answer Key PDF</button>
+        </div>
+        <div id="pdf-printing-canvas" style="display:none;"></div>
+    </section>
+
+    <section id="panel-real" class="tab-content" role="tabpanel">
+        <h3>Integers in Daily Life</h3>
+        <div class="info-box">
+            <div class="real-grid">
+                <div class="real-card">
+                    <h4>🏦 Banking</h4>
+                    <p>Deposits are positive. Withdrawals or debts are negative.</p>
+                    <p><strong>Example:</strong> +₹500 and -₹200 gives +₹300.</p>
+                </div>
+                <div class="real-card">
+                    <h4>⛰️ Sea Level</h4>
+                    <p>Heights above sea level are positive. Depths below sea level are negative.</p>
+                    <p><strong>Example:</strong> A submarine at -80 m is below sea level.</p>
+                </div>
+                <div class="real-card">
+                    <h4>🌡️ Temperature</h4>
+                    <p>Temperatures below freezing can be negative.</p>
+                    <p><strong>Example:</strong> -5°C is colder than +2°C.</p>
+                </div>
+                <div class="real-card">
+                    <h4>🏢 Elevators</h4>
+                    <p>Floors above ground can be positive. Basement floors can be negative.</p>
+                    <p><strong>Example:</strong> B2 can be represented as -2.</p>
+                </div>
+                <div class="real-card">
+                    <h4>⛏️ Mining</h4>
+                    <p>Mine shafts often use negative levels for underground positions.</p>
+                    <p><strong>Example:</strong> -150 m means 150 m below ground.</p>
+                </div>
+                <div class="real-card">
+                    <h4>📜 History</h4>
+                    <p>Negative numbers were used in accounting and mathematics to describe debt, loss, and opposite quantities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-teacher" class="tab-content" role="tabpanel">
+        <h3>Teacher Tools</h3>
+        <div class="info-box">
+            <h4>Learning Outcomes</h4>
+            <ul>
+                <li>Explain why numbers less than zero are needed.</li>
+                <li>Identify positive integers, negative integers, and zero.</li>
+                <li>Represent integers using floors, tokens, temperatures, and number lines.</li>
+                <li>Compare integers using position on a number line.</li>
+                <li>Model additive inverses and zero pairs.</li>
+                <li>Use integer ideas in real-life situations.</li>
+            </ul>
+
+            <h4>Suggested Learning Sequence</h4>
+            <ol>
+                <li>Why do we need numbers below zero?</li>
+                <li>Positive numbers, negative numbers, and zero.</li>
+                <li>Bela’s building model and floor movement.</li>
+                <li>Number line representation.</li>
+                <li>Comparing integers.</li>
+                <li>Introduction to additive inverses and zero pairs.</li>
+                <li>Real-life integer contexts: banking, temperature, sea level.</li>
+            </ol>
+
+            <h4>Exit Ticket Prompts</h4>
+            <ul>
+                <li>Is zero positive, negative, or neither?</li>
+                <li>Which is greater: -2 or -7? Explain using a number line.</li>
+                <li>Give one real-life example of a negative number.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <div class="footer-container">
+        <div class="footer-links">
+            <span>📧 contact@abhyast.in</span>
+            <span>💬 WhatsApp Support</span>
+        </div>
+        <div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div>
+    </div>
+</footer>
+
+<script>
+    const class6IntegersPool = [
+        {
+            q: "Write the integer that represents 4 floors below the ground floor.",
+            a: "-4",
+            accepted: ["-4", "negative 4"],
+            hint: "Below ground means a negative integer.",
+            steps: "Ground floor is 0. Four floors below 0 is -4."
+        },
+        {
+            q: "Which is greater: -2 or -6?",
+            a: "-2",
+            accepted: ["-2", "negative 2"],
+            hint: "On the number line, the number to the right is greater.",
+            steps: "-2 lies to the right of -6 on the number line. So -2 is greater."
+        },
+        {
+            q: "A temperature changes from -3°C by rising 8°C. What is the final temperature?",
+            a: "5",
+            accepted: ["5", "+5", "5c", "5°c", "5 c"],
+            hint: "A rise means add a positive number.",
+            steps: "-3 + 8 = 5. The final temperature is 5°C."
+        },
+        {
+            q: "What is the additive inverse of +9?",
+            a: "-9",
+            accepted: ["-9", "negative 9"],
+            hint: "The additive inverse makes the sum zero.",
+            steps: "+9 + (-9) = 0. So the additive inverse of +9 is -9."
+        },
+        {
+            q: "A submarine is at -50 m and moves up 20 m. What is its new position?",
+            a: "-30",
+            accepted: ["-30", "-30m", "-30 m", "negative 30"],
+            hint: "Moving up means add 20.",
+            steps: "-50 + 20 = -30. The submarine is now at -30 m."
+        },
+        {
+            q: "Which integer is neither positive nor negative?",
+            a: "0",
+            accepted: ["0", "zero"],
+            hint: "It is the reference point.",
+            steps: "Zero is neither positive nor negative."
+        },
+        {
+            q: "If one green token is +1 and one red token is -1, what is their total?",
+            a: "0",
+            accepted: ["0", "zero"],
+            hint: "A positive and a negative of the same size cancel.",
+            steps: "+1 + (-1) = 0. They form a zero pair."
+        },
+        {
+            q: "Arrange in increasing order: -1, 3, -5. Type the first number only.",
+            a: "-5",
+            accepted: ["-5", "negative 5"],
+            hint: "Increasing order starts with the smallest number.",
+            steps: "On the number line, -5 is farthest left. The order is -5, -1, 3."
+        },
+        {
+            q: "From floor -2, Bela moves up 5 floors. Which floor does she reach?",
+            a: "3",
+            accepted: ["3", "+3"],
+            hint: "Moving up means add 5.",
+            steps: "-2 + 5 = 3. Bela reaches floor +3."
+        },
+        {
+            q: "A bank balance is ₹0. A debit of ₹300 is recorded. Represent the balance as an integer.",
+            a: "-300",
+            accepted: ["-300", "negative 300", "-300 rupees"],
+            hint: "Debit or loss is negative.",
+            steps: "A debit of ₹300 from zero is represented as -300."
+        }
+    ];
+
+    let currentIdx = 0;
+    let activeScore = 0;
+    let activeStreak = 0;
+    let currentFloor = 0;
+    let comparePair = [-3, 2];
+    let tokens = [];
+    const storageKey = "mathable_state_class6_integers_intro";
+
+    window.onload = function() {
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+            try {
+                const parsed = JSON.parse(savedData);
+                activeScore = parsed.score || 0;
+                activeStreak = parsed.streak || 0;
+                currentIdx = parsed.index || 0;
+            } catch(e) {}
+        }
+        drawNumberLine("introNumberLine", 0);
+        drawNumberLine("sliderNumberLine", 0);
+        renderSandboxQuestion();
+        buildBuilding();
+        newCompareChallenge();
+        updateTokenZone();
+    };
+
+    function switchLabTab(pillarId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`btn-${pillarId}`).classList.add('active');
+        document.getElementById(`panel-${pillarId}`).classList.add('active');
+    }
+
+    function toggleVisibilityBox(elementId) {
+        document.getElementById(elementId).classList.toggle('hidden');
+    }
+
+    function normalizeAnswer(value) {
+        return String(value).trim().toLowerCase().replace(/\s+/g, "");
+    }
+
+    function updateScoreDisplay() {
+        document.getElementById('lab-score-display').innerText = `Score: ${activeScore}`;
+        document.getElementById('lab-streak-display').innerText = `Current Streak: 🔥 ${activeStreak}`;
+        let badge = "Zero Explorer";
+        if (activeScore >= 150) badge = "Integer Master";
+        else if (activeScore >= 90) badge = "Number Line Navigator";
+        else if (activeScore >= 40) badge = "Floor Mover";
+        document.getElementById('lab-badge-display').innerText = `Badge: ${badge}`;
+    }
+
+    function renderSandboxQuestion(forceNext = false) {
+        if (forceNext) currentIdx++;
+        const activeQuestionObj = class6IntegersPool[currentIdx % class6IntegersPool.length];
+
+        document.getElementById('lab-question-field').innerHTML = `<strong>Question ${currentIdx + 1}:</strong> ${activeQuestionObj.q}`;
+        document.getElementById('hint-box-container').innerHTML = `<strong>Hint:</strong> ${activeQuestionObj.hint}`;
+        document.getElementById('solution-box-container').innerHTML = `<strong>Step-by-Step Explanation:</strong><br>${activeQuestionObj.steps}`;
+        document.getElementById('feedback-box-container').classList.add('hidden');
+        document.getElementById('hint-box-container').classList.add('hidden');
+        document.getElementById('solution-box-container').classList.add('hidden');
+        document.getElementById('student-answer-input').value = "";
+
+        updateScoreDisplay();
+    }
+
+    function submitSandboxAnswer() {
+        const activeQuestionObj = class6IntegersPool[currentIdx % class6IntegersPool.length];
+        const answerInput = normalizeAnswer(document.getElementById('student-answer-input').value);
+        const accepted = activeQuestionObj.accepted.map(normalizeAnswer);
+        const feedbackBox = document.getElementById('feedback-box-container');
+
+        if (accepted.includes(answerInput)) {
+            feedbackBox.innerHTML = "🎉 Correct! " + activeQuestionObj.steps;
+            feedbackBox.style.borderLeftColor = "var(--brand-aqua)";
+            activeScore += 10;
+            activeStreak += 1;
+            currentIdx++;
+        } else {
+            feedbackBox.innerHTML = `Keep trying. Correct answer: <strong>${activeQuestionObj.a}</strong>. Open step-by-step if you want help.`;
+            feedbackBox.style.borderLeftColor = "var(--brand-pink)";
+            activeStreak = 0;
+        }
+
+        feedbackBox.classList.remove('hidden');
+        localStorage.setItem(storageKey, JSON.stringify({
+            score: activeScore,
+            streak: activeStreak,
+            index: currentIdx
+        }));
+
+        updateScoreDisplay();
+
+        if (accepted.includes(answerInput)) {
+            setTimeout(() => renderSandboxQuestion(), 900);
+        }
+    }
+
+    function drawNumberLine(containerId, markerValue) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '<div class="axis"></div>';
+        const min = -10, max = 10;
+        const leftPad = 30, width = 660;
+
+        for (let n = min; n <= max; n++) {
+            const x = leftPad + ((n - min) / (max - min)) * width;
+            const tick = document.createElement('div');
+            tick.className = 'tick';
+            tick.style.left = `${x}px`;
+            container.appendChild(tick);
+
+            if (n % 2 === 0 || n === 0) {
+                const label = document.createElement('div');
+                label.className = 'tick-label';
+                label.style.left = `${x}px`;
+                label.innerText = n;
+                container.appendChild(label);
+            }
+        }
+
+        const marker = document.createElement('div');
+        marker.className = 'marker';
+        const markerX = leftPad + ((markerValue - min) / (max - min)) * width;
+        marker.style.left = `${markerX}px`;
+        marker.innerText = markerValue;
+        container.appendChild(marker);
+    }
+
+    function updateNumberLineSlider() {
+        const value = parseInt(document.getElementById('lineSlider').value);
+        document.getElementById('lineSliderText').innerText = value;
+        drawNumberLine("sliderNumberLine", value);
+    }
+
+    function buildBuilding() {
+        const building = document.getElementById('buildingModel');
+        building.innerHTML = "";
+        for (let floor = 5; floor >= -5; floor--) {
+            const row = document.createElement('div');
+            row.className = 'floor';
+            if (floor > 0) row.classList.add('positive');
+            if (floor === 0) row.classList.add('zero');
+            if (floor < 0) row.classList.add('negative');
+            if (floor === currentFloor) row.classList.add('active');
+
+            const name = floor === 0 ? "Ground Floor" : floor > 0 ? `Floor +${floor}` : `Basement ${floor}`;
+            row.innerHTML = `<span>${name}</span><span>${floor}</span>`;
+            building.appendChild(row);
+        }
+        document.getElementById('currentFloorText').innerText = currentFloor;
+    }
+
+    function moveFloor(step) {
+        currentFloor += step;
+        if (currentFloor > 5) currentFloor = 5;
+        if (currentFloor < -5) currentFloor = -5;
+        buildBuilding();
+
+        const box = document.getElementById('floorFeedback');
+        if (currentFloor > 0) box.innerHTML = `You are above ground at floor +${currentFloor}.`;
+        else if (currentFloor < 0) box.innerHTML = `You are below ground at floor ${currentFloor}.`;
+        else box.innerHTML = "You are at zero: the ground floor.";
+        box.classList.remove('hidden');
+    }
+
+    function resetFloor() {
+        currentFloor = 0;
+        buildBuilding();
+    }
+
+    function newCompareChallenge() {
+        let a = Math.floor(Math.random() * 21) - 10;
+        let b = Math.floor(Math.random() * 21) - 10;
+        while (a === b) b = Math.floor(Math.random() * 21) - 10;
+        comparePair = [a, b];
+        document.getElementById('compareA').innerText = a;
+        document.getElementById('compareB').innerText = b;
+        document.getElementById('compareFeedback').classList.add('hidden');
+    }
+
+    function checkCompare(choice) {
+        const [a, b] = comparePair;
+        const correct = a > b ? 'A' : 'B';
+        const box = document.getElementById('compareFeedback');
+
+        if (choice === correct) {
+            box.innerHTML = `✅ Correct. ${Math.max(a, b)} is greater because it is farther to the right on the number line.`;
+            activeScore += 10;
+            activeStreak += 1;
+        } else {
+            box.innerHTML = `❌ Try again. On a number line, the integer on the right is greater. Correct answer: ${Math.max(a, b)}.`;
+            activeStreak = 0;
+        }
+
+        box.classList.remove('hidden');
+        updateScoreDisplay();
+    }
+
+    function addToken(type) {
+        tokens.push(type);
+        updateTokenZone();
+    }
+
+    function updateTokenZone() {
+        const zone = document.getElementById('tokenZone');
+        zone.innerHTML = "";
+        tokens.forEach(type => {
+            const token = document.createElement('div');
+            token.className = `token ${type}`;
+            token.innerText = type === 'pos' ? '+' : '−';
+            zone.appendChild(token);
+        });
+
+        const value = tokens.filter(t => t === 'pos').length - tokens.filter(t => t === 'neg').length;
+        document.getElementById('tokenValueText').innerText = `Integer Value: ${value}`;
+    }
+
+    function removeZeroPairs() {
+        let posCount = tokens.filter(t => t === 'pos').length;
+        let negCount = tokens.filter(t => t === 'neg').length;
+        const pairs = Math.min(posCount, negCount);
+        posCount -= pairs;
+        negCount -= pairs;
+        tokens = [];
+        for (let i = 0; i < posCount; i++) tokens.push('pos');
+        for (let i = 0; i < negCount; i++) tokens.push('neg');
+        updateTokenZone();
+    }
+
+    function clearTokens() {
+        tokens = [];
+        updateTokenZone();
+    }
+
+    function calculateTemperature() {
+        const start = Number(document.getElementById('tempStart').value) || 0;
+        const change = Number(document.getElementById('tempChange').value) || 0;
+        const finalTemp = start + change;
+        const box = document.getElementById('temperatureFeedback');
+        const sign = change >= 0 ? "+" : "";
+        box.innerHTML = `🌡️ Final temperature = ${start} + (${sign}${change}) = <strong>${finalTemp}°C</strong>.`;
+        box.classList.remove('hidden');
+    }
+
+    function generateRandomWorksheetQuestion() {
+        const type = Math.floor(Math.random() * 8);
+
+        if (type === 0) {
+            const n = Math.floor(Math.random() * 9) + 1;
+            return { q: `Write the integer for ${n} floors below the ground floor.`, a: `-${n}`, s: `Below ground is negative, so the integer is -${n}.` };
+        }
+
+        if (type === 1) {
+            const a = Math.floor(Math.random() * 21) - 10;
+            let b = Math.floor(Math.random() * 21) - 10;
+            while (a === b) b = Math.floor(Math.random() * 21) - 10;
+            return { q: `Which integer is greater: ${a} or ${b}?`, a: `${Math.max(a,b)}`, s: `The greater integer is farther to the right on the number line.` };
+        }
+
+        if (type === 2) {
+            const start = Math.floor(Math.random() * 15) - 10;
+            const move = Math.floor(Math.random() * 13) - 6;
+            const sign = move >= 0 ? `+${move}` : `${move}`;
+            return { q: `Start at ${start} on the number line. Move ${sign}. Where do you land?`, a: `${start + move}`, s: `${start} + (${sign}) = ${start + move}.` };
+        }
+
+        if (type === 3) {
+            const n = Math.floor(Math.random() * 15) + 1;
+            const given = Math.random() > 0.5 ? n : -n;
+            return { q: `Find the additive inverse of ${given}.`, a: `${-given}`, s: `${given} and ${-given} add to zero.` };
+        }
+
+        if (type === 4) {
+            const start = -1 * (Math.floor(Math.random() * 80) + 20);
+            const up = Math.floor(Math.random() * 40) + 5;
+            return { q: `A mine lift is at ${start} m. It moves up ${up} m. What is its new position?`, a: `${start + up} m`, s: `${start} + ${up} = ${start + up} m.` };
+        }
+
+        if (type === 5) {
+            const temp = Math.floor(Math.random() * 15) - 10;
+            const rise = Math.floor(Math.random() * 10) + 1;
+            return { q: `The temperature is ${temp}°C and rises by ${rise}°C. What is the new temperature?`, a: `${temp + rise}°C`, s: `${temp} + ${rise} = ${temp + rise}°C.` };
+        }
+
+        if (type === 6) {
+            const credit = Math.floor(Math.random() * 900) + 100;
+            const debit = Math.floor(Math.random() * 900) + 100;
+            return { q: `A bank account has a credit of ₹${credit} and a debit of ₹${debit}. Represent the final balance as an integer.`, a: `${credit - debit}`, s: `${credit} - ${debit} = ${credit - debit}.` };
+        }
+
+        const pos = Math.floor(Math.random() * 8) + 1;
+        const neg = Math.floor(Math.random() * 8) + 1;
+        return { q: `There are ${pos} positive tokens and ${neg} negative tokens. What integer do they represent after removing zero pairs?`, a: `${pos - neg}`, s: `${pos} + (${-neg}) = ${pos - neg}.` };
+    }
+
+    function generateWorksheetPdf(shouldIncludeKeys) {
+        const densityQty = Math.min(50, Math.max(5, parseInt(document.getElementById('pdf-quantity-input').value) || 12));
+        const contextContainer = document.getElementById('pdf-printing-canvas');
+        contextContainer.innerHTML = "";
+
+        let docMarkupString = `
+            <div style="font-family:'Poppins', Arial, sans-serif; padding:30px; color:#272b6a;">
+                <h1 style="border-bottom:3px solid #4bc2c4; padding-bottom:12px; margin-bottom:5px;">Class VI: The Other Side of Zero Practice Worksheet</h1>
+                <p style="color:#5e6282; margin:0 0 20px 0;">Mathable Smart Lab • Integers and Number Line • Generated on ${new Date().toLocaleDateString()}</p>
+                <p><strong>Name:</strong> ____________________________ &nbsp;&nbsp; <strong>Date:</strong> _______________</p>
+                <hr style="border:0; border-top:1px solid rgba(39,43,106,0.1); margin-bottom:25px;">
+                <ol style="padding-left:25px;">
+        `;
+
+        for (let i = 0; i < densityQty; i++) {
+            const item = generateRandomWorksheetQuestion();
+            docMarkupString += `
+                <li style="margin-bottom:30px; font-size:1.05rem; page-break-inside:avoid;">
+                    <div style="margin-bottom:10px;"><strong>Question:</strong> ${item.q}</div>
+                    <div style="height:45px; border-bottom:1px dashed #bbb; width:95%; margin-bottom:12px; display:${shouldIncludeKeys ? 'none' : 'block'};"></div>
+            `;
+
+            if (shouldIncludeKeys) {
+                docMarkupString += `
+                    <div style="background-color:rgba(75,194,196,0.07); border-left:4px solid #ee4977; padding:12px; border-radius:6px; font-size:0.95rem;">
+                        <strong>Answer:</strong> ${item.a}<br>
+                        <strong>Solution:</strong> ${item.s}
+                    </div>
+                `;
+            }
+
+            docMarkupString += `</li>`;
+        }
+
+        docMarkupString += `</ol></div>`;
+        contextContainer.innerHTML = docMarkupString;
+
+        const printSettingConfig = {
+            margin: 15,
+            filename: `class6-integers-number-line${shouldIncludeKeys ? '-answer-key' : '-worksheet'}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(contextContainer).set(printSettingConfig).save();
+    }
+</script>
+
+</body>
+</html>

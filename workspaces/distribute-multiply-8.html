@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VI: We Distribute, Yet Things Multiply - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.logo-block img{height:42px}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}
+.tab-btn.active{background:var(--brand-aqua);color:white}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.activity-card{background:white;border:1px solid rgba(39,43,106,.12);border-radius:14px;padding:20px;margin:18px 0;box-shadow:0 4px 12px rgba(0,0,0,.03)}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}
+.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}
+.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:white;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}
+.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.hint-box,.solution-box,.feedback-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-yellow)}
+.solution-box{border-left-color:var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}
+.score-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}
+.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.area-model{display:grid;grid-template-columns:repeat(12,24px);grid-auto-rows:24px;gap:2px;justify-content:center;margin:18px auto;background:white;border:2px dashed var(--brand-aqua);border-radius:12px;padding:14px;max-width:max-content}
+.area-cell{width:24px;height:24px;border-radius:4px;background:var(--brand-aqua)}
+.area-cell.part2{background:var(--brand-pink)}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}
+.split-row{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;font-size:1.25rem;font-weight:800;margin:16px 0}
+.split-box{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:12px;padding:14px 18px;min-width:90px;text-align:center}
+.table-wrap{overflow:auto}.smart-table{width:100%;border-collapse:collapse;background:#fff}.smart-table th,.smart-table td{border:1px solid rgba(39,43,106,.15);padding:10px;text-align:center}.smart-table th{background:rgba(75,194,196,.15)}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.area-model{grid-template-columns:repeat(8,20px)}.area-cell{width:20px;height:20px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+<span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VI • NUMBER SENSE</span>
+<span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Distributive Property</span>
+</div>
+
+<h2 style="color:var(--brand-navy);margin-top:0;font-size:2.2rem;font-weight:800">We Distribute, Yet Things Multiply</h2>
+<p style="color:var(--text-muted);margin-top:-6px">Break big multiplications into friendly parts, then put the answers back together.</p>
+
+<nav class="tab-navigation" role="tablist">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-formula" class="tab-btn" onclick="switchTab('formula')">🧪 Formula Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet Generator</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real-World Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Distributivity</h3>
+<div class="info-box">
+<p><strong>Distributivity</strong> connects multiplication with addition and subtraction. It helps us split a difficult multiplication into easier pieces.</p>
+<div class="highlight-card"><strong>Example:</strong> 23 × 27 = 23 × (20 + 7) = 23 × 20 + 23 × 7.</div>
+<div class="highlight-card pink-card"><strong>Mental Math Idea:</strong> 19 × 8 = (20 − 1) × 8 = 160 − 8 = 152.</div>
+<div class="highlight-card yellow-card"><strong>Area Model:</strong> A rectangle can be split into two smaller rectangles. The total area stays the same.</div>
+<div class="area-model" id="introAreaModel"></div>
+<p style="text-align:center"><span class="label-chip">5 × (8 + 4)</span><span class="label-chip">= 5 × 8 + 5 × 4</span><span class="label-chip">= 60</span></p>
+</div>
+</section>
+
+<section id="panel-formula" class="tab-content">
+<h3>Formula Hub</h3>
+<div class="info-box">
+<div class="formula-grid">
+<div class="formula-tile"><h4>Over Addition</h4><p><strong>a × (b + c) = a × b + a × c</strong></p><p>Split the second factor into a sum.</p></div>
+<div class="formula-tile"><h4>Over Subtraction</h4><p><strong>a × (b − c) = a × b − a × c</strong></p><p>Useful for numbers like 19, 29, 99.</p></div>
+<div class="formula-tile"><h4>Reverse Distributivity</h4><p><strong>a × b + a × c = a × (b + c)</strong></p><p>Common factor can be taken out.</p></div>
+<div class="formula-tile"><h4>Area Connection</h4><p><strong>height × total width = area part 1 + area part 2</strong></p><p>This makes distributivity visible.</p></div>
+<div class="formula-tile"><h4>Friendly Splits</h4><p>27 = 20 + 7</p><p>48 = 50 − 2</p><p>99 = 100 − 1</p></div>
+<div class="formula-tile"><h4>Check Method</h4><p>Both sides must give the same value.</p><p>Example: 6 × 13 = 6 × 10 + 6 × 3 = 78.</p></div>
+</div>
+</div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Interactive Lab: Distribute & Multiply</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Split Starter</span></div>
+<div class="activity-card">
+<p id="lab-question-field" style="font-size:1.15rem;font-weight:700;line-height:1.6"></p>
+<input type="text" id="ans-input" placeholder="Enter result...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hintBox')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleBox('steps-container')">Step-by-Step</button>
+<div id="feedbackBox" class="feedback-box hidden"></div>
+<div id="hintBox" class="hint-box hidden"></div>
+<div id="steps-container" class="solution-box hidden"><p><strong>Step-by-Step Guidance:</strong></p><div id="steps-content"></div></div>
+</div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card">
+<h4>🎛️ Split Builder</h4>
+<p>Choose a multiplication and split one factor into friendly parts.</p>
+<label>Multiplier <input type="number" id="builderA" value="7" min="2" max="20"></label>
+<label>Number <input type="number" id="builderN" value="36" min="10" max="99"></label>
+<label>Split after <input type="number" id="builderB" value="30" min="1" max="99"></label>
+<button class="action-btn" onclick="updateSplitBuilder()">Build Split</button>
+<div class="split-row" id="splitEquation"></div>
+<div id="splitFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧱 Area Model Builder</h4>
+<p>The rectangle shows a × (b + c). Aqua cells are a × b, pink cells are a × c.</p>
+<label>Height a <input type="number" id="areaA" value="5" min="1" max="10"></label>
+<label>Width b <input type="number" id="areaB" value="8" min="1" max="12"></label>
+<label>Width c <input type="number" id="areaC" value="4" min="1" max="12"></label>
+<button class="action-btn" onclick="buildAreaModel()">Draw Area Model</button>
+<div class="area-model" id="areaModel"></div>
+<div id="areaFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>⚡ Mental Math Shortcut</h4>
+<p>Use nearby round numbers.</p>
+<select id="mentalSelect">
+<option value="19*8">19 × 8</option>
+<option value="29*6">29 × 6</option>
+<option value="48*7">48 × 7</option>
+<option value="99*5">99 × 5</option>
+<option value="102*4">102 × 4</option>
+</select>
+<button class="action-btn" onclick="mentalMath()">Show Shortcut</button>
+<div id="mentalFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔁 Match Equivalent Expressions</h4>
+<p>Which expression is equivalent?</p>
+<p id="matchQuestion" style="font-weight:800;font-size:1.15rem"></p>
+<button class="action-btn" id="matchA" onclick="checkMatch('A')"></button>
+<button class="action-btn" id="matchB" onclick="checkMatch('B')"></button>
+<button class="action-btn secondary-btn" onclick="newMatch()">New Match</button>
+<div id="matchFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧮 Distributive Table</h4>
+<p>Generate examples of a × (b + c).</p>
+<button class="action-btn" onclick="generateTable()">Generate Table</button>
+<div id="distTable" class="table-wrap"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Create printable worksheets with distributive property, mental math, reverse distributivity, and area-model questions.</p>
+<label>Number of problems:</label>
+<input type="number" id="pdf-qty" value="12" min="5" max="50">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div>
+<div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Shopping:</strong> 12 notebooks costing ₹35 each can be calculated as 12 × (30 + 5).</div>
+<div class="highlight-card pink-card"><strong>Gardens:</strong> A rectangular garden can be split into two smaller rectangles to calculate area.</div>
+<div class="highlight-card yellow-card"><strong>Tickets:</strong> 28 students buying ₹15 tickets can be calculated as (30 − 2) × 15.</div>
+<div class="highlight-card"><strong>Programming:</strong> Computers often break large calculations into smaller repeated steps.</div>
+<div class="activity-card">
+<h4>🌍 Real-Life Case Generator</h4>
+<div id="realCase"></div>
+<button class="action-btn" onclick="loadRealCase()">Next Case</button>
+</div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul>
+<li>Explain the distributive property using numbers and area models.</li>
+<li>Use a × (b + c) and a × (b − c) to simplify multiplication.</li>
+<li>Identify equivalent expressions.</li>
+<li>Apply distributivity in real-life calculations.</li>
+<li>Use reverse distributivity to combine terms with a common factor.</li>
+</ul>
+<h4>Exit Ticket Prompts</h4>
+<ul>
+<li>Show two ways to calculate 6 × 14.</li>
+<li>Explain why 8 × (10 + 3) equals 8 × 10 + 8 × 3.</li>
+<li>Use distributivity to solve 99 × 7 mentally.</li>
+</ul>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div>
+<div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div>
+</footer>
+
+<script>
+const qPool=[
+{q:"Calculate 5 × (10 + 2) using the distributive property.",a:"60",accepted:["60"],hint:"Split into 5 × 10 and 5 × 2.",steps:"5 × (10 + 2) = 5 × 10 + 5 × 2 = 50 + 10 = 60."},
+{q:"Calculate 7 × (30 + 6).",a:"252",accepted:["252"],hint:"Multiply 7 by 30 and 7 by 6.",steps:"7 × (30 + 6) = 7 × 30 + 7 × 6 = 210 + 42 = 252."},
+{q:"Use distributivity: 8 × 19.",a:"152",accepted:["152"],hint:"Think of 19 as 20 − 1.",steps:"8 × 19 = 8 × (20 − 1) = 160 − 8 = 152."},
+{q:"Fill the missing number: 6 × (10 + 4) = 6 × 10 + 6 × ___.",a:"4",accepted:["4"],hint:"The same split number is used on both sides.",steps:"6 × (10 + 4) = 6 × 10 + 6 × 4."},
+{q:"Calculate 12 × 35 by splitting 35 as 30 + 5.",a:"420",accepted:["420"],hint:"12 × 30 plus 12 × 5.",steps:"12 × 35 = 12 × (30 + 5) = 360 + 60 = 420."},
+{q:"Which is equivalent to 9 × (40 + 3)? Type A or B. A: 9×40+9×3, B: 9×40+3",a:"A",accepted:["a","A"],hint:"9 must multiply both parts.",steps:"9 × (40 + 3) = 9 × 40 + 9 × 3. So A is correct."},
+{q:"Use reverse distributivity: 4×8 + 4×2 = 4 × ___.",a:"10",accepted:["10"],hint:"Add the second factors.",steps:"4×8 + 4×2 = 4 × (8 + 2) = 4 × 10."}
+];
+let qIdx=0,score=0,streak=0,currentMatchAnswer='A';
+const storageKey="mathable_distributivity_lab";
+
+window.onload=()=>{try{const s=JSON.parse(localStorage.getItem(storageKey)||"{}");score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();buildIntroArea();updateSplitBuilder();buildAreaModel();newMatch();generateTable();loadRealCase();};
+
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge="Split Starter";if(score>=150)badge="Distributive Dynamo";else if(score>=80)badge="Mental Math Maker";else if(score>=30)badge="Area Model Ace";document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){const q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hintBox').innerHTML=`<strong>Hint:</strong> ${q.hint}`;document.getElementById('steps-content').innerText=q.steps;document.getElementById('feedbackBox').classList.add('hidden');document.getElementById('hintBox').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');document.getElementById('ans-input').value='';updateScore();}
+function checkAnswer(){const q=qPool[qIdx%qPool.length];const ans=normalize(document.getElementById('ans-input').value);const ok=q.accepted.map(normalize).includes(ans);const fb=document.getElementById('feedbackBox');if(ok){fb.innerHTML="🎉 Correct! "+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML=`❌ Try again. Correct answer: <strong>${q.a}</strong>.`;streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function nextQuestion(){qIdx++;renderQuestion();}
+
+function buildIntroArea(){const box=document.getElementById('introAreaModel');box.innerHTML='';box.style.gridTemplateColumns='repeat(12,24px)';for(let r=0;r<5;r++){for(let c=0;c<12;c++){let cell=document.createElement('div');cell.className='area-cell '+(c>=8?'part2':'');box.appendChild(cell);}}}
+function updateSplitBuilder(){let a=Number(document.getElementById('builderA').value)||7,n=Number(document.getElementById('builderN').value)||36,b=Number(document.getElementById('builderB').value)||30,c=n-b;let value=a*n;document.getElementById('splitEquation').innerHTML=`<span class="split-box">${a} × ${n}</span><span>=</span><span class="split-box">${a} × (${b} + ${c})</span><span>=</span><span class="split-box">${a*b} + ${a*c}</span>`;document.getElementById('splitFeedback').innerHTML=`Final answer: <strong>${value}</strong>. Split answer: ${a*b} + ${a*c} = <strong>${a*b+a*c}</strong>.`;}
+function buildAreaModel(){let a=Number(document.getElementById('areaA').value)||5,b=Number(document.getElementById('areaB').value)||8,c=Number(document.getElementById('areaC').value)||4,total=b+c,model=document.getElementById('areaModel');model.innerHTML='';model.style.gridTemplateColumns=`repeat(${Math.min(total,18)},24px)`;for(let r=0;r<a;r++){for(let col=0;col<total;col++){let cell=document.createElement('div');cell.className='area-cell '+(col>=b?'part2':'');model.appendChild(cell);}}document.getElementById('areaFeedback').innerHTML=`${a} × (${b} + ${c}) = ${a}×${b} + ${a}×${c} = ${a*b} + ${a*c} = <strong>${a*(b+c)}</strong>.`;}
+function mentalMath(){let v=document.getElementById('mentalSelect').value,fb=document.getElementById('mentalFeedback'),text='';if(v==='19*8')text='19 × 8 = (20 − 1) × 8 = 160 − 8 = 152';if(v==='29*6')text='29 × 6 = (30 − 1) × 6 = 180 − 6 = 174';if(v==='48*7')text='48 × 7 = (50 − 2) × 7 = 350 − 14 = 336';if(v==='99*5')text='99 × 5 = (100 − 1) × 5 = 500 − 5 = 495';if(v==='102*4')text='102 × 4 = (100 + 2) × 4 = 400 + 8 = 408';fb.innerHTML=text;fb.classList.remove('hidden');}
+function newMatch(){const items=[["8 × (10 + 3)","8×10 + 8×3","8×10 + 3","A"],["6 × (20 + 5)","6×20 + 6×5","6×20 + 5","A"],["9 × (30 − 2)","9×30 − 9×2","9×30 − 2","A"],["5×7 + 5×3","5 × (7 + 3)","5 × 7 + 3","A"]];let it=items[Math.floor(Math.random()*items.length)];document.getElementById('matchQuestion').innerText=it[0];document.getElementById('matchA').innerText='A: '+it[1];document.getElementById('matchB').innerText='B: '+it[2];currentMatchAnswer=it[3];document.getElementById('matchFeedback').classList.add('hidden');}
+function checkMatch(choice){let fb=document.getElementById('matchFeedback');if(choice===currentMatchAnswer){fb.innerHTML='✅ Correct! The common multiplier is distributed to every part.';}else{fb.innerHTML='❌ Not quite. Remember: the outside number must multiply each term inside the bracket.';}fb.classList.remove('hidden');}
+function generateTable(){let h='<table class="smart-table"><tr><th>Expression</th><th>Distributed Form</th><th>Value</th></tr>';for(let i=0;i<6;i++){let a=Math.floor(Math.random()*8)+2,b=(Math.floor(Math.random()*6)+1)*10,c=Math.floor(Math.random()*9)+1;h+=`<tr><td>${a} × (${b} + ${c})</td><td>${a}×${b} + ${a}×${c}</td><td>${a*(b+c)}</td></tr>`;}h+='</table>';document.getElementById('distTable').innerHTML=h;}
+function loadRealCase(){const cases=[["Notebook Shop","A shopkeeper sells 14 notebooks at ₹25 each.","14 × 25 = 14 × (20 + 5) = 280 + 70 = ₹350"],["School Trip","28 students buy ₹15 tickets.","28 × 15 = (30 − 2) × 15 = 450 − 30 = ₹420"],["Garden Area","A garden is 6 m wide and split into lengths 10 m and 4 m.","6 × (10 + 4) = 60 + 24 = 84 m²"],["Snack Packs","9 students each get 12 biscuits.","9 × 12 = 9 × (10 + 2) = 90 + 18 = 108 biscuits"]];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomWorksheetItem(){let type=Math.floor(Math.random()*5),a=Math.floor(Math.random()*10)+2,b=(Math.floor(Math.random()*8)+1)*10,c=Math.floor(Math.random()*9)+1;if(type===0)return{q:`Calculate ${a} × (${b} + ${c}) using distributivity.`,a:`${a*(b+c)}`,s:`${a}×${b} + ${a}×${c} = ${a*b} + ${a*c} = ${a*(b+c)}`};if(type===1){let n=b-c;return{q:`Calculate ${a} × ${n} by writing ${n} as ${b} − ${c}.`,a:`${a*n}`,s:`${a}×(${b}−${c}) = ${a*b}−${a*c} = ${a*n}`};}if(type===2)return{q:`Fill in the blank: ${a} × (${b} + ${c}) = ${a}×${b} + ${a}×____`,a:`${c}`,s:`The outside number multiplies both ${b} and ${c}.`};if(type===3)return{q:`Use reverse distributivity: ${a}×${b} + ${a}×${c} = ${a} × ____`,a:`${b+c}`,s:`Common factor ${a}; add ${b}+${c}=${b+c}.`};return{q:`Which is equivalent to ${a} × (${b} + ${c})? A: ${a}×${b}+${a}×${c}, B: ${a}×${b}+${c}`,a:`A`,s:`The multiplier ${a} must multiply both terms.`};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1 style="border-bottom:3px solid #4bc2c4;padding-bottom:12px;margin-bottom:5px">Class VI: Distributive Property Worksheet</h1><p style="color:#5e6282">Mathable Smart Lab • Generated on ${new Date().toLocaleDateString()}</p><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomWorksheetItem();h+=`<li style="margin-bottom:28px;page-break-inside:avoid"><strong>Question:</strong> ${it.q}<div style="height:42px;border-bottom:1px dashed #bbb;width:95%;display:${keys?'none':'block'}"></div>`;if(keys)h+=`<div style="background:rgba(75,194,196,.07);border-left:4px solid #ee4977;padding:12px;border-radius:6px"><strong>Answer:</strong> ${it.a}<br><strong>Solution:</strong> ${it.s}</div>`;h+=`</li>`;}h+=`</ol></div>`;canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:`class6-distributive-property${keys?'-answer-key':'-worksheet'}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

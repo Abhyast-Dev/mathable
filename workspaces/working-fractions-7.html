@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class VII: Working with Fractions - Mathable Smart Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60}
+body{font-family:Poppins,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header {
+      background: rgba(255,255,255,0.92);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--brand-aqua);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .logo-fallback {
+      height: 44px;
+      width: 44px;
+      border-radius: 14px;
+      background: var(--brand-yellow);
+      color: var(--brand-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 { font-size: 1.05rem; margin: 0; }
+    header a { text-decoration: none; color: var(--brand-navy); font-weight: 700; }
+.header-container{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-container img{height:42px}.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:800;font-size:.85rem}
+.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.info-box,.activity-card{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:#fff;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}
+.hidden{display:none}.step-box,.feedback-box,.hint-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}.hint-box{border-left-color:var(--brand-yellow)}
+.score-bar{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.fraction-bar{display:flex;width:100%;max-width:560px;height:44px;border:3px solid var(--brand-navy);border-radius:10px;overflow:hidden;background:#fff;margin:16px auto}.bar-part{flex:1;border-right:1px solid var(--brand-navy);background:#f0f0f0}.bar-part:last-child{border-right:none}.bar-part.fill{background:var(--brand-pink)}
+.grid-model{display:grid;gap:2px;justify-content:center;background:#fff;border:2px dashed var(--brand-aqua);border-radius:12px;padding:12px;max-width:max-content;margin:16px auto}.grid-cell{width:28px;height:28px;background:#eee;border-radius:4px}.grid-cell.rowfill{background:rgba(75,194,196,.55)}.grid-cell.colfill{background:rgba(238,73,119,.55)}.grid-cell.both{background:var(--brand-navy)}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:150px;text-align:center;font-size:1.25rem;font-weight:800}
+.label-chip{display:inline-block;background:rgba(39,43,106,.08);padding:6px 10px;border-radius:999px;margin:4px;font-size:.9rem;font-weight:700}
+footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.grid-cell{width:22px;height:22px}.num-card{min-width:120px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <img src="../assets/Logo.png" alt="Mathable Logo" style="height: 42px;" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='grid';">
+      <div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div>
+      <h1>Mathable Smart Lab</h1>
+    </div>
+    <nav><a href="../index.html">← Back to Dashboard</a></nav>
+  </header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px"><span class="card-badge" style="background:var(--brand-yellow);color:#000">CLASS VII • NUMBER SENSE</span><span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Topic: Working with Fractions</span></div>
+<h2 style="font-size:2.2rem;margin-top:0">Class VII: Working with Fractions</h2>
+<p style="color:var(--text-muted)">Explore fraction multiplication, unit rates, “of” problems, simplification, comparison, and real-life fraction situations.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchTab('rules')">🧪 Formula Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchTab('lab')">💻 Online Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchTab('generator')">🖨️ Worksheet</button>
+<button id="btn-real" class="tab-btn" onclick="switchTab('real')">🌍 Real Use</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>Fact Sheet: Working with Fractions</h3>
+<div class="info-box">
+<p>Fractions help us describe parts of a whole, parts of a collection, and rates like distance per hour.</p>
+<div class="highlight-card"><strong>Repeated Addition:</strong> 3 × 1/4 = 1/4 + 1/4 + 1/4 = 3/4.</div>
+<div class="highlight-card pink-card"><strong>Fraction of a Quantity:</strong> 1/2 of 10 means 1/2 × 10 = 5.</div>
+<div class="highlight-card yellow-card"><strong>Multiplying Fractions:</strong> Multiply numerators and multiply denominators, then simplify.</div>
+<div class="fraction-bar" id="introBar"></div>
+<p style="text-align:center"><span class="label-chip">3 × 1/4</span><span class="label-chip">= 3/4 km</span></p>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Formula Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Whole Number × Fraction</h4><p><strong>n × a/b = (n × a)/b</strong></p><p>Example: 3 × 1/4 = 3/4.</p></div>
+<div class="formula-tile"><h4>Fraction × Fraction</h4><p><strong>a/b × c/d = ac/bd</strong></p><p>Example: 2/3 × 3/5 = 6/15 = 2/5.</p></div>
+<div class="formula-tile"><h4>Fraction of Quantity</h4><p><strong>a/b of n = a/b × n</strong></p><p>Example: 3/4 of 20 = 15.</p></div>
+<div class="formula-tile"><h4>Simplify</h4><p>Divide numerator and denominator by their common factor.</p><p>6/8 = 3/4.</p></div>
+<div class="formula-tile"><h4>Compare Fractions</h4><p>Use common denominator or cross multiplication.</p></div>
+<div class="formula-tile"><h4>Unit Rate</h4><p>Distance = rate × time.</p><p>1/4 km per hour for 3 hours = 3/4 km.</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Online Lab: Fraction Explorer</h3>
+<div class="info-box">
+<div class="score-bar"><span id="scoreDisplay">Score: 0</span><span id="streakDisplay">Current Streak: 🔥 0</span><span id="badgeDisplay">Badge: Fraction Starter</span></div>
+<p id="lab-question-field" style="font-weight:700;font-size:1.1rem"></p>
+<input type="text" id="ans-input" placeholder="Type answer...">
+<br>
+<button class="action-btn" onclick="checkAnswer()">Submit</button>
+<button class="action-btn secondary-btn" onclick="nextQuestion()">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleBox('hint-container')">Hint</button>
+<button class="action-btn pink-btn" onclick="toggleSteps()">Show Step-by-Step</button>
+<div id="feedback-container" class="feedback-box hidden"></div>
+<div id="hint-container" class="hint-box hidden"></div>
+<div id="steps-container" class="step-box hidden"><p><strong>Here is how we solve it:</strong></p><div id="steps-content"></div></div>
+</div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+<div class="activity-card">
+<h4>🐢 Tortoise Distance Builder</h4>
+<p>If a tortoise walks a fraction of a kilometre each hour, calculate total distance.</p>
+<label>Numerator <input type="number" id="rateNum" value="1" min="1" max="9"></label>
+<label>Denominator <input type="number" id="rateDen" value="4" min="2" max="12"></label>
+<label>Hours <input type="number" id="hours" value="3" min="1" max="12"></label>
+<button class="action-btn" onclick="tortoiseLab()">Calculate</button>
+<div class="fraction-bar" id="tortoiseBar"></div>
+<div id="tortoiseFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>🧱 Fraction × Fraction Area Model</h4>
+<p>Visualize a/b × c/d using rows and columns.</p>
+<label>a <input type="number" id="mulA" value="2" min="1" max="8"></label>
+<label>b <input type="number" id="mulB" value="3" min="2" max="8"></label>
+<label>c <input type="number" id="mulC" value="3" min="1" max="8"></label>
+<label>d <input type="number" id="mulD" value="5" min="2" max="8"></label>
+<button class="action-btn" onclick="fractionGrid()">Draw Model</button>
+<div id="gridModel" class="grid-model"></div>
+<div id="gridFeedback" class="feedback-box"></div>
+</div>
+
+<div class="activity-card">
+<h4>⚖️ Fraction Comparison Challenge</h4>
+<div class="compare-zone"><div class="num-card" id="compareA">3/4</div><div class="num-card" id="compareB">5/8</div></div>
+<button class="action-btn" onclick="checkCompare('A')">Left</button>
+<button class="action-btn" onclick="checkCompare('B')">Right</button>
+<button class="action-btn secondary-btn" onclick="checkCompare('equal')">Equal</button>
+<button class="action-btn pink-btn" onclick="newCompare()">New</button>
+<div id="compareFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🔁 Simplifier Machine</h4>
+<label>Numerator <input type="number" id="simpN" value="12"></label>
+<label>Denominator <input type="number" id="simpD" value="18"></label>
+<button class="action-btn" onclick="simplifyMachine()">Simplify</button>
+<div id="simplifyFeedback" class="feedback-box hidden"></div>
+</div>
+
+<div class="activity-card">
+<h4>🍕 Fraction of Quantity</h4>
+<label>Fraction <input type="number" id="ofN" value="3" min="1" max="10"> / <input type="number" id="ofD" value="4" min="2" max="12"></label>
+<label>Quantity <input type="number" id="ofQ" value="20" min="1" max="100"></label>
+<button class="action-btn" onclick="ofQuantity()">Calculate</button>
+<div id="ofFeedback" class="feedback-box hidden"></div>
+</div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box">
+<p>Generate practice on whole number × fraction, fraction × fraction, simplification, comparison, and real-life rate problems.</p>
+<label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="50" value="12">
+<br><br>
+<button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button>
+</div><div id="pdf-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content">
+<h3>Real-World Use</h3>
+<div class="info-box">
+<div class="highlight-card"><strong>Walking Speed:</strong> 1/4 km per hour for 3 hours gives 3/4 km.</div>
+<div class="highlight-card pink-card"><strong>Cooking:</strong> 3 batches of 1/2 cup sugar need 3/2 cups.</div>
+<div class="highlight-card yellow-card"><strong>Sharing:</strong> 3/4 of 20 sweets means 15 sweets.</div>
+<div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div>
+</div>
+</section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box">
+<h4>Learning Outcomes</h4>
+<ul><li>Multiply a whole number by a fraction using repeated addition.</li><li>Multiply two fractions and simplify the answer.</li><li>Find a fraction of a quantity.</li><li>Compare fractions using common denominators or cross products.</li><li>Apply fractions in rate, cooking, sharing, and measurement situations.</li></ul>
+<h4>Exit Ticket Prompts</h4>
+<ul><li>Explain why 3 × 1/4 = 3/4.</li><li>Solve 2/3 × 3/5 and simplify.</li><li>Find 3/4 of 28.</li></ul>
+</div>
+</section>
+</main>
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const qPool=[
+{q:"If a tortoise walks 1/4 km in 1 hour, how far can it walk in 3 hours?",a:"3/4",accepted:["3/4","0.75","3/4km","3/4 km"],hint:"Multiply 3 by 1/4.",steps:"Step 1: Distance for 3 hours = 3 × distance per hour. Step 2: 3 × 1/4 = 1/4 + 1/4 + 1/4. Step 3: Total distance = 3/4 km."},
+{q:"Calculate 5 × 2/7.",a:"10/7",accepted:["10/7","1 3/7"],hint:"Multiply the whole number by the numerator.",steps:"5 × 2/7 = (5 × 2)/7 = 10/7."},
+{q:"Calculate 2/3 × 3/5 and simplify.",a:"2/5",accepted:["2/5"],hint:"Multiply numerators and denominators, then simplify.",steps:"2/3 × 3/5 = 6/15. Divide by 3 to get 2/5."},
+{q:"Find 3/4 of 20.",a:"15",accepted:["15"],hint:"3/4 of 20 means 3/4 × 20.",steps:"3/4 × 20 = 60/4 = 15."},
+{q:"Which is greater: 3/4 or 5/8?",a:"3/4",accepted:["3/4"],hint:"Convert 3/4 to eighths.",steps:"3/4 = 6/8. Since 6/8 > 5/8, 3/4 is greater."},
+{q:"Simplify 12/18.",a:"2/3",accepted:["2/3"],hint:"Divide numerator and denominator by 6.",steps:"12/18 ÷ 6/6 = 2/3."}
+];
+let qIdx=0,score=0,streak=0,comparePair=[[3,4],[5,8]];const storageKey='mathable_working_fractions_lab';
+window.onload=()=>{try{let s=JSON.parse(localStorage.getItem(storageKey)||'{}');score=s.score||0;streak=s.streak||0;qIdx=s.qIdx||0}catch(e){}renderQuestion();buildIntroBar();tortoiseLab();fractionGrid();newCompare();loadRealCase();};
+function switchTab(id){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(`panel-${id}`).classList.add('active');document.getElementById(`btn-${id}`).classList.add('active');}
+function toggleBox(id){document.getElementById(id).classList.toggle('hidden');}
+function normalize(x){return String(x).trim().toLowerCase().replace(/\s/g,'');}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){let t=b;b=a%b;a=t;}return a||1;}
+function frac(n,d){let g=gcd(n,d);n/=g;d/=g;if(d===1)return String(n);return `${n}/${d}`;}
+function updateScore(){document.getElementById('scoreDisplay').innerText=`Score: ${score}`;document.getElementById('streakDisplay').innerText=`Current Streak: 🔥 ${streak}`;let badge='Fraction Starter';if(score>=150)badge='Fraction Master';else if(score>=80)badge='Multiplication Pro';else if(score>=30)badge='Rate Explorer';document.getElementById('badgeDisplay').innerText=`Badge: ${badge}`;}
+function renderQuestion(){let q=qPool[qIdx%qPool.length];document.getElementById('lab-question-field').innerText=q.q;document.getElementById('hint-container').innerHTML='<strong>Hint:</strong> '+q.hint;document.getElementById('steps-content').innerText=q.steps;document.getElementById('ans-input').value='';document.getElementById('feedback-container').classList.add('hidden');document.getElementById('hint-container').classList.add('hidden');document.getElementById('steps-container').classList.add('hidden');updateScore();}
+function checkAnswer(){let q=qPool[qIdx%qPool.length],ans=normalize(document.getElementById('ans-input').value),ok=q.accepted.map(normalize).includes(ans),fb=document.getElementById('feedback-container');if(ok){fb.innerHTML='✅ Correct! '+q.steps;score+=10;streak++;qIdx++;setTimeout(renderQuestion,900);}else{fb.innerHTML='❌ Not quite. Click Show Step-by-Step to visualize the logic!';streak=0;}fb.classList.remove('hidden');localStorage.setItem(storageKey,JSON.stringify({score,streak,qIdx}));updateScore();}
+function toggleSteps(){document.getElementById('steps-container').classList.toggle('hidden');}
+function nextQuestion(){qIdx++;renderQuestion();}
+function buildIntroBar(){let bar=document.getElementById('introBar');bar.innerHTML='';for(let i=0;i<4;i++){let p=document.createElement('div');p.className='bar-part '+(i<3?'fill':'');bar.appendChild(p);}}
+function drawBar(id,num,den){let bar=document.getElementById(id);bar.innerHTML='';let whole=Math.ceil(num/den);let total=den*Math.max(whole,1);for(let i=0;i<total;i++){let p=document.createElement('div');p.className='bar-part '+(i<num?'fill':'');bar.appendChild(p);}}
+function tortoiseLab(){let n=Number(document.getElementById('rateNum').value)||1,d=Number(document.getElementById('rateDen').value)||4,h=Number(document.getElementById('hours').value)||3,totalN=n*h;drawBar('tortoiseBar',totalN,d);document.getElementById('tortoiseFeedback').innerHTML=`${h} × ${n}/${d} = ${totalN}/${d} = <strong>${frac(totalN,d)}</strong> km.`;}
+function fractionGrid(){let a=Number(document.getElementById('mulA').value)||2,b=Number(document.getElementById('mulB').value)||3,c=Number(document.getElementById('mulC').value)||3,d=Number(document.getElementById('mulD').value)||5,grid=document.getElementById('gridModel');grid.innerHTML='';grid.style.gridTemplateColumns=`repeat(${d},28px)`;for(let r=0;r<b;r++){for(let col=0;col<d;col++){let cell=document.createElement('div');let rowFill=r<a,colFill=col<c;cell.className='grid-cell '+(rowFill&&colFill?'both':rowFill?'rowfill':colFill?'colfill':'');grid.appendChild(cell);}}document.getElementById('gridFeedback').innerHTML=`${a}/${b} × ${c}/${d} = ${a*c}/${b*d} = <strong>${frac(a*c,b*d)}</strong>. Dark cells show the overlap.`;}
+function newCompare(){let items=[[[3,4],[5,8]],[[2,3],[3,5]],[[5,6],[7,9]],[[4,7],[3,5]],[[1,2],[4,8]]];comparePair=items[Math.floor(Math.random()*items.length)];document.getElementById('compareA').innerText=comparePair[0].join('/');document.getElementById('compareB').innerText=comparePair[1].join('/');document.getElementById('compareFeedback').classList.add('hidden');}
+function checkCompare(choice){let a=comparePair[0][0]/comparePair[0][1],b=comparePair[1][0]/comparePair[1][1],correct=a>b?'A':a<b?'B':'equal',fb=document.getElementById('compareFeedback');fb.innerHTML=choice===correct?'✅ Correct.':'❌ Not quite. Use common denominators or cross multiplication.';fb.classList.remove('hidden');}
+function simplifyMachine(){let n=Number(document.getElementById('simpN').value)||12,d=Number(document.getElementById('simpD').value)||18,fb=document.getElementById('simplifyFeedback');fb.innerHTML=`${n}/${d} simplifies to <strong>${frac(n,d)}</strong>.`;fb.classList.remove('hidden');}
+function ofQuantity(){let n=Number(document.getElementById('ofN').value)||3,d=Number(document.getElementById('ofD').value)||4,q=Number(document.getElementById('ofQ').value)||20,ans=n*q/d,fb=document.getElementById('ofFeedback');fb.innerHTML=`${n}/${d} of ${q} = ${n} × ${q} ÷ ${d} = <strong>${ans}</strong>.`;fb.classList.remove('hidden');}
+function loadRealCase(){let cases=[['Tortoise Walk','A tortoise walks 1/4 km each hour for 3 hours.','3 × 1/4 = 3/4 km.'],['Recipe','One cake uses 2/3 cup milk. Two cakes need how much?','2 × 2/3 = 4/3 cups.'],['Sharing Sweets','Find 3/4 of 20 sweets.','3/4 × 20 = 15 sweets.'],['Garden','2/5 of a garden is planted with roses. If the garden has 30 plots, how many rose plots?','2/5 × 30 = 12 plots.']];let c=cases[Math.floor(Math.random()*cases.length)];document.getElementById('realCase').innerHTML=`<h4>${c[0]}</h4><p>${c[1]}</p><div class="feedback-box">✅ ${c[2]}</div>`;}
+function randomItem(){let t=Math.floor(Math.random()*5);if(t===0){let h=Math.floor(Math.random()*5)+2,d=[3,4,5,6,8][Math.floor(Math.random()*5)];return{q:`A tortoise walks 1/${d} km in 1 hour. How far in ${h} hours?`,a:frac(h,d),s:`${h} × 1/${d} = ${h}/${d} = ${frac(h,d)}.`};}if(t===1){let n=Math.floor(Math.random()*5)+2,d=Math.floor(Math.random()*6)+3,w=Math.floor(Math.random()*5)+2;return{q:`Calculate ${w} × ${n}/${d}.`,a:frac(w*n,d),s:`${w} × ${n}/${d} = ${w*n}/${d} = ${frac(w*n,d)}.`};}if(t===2){let a=2,b=3,c=3,d=5;return{q:`Calculate ${a}/${b} × ${c}/${d} and simplify.`,a:frac(a*c,b*d),s:`${a*c}/${b*d} = ${frac(a*c,b*d)}.`};}if(t===3)return{q:'Find 3/4 of 20.',a:'15',s:'3/4 × 20 = 15.'};return{q:'Simplify 12/18.',a:'2/3',s:'Divide numerator and denominator by 6.'};}
+function generatePDF(keys){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-qty').value)||12)),canvas=document.getElementById('pdf-canvas'),h=`<div style="font-family:Poppins,Arial;padding:30px;color:#272b6a"><h1>Class VII: Working with Fractions Worksheet</h1><p><strong>Name:</strong> ____________________ <strong>Date:</strong> __________</p><ol>`;for(let i=0;i<qty;i++){let it=randomItem();h+=`<li style="margin-bottom:28px"><strong>Question:</strong> ${it.q}<br><br>${keys?'<strong>Answer:</strong> '+it.a+'<br><strong>Solution:</strong> '+it.s:'_____________________________'}</li>`;}h+='</ol></div>';canvas.innerHTML=h;html2pdf().from(canvas).set({margin:15,filename:keys?'working-fractions-answer-key.pdf':'working-fractions-worksheet.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).save();}
+</script>
+</body>
+</html>

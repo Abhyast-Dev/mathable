@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exploring Some Geometric Themes - Mathable Smart Lab</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--brand-yellow:#fde32d;--brand-pink:#ee4977;--brand-navy:#272b6a;--brand-aqua:#4bc2c4;--text-muted:#5e6282;--white:#fff;--soft-bg:#fafafa;--green:#27ae60;--orange:#e67e22;--shadow:0 4px 24px rgba(0,0,0,.06)}
+body{font-family:Poppins,Segoe UI,Arial,sans-serif;background:var(--soft-bg);color:var(--brand-navy);margin:0}
+header{background:rgba(255,255,255,.92);padding:18px 28px;border-bottom:3px solid var(--brand-aqua);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}
+.logo-wrap{display:flex;align-items:center;gap:12px}.logo-fallback{height:44px;width:44px;border-radius:14px;background:var(--brand-yellow);display:grid;place-items:center;font-weight:800;box-shadow:var(--shadow)}
+header h1{font-size:1.05rem;margin:0}header a{text-decoration:none;color:var(--brand-navy);font-weight:700}
+.workspace-container{max-width:1080px;margin:32px auto;padding:24px;background:#fff;border-radius:16px;box-shadow:var(--shadow)}
+.card-badge{display:inline-block;padding:8px 14px;border-radius:999px;font-weight:700;font-size:.85rem}.tab-navigation{display:flex;gap:10px;margin:24px 0;border-bottom:2px solid #eee;padding-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:12px 16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:10px;font-weight:700;color:var(--brand-navy)}.tab-btn.active{background:var(--brand-aqua);color:white}
+.tab-content{display:none}.tab-content.active{display:block}.info-box{background:rgba(39,43,106,.03);border:1px solid rgba(39,43,106,.1);padding:24px;border-radius:14px;margin-bottom:18px}
+.activity-card{background:white;border:1px solid rgba(39,43,106,.12);border-radius:14px;padding:20px;margin:18px 0;box-shadow:0 4px 12px rgba(0,0,0,.03)}
+.highlight-card{background:rgba(75,194,196,.08);border-left:5px solid var(--brand-aqua);padding:16px;margin:14px 0;border-radius:8px}.pink-card{border-left-color:var(--brand-pink);background:rgba(238,73,119,.07)}.yellow-card{border-left-color:var(--brand-yellow);background:rgba(253,227,45,.16)}
+.action-btn{background:var(--brand-navy);color:white;border:none;padding:11px 18px;border-radius:9px;cursor:pointer;font-weight:700;margin:6px 6px 6px 0}.secondary-btn{background:var(--brand-aqua)}.pink-btn{background:var(--brand-pink)}.green-btn{background:var(--green)}.orange-btn{background:var(--orange)}
+input,select{padding:10px;border:2px solid rgba(39,43,106,.35);border-radius:8px;font-family:inherit;font-size:1rem;margin:4px}.hidden{display:none}
+.hint-box,.solution-box,.feedback-box{margin-top:14px;padding:14px;border-radius:10px;background:#fff;border-left:5px solid var(--brand-yellow)}.solution-box{border-left-color:var(--brand-pink)}.feedback-box{border-left-color:var(--brand-aqua);font-weight:700}
+.score-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;color:var(--brand-pink);font-weight:700}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.formula-tile{background:#fff;border-radius:12px;border:1px solid rgba(39,43,106,.12);padding:18px}.formula-tile h4{margin-top:0;color:var(--brand-pink)}
+.line-stage{background:#fffde8;border:2px dashed var(--brand-yellow);border-radius:16px;margin:16px 0;padding:10px;display:grid;place-items:center;min-height:310px}
+.compare-zone{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.num-card{background:#fff;border:2px solid rgba(39,43,106,.15);border-radius:14px;padding:18px;min-width:160px;text-align:center;font-size:1.15rem;font-weight:800}
+svg{max-width:100%;height:auto}.small-note{font-size:.92rem;color:var(--text-muted)}footer{padding:36px 20px;text-align:center;color:var(--text-muted);font-size:.88rem}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:8px}
+@media(max-width:640px){.workspace-container{margin:14px;padding:16px}.num-card{min-width:130px}header{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="logo-wrap"><img src="../assets/Logo.png" alt="Mathable Logo" style="height:42px" onerror="this.style.display='none';document.getElementById('fallbackLogo').style.display='grid';"><div id="fallbackLogo" class="logo-fallback" style="display:none;">M</div><h1>Mathable Smart Lab</h1></div><nav><a href="../index.html">← Back to Dashboard</a></nav></header>
+
+<main class="workspace-container">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+<span class="card-badge" style="background:var(--brand-yellow);color:#000">GRADE 8 • GEOMETRY</span>
+<span style="font-size:.9rem;font-weight:700;color:var(--text-muted)">Strand: Fractals, Solids, Nets and Visualisation</span></div>
+<h2 style="color:var(--brand-navy);margin-top:0;font-size:2.25rem;font-weight:800">Exploring Some Geometric Themes Smart Lab</h2>
+<p style="color:var(--text-muted);margin-top:-6px">Explore self-similar fractals, Sierpinski patterns, Koch snowflakes, solid profiles, nets, prisms, pyramids, and shortest paths on cuboids.</p>
+
+<nav class="tab-navigation">
+<button id="btn-fact" class="tab-btn active" onclick="switchLabTab('fact')">📖 Fact Sheet</button>
+<button id="btn-rules" class="tab-btn" onclick="switchLabTab('rules')">📑 Rules Hub</button>
+<button id="btn-lab" class="tab-btn" onclick="switchLabTab('lab')">🧠 Solve Lab</button>
+<button id="btn-activities" class="tab-btn" onclick="switchLabTab('activities')">🎮 Activity Zone</button>
+<button id="btn-generator" class="tab-btn" onclick="switchLabTab('generator')">🖨️ Worksheet Generator</button>
+<button id="btn-real" class="tab-btn" onclick="switchLabTab('real')">🌍 Real-Life Lab</button>
+<button id="btn-teacher" class="tab-btn" onclick="switchLabTab('teacher')">📊 Teacher Tools</button>
+</nav>
+
+<section id="panel-fact" class="tab-content active">
+<h3>What are Geometric Themes?</h3>
+<div class="info-box">
+<p>This chapter explores two big ideas: fractals, which repeat similar patterns at smaller scales, and ways to visualise solids using profiles, faces, edges, vertices, nets and projections.</p>
+<div class="highlight-card"><strong>Fractals:</strong> Self-similar shapes such as ferns, trees, the Sierpinski Carpet, Sierpinski Triangle and Koch Snowflake.</div>
+<div class="highlight-card pink-card"><strong>Solids:</strong> Three-dimensional objects can be understood through faces, edges, vertices, profiles and viewpoints.</div>
+<div class="highlight-card yellow-card"><strong>Nets:</strong> A net is a flat shape that can be folded to form a solid such as a cube, cuboid, prism, pyramid, cylinder or cone.</div>
+<div class="line-stage"><svg id="introSvg" viewBox="0 0 650 330"></svg></div>
+<p class="small-note">Choose a fractal and step number to see how repetition creates complex shapes.</p>
+<select id="fractalType" onchange="drawIntro()"><option value="carpet">Sierpinski Carpet</option><option value="triangle">Sierpinski Triangle</option><option value="koch">Koch Snowflake</option></select>
+<label>Step <input type="range" min="0" max="4" value="2" id="fractalStep" oninput="drawIntro()"></label>
+</div>
+</section>
+
+<section id="panel-rules" class="tab-content">
+<h3>Rules Hub</h3>
+<div class="info-box"><div class="formula-grid">
+<div class="formula-tile"><h4>Sierpinski Carpet</h4><p>Each remaining square creates 8 smaller squares.</p><p>\(R_n=8^n\)</p></div>
+<div class="formula-tile"><h4>Sierpinski Triangle</h4><p>Each remaining triangle creates 3 smaller triangles.</p><p>Remaining area after \(n\) steps: \((3/4)^n\)</p></div>
+<div class="formula-tile"><h4>Koch Snowflake</h4><p>Each side is replaced by 4 smaller sides.</p><p>Sides at step \(n\): \(3\cdot4^n\)</p></div>
+<div class="formula-tile"><h4>Faces, Edges, Vertices</h4><p>Cube/cuboid: 6 faces, 12 edges, 8 vertices.</p></div>
+<div class="formula-tile"><h4>Prism with n-sided Base</h4><p>Faces \(=n+2\), edges \(=3n\), vertices \(=2n\).</p></div>
+<div class="formula-tile"><h4>Pyramid with n-sided Base</h4><p>Faces \(=n+1\), edges \(=2n\), vertices \(=n+1\).</p></div>
+</div></div>
+</section>
+
+<section id="panel-lab" class="tab-content">
+<h3>Guided Solve Lab</h3>
+<div class="info-box">
+<div class="score-bar"><span id="lab-score-display">Score: 0</span><span id="lab-streak-display">Current Streak: 🔥 0</span><span id="lab-badge-display">Badge: Geometry Explorer</span></div>
+<div class="activity-card">
+<p id="lab-question-field" style="font-size:1.15rem;font-weight:600;line-height:1.6"></p>
+<input type="text" id="student-answer-input" placeholder="Type answer"><br>
+<button class="action-btn" onclick="submitSandboxAnswer()">Check Answer</button>
+<button class="action-btn secondary-btn" onclick="renderSandboxQuestion(true)">Next Question</button>
+<button class="action-btn secondary-btn" onclick="toggleVisibilityBox('hint-box-container')">Show Hint</button>
+<button class="action-btn pink-btn" onclick="toggleVisibilityBox('solution-box-container')">Step-by-Step</button>
+<div id="feedback-box-container" class="feedback-box hidden"></div>
+<div id="hint-box-container" class="hint-box hidden"></div>
+<div id="solution-box-container" class="solution-box hidden"></div>
+</div></div>
+</section>
+
+<section id="panel-activities" class="tab-content">
+<h3>Activity Zone</h3>
+
+<div class="activity-card"><h4>🎛️ Fractal Counter</h4>
+<p>Choose a fractal and step. Count remaining pieces, holes or sides.</p>
+<select id="counterType" onchange="fractalCounter()"><option value="carpet">Sierpinski Carpet</option><option value="triangle">Sierpinski Triangle</option><option value="koch">Koch Snowflake</option></select>
+<label>Step <input type="number" id="counterStep" min="0" max="10" value="3" oninput="fractalCounter()"></label>
+<div id="counterFeedback" class="feedback-box"></div></div>
+
+<div class="activity-card"><h4>🧊 Prism and Pyramid Counter</h4>
+<p>Enter the number of sides in the base polygon.</p>
+<input type="number" id="nSides" value="6" min="3" oninput="solidCounter()">
+<div id="solidFeedback" class="feedback-box"></div></div>
+
+<div class="activity-card"><h4>📦 Cube Net Checker</h4>
+<p>Can this pattern fold into a cube? Try visualising first.</p>
+<div class="line-stage"><svg id="netSvg" viewBox="0 0 520 310"></svg></div>
+<select id="netSelect" onchange="drawNet()"><option value="valid1">Cross net</option><option value="valid2">Zig-zag net</option><option value="invalid1">Long strip with crowded squares</option><option value="invalid2">2×3 rectangle</option></select>
+<button class="action-btn" onclick="checkNet()">Check Net</button>
+<div id="netFeedback" class="feedback-box hidden"></div></div>
+
+<div class="activity-card"><h4>🧩 Shape/Profile Identifier</h4>
+<p id="ruleQuestion">A cylinder viewed from the top can have this profile.</p>
+<button class="action-btn" onclick="checkRule('Circle')">Circle</button>
+<button class="action-btn" onclick="checkRule('Rectangle')">Rectangle</button>
+<button class="action-btn" onclick="checkRule('Triangle')">Triangle</button>
+<button class="action-btn" onclick="checkRule('Net')">Net</button>
+<button class="action-btn secondary-btn" onclick="newRule()">New</button>
+<div id="ruleFeedback" class="feedback-box hidden"></div></div>
+</section>
+
+<section id="panel-generator" class="tab-content">
+<h3>Worksheet Generator</h3>
+<div class="info-box"><p>Generate printable practice on fractal patterns, counts, faces-edges-vertices, nets, and visualising solids.</p>
+<label>Number of problems:</label><input type="number" id="pdf-quantity-input" min="5" max="50" value="12"><br><br>
+<button class="action-btn" onclick="generateWorksheetPdf(false)">Download Worksheet PDF</button>
+<button class="action-btn secondary-btn" onclick="generateWorksheetPdf(true)">Download Answer Key PDF</button>
+</div><div id="pdf-printing-canvas" style="display:none"></div>
+</section>
+
+<section id="panel-real" class="tab-content"><h3>Real-Life Lab</h3><div class="info-box"><div id="realCase"></div><button class="action-btn" onclick="loadRealLifeLab()">Next Case Study</button></div></section>
+
+<section id="panel-teacher" class="tab-content">
+<h3>Teacher Tools</h3>
+<div class="info-box"><h4>Learning Outcomes</h4>
+<ul><li>Recognise self-similarity and construct early steps of fractals.</li><li>Find formulas for remaining pieces in Sierpinski fractals and sides/perimeter in Koch Snowflake.</li><li>Identify faces, edges and vertices of prisms and pyramids.</li><li>Visualise solid profiles from different viewpoints.</li><li>Understand and test nets of cubes, cuboids, prisms, pyramids, cylinders and cones.</li><li>Use nets to reason about shortest paths on cuboids.</li></ul>
+<h4>Exit Ticket Prompts</h4><ul><li>How many squares remain in Step 3 of the Sierpinski Carpet?</li><li>What are faces, edges and vertices?</li><li>How many faces does a prism with a pentagonal base have?</li></ul></div>
+</section>
+</main>
+<footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+
+<script>
+const pool=[
+{q:"What do we call a shape that shows the same or similar pattern at smaller and smaller scales?",a:"fractal",accepted:["fractal","fractals"],hint:"Fern leaves are a natural example.",steps:"A fractal is a self-similar shape with repeated patterns at smaller scales."},
+{q:"In the Sierpinski Carpet, how many smaller squares remain after Step 1?",a:"8",accepted:["8","eight"],hint:"A 3×3 grid has 9 squares and the centre is removed.",steps:"9 − 1 = 8 squares remain."},
+{q:"What is Rₙ for the Sierpinski Carpet?",a:"8^n",accepted:["8^n","8n","8 to the power n"],hint:"Each remaining square makes 8 remaining squares.",steps:"R₀=1 and Rₙ₊₁=8Rₙ, so Rₙ=8ⁿ."},
+{q:"How many triangles remain at Step 3 of the Sierpinski Triangle?",a:"27",accepted:["27"],hint:"Each triangle creates 3 remaining triangles.",steps:"3³ = 27."},
+{q:"How many sides does the Koch Snowflake have at Step 2?",a:"48",accepted:["48"],hint:"Sides at step n are 3×4ⁿ.",steps:"3×4² = 3×16 = 48."},
+{q:"How many faces does a cube have?",a:"6",accepted:["6","six"],hint:"A cuboid or cube has 6 flat faces.",steps:"A cube has 6 faces, 12 edges and 8 vertices."},
+{q:"How many edges does a prism with a 6-sided base have?",a:"18",accepted:["18"],hint:"For an n-gonal prism, edges = 3n.",steps:"3×6 = 18."},
+{q:"What is a flat shape that can be folded to form a solid called?",a:"net",accepted:["net","a net"],hint:"It is obtained by unfolding a solid.",steps:"A net is a 2D pattern that folds into a 3D solid."}
+];
+const ruleItems=[
+{q:"A cylinder viewed from the top can have this profile.",a:"Circle"},
+{q:"A cylinder viewed from the side can have this profile.",a:"Rectangle"},
+{q:"A cone viewed from the side can have this profile.",a:"Triangle"},
+{q:"A flat pattern that folds into a cube.",a:"Net"}
+];
+const realCases=[
+"<h4>Fractals in Nature</h4><p>Ferns, trees, clouds, mountains, lightning and coastlines show repeated patterns at smaller and smaller scales.</p>",
+"<h4>Fractals in Art</h4><p>Temple structures, traditional textiles and Escher-inspired art use self-similar patterns.</p>",
+"<h4>Packaging Boxes</h4><p>Cardboard boxes are made from nets with flaps that help attach faces together.</p>",
+"<h4>Engineering Drawings</h4><p>Profiles, projections and nets help engineers communicate the structure of solid objects.</p>",
+"<h4>Shortest Ant Path</h4><p>Unfolding a cuboid into a net turns a surface-path problem into a straight-line problem on the plane.</p>"
+];
+let idx=0,score=0,streak=0,currentRule=ruleItems[0],realIdx=0;
+const storageKey="mathable_state_geometric_themes";
+window.onload=function(){try{let s=JSON.parse(localStorage.getItem(storageKey)||"{}");score=s.score||0;streak=s.streak||0;idx=s.index||0}catch(e){}renderSandboxQuestion();drawIntro();fractalCounter();solidCounter();drawNet();newRule();loadRealLifeLab();updateScore();}
+function switchLabTab(id){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.getElementById('btn-'+id).classList.add('active')}
+function toggleVisibilityBox(id){document.getElementById(id).classList.toggle('hidden')}
+function norm(v){return String(v).trim().toLowerCase().replace(/\s+/g,'')}
+function updateScore(){document.getElementById('lab-score-display').innerText=`Score: ${score}`;document.getElementById('lab-streak-display').innerText=`Current Streak: 🔥 ${streak}`;let b="Geometry Explorer";if(score>=150)b="Visualisation Master";else if(score>=90)b="Fractal Pro";else if(score>=40)b="Net Builder";document.getElementById('lab-badge-display').innerText=`Badge: ${b}`;localStorage.setItem(storageKey,JSON.stringify({score,streak,index:idx}))}
+function renderSandboxQuestion(next=false){if(next)idx++;let o=pool[idx%pool.length];document.getElementById('lab-question-field').innerHTML=`<strong>Question ${idx+1}:</strong> ${o.q}`;document.getElementById('hint-box-container').innerHTML=`<strong>Hint:</strong> ${o.hint}`;document.getElementById('solution-box-container').innerHTML=`<strong>Step-by-Step:</strong><br>${o.steps}`;['feedback-box-container','hint-box-container','solution-box-container'].forEach(id=>document.getElementById(id).classList.add('hidden'));document.getElementById('student-answer-input').value='';updateScore();if(window.MathJax)MathJax.typesetPromise();}
+function submitSandboxAnswer(){let o=pool[idx%pool.length],ans=norm(document.getElementById('student-answer-input').value),ok=o.accepted.map(norm).includes(ans),box=document.getElementById('feedback-box-container');if(ok){box.innerHTML="🎉 Correct! "+o.steps;score+=10;streak++;idx++;setTimeout(()=>renderSandboxQuestion(),900)}else{box.innerHTML="Try again. Hint: "+o.hint;streak=0}box.classList.remove('hidden');updateScore();}
+function drawIntro(){let type=document.getElementById('fractalType').value,step=+document.getElementById('fractalStep').value,svg=document.getElementById('introSvg');svg.innerHTML='';if(type==='carpet')drawCarpet(svg,180,35,250,step);else if(type==='triangle')drawSierTri(svg,325,35,250,step);else drawKoch(svg,160,245,250,step);svg.innerHTML+=`<text x="25" y="30" font-size="18" font-weight="800">Step ${step}</text>`}
+function drawCarpet(svg,x,y,s,n){if(n===0){svg.innerHTML+=`<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="#c052a3"/>`;return}let t=s/3;for(let i=0;i<3;i++)for(let j=0;j<3;j++){if(i===1&&j===1)svg.innerHTML+=`<rect x="${x+t}" y="${y+t}" width="${t}" height="${t}" fill="#fffde8"/>`;else drawCarpet(svg,x+i*t,y+j*t,t,n-1)}}
+function triPoints(cx,y,s){let h=s*Math.sqrt(3)/2;return [[cx,y],[cx-s/2,y+h],[cx+s/2,y+h]]}
+function drawPoly(svg,pts,fill){svg.innerHTML+=`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="${fill}" stroke="#fffde8" stroke-width="1"/>`}
+function drawSierTri(svg,cx,y,s,n){let h=s*Math.sqrt(3)/2;if(n===0){drawPoly(svg,triPoints(cx,y,s),'#c052a3');return}drawSierTri(svg,cx,y,s/2,n-1);drawSierTri(svg,cx-s/4,y+h/2,s/2,n-1);drawSierTri(svg,cx+s/4,y+h/2,s/2,n-1)}
+function kochSegment(p1,p2,n,arr){if(n===0){arr.push([p1,p2]);return}let [x1,y1]=p1,[x2,y2]=p2,dx=(x2-x1)/3,dy=(y2-y1)/3;let A=[x1+dx,y1+dy],B=[x1+2*dx,y1+2*dy];let ang=-Math.PI/3;let vx=dx*Math.cos(ang)-dy*Math.sin(ang),vy=dx*Math.sin(ang)+dy*Math.cos(ang),C=[A[0]+vx,A[1]+vy];kochSegment(p1,A,n-1,arr);kochSegment(A,C,n-1,arr);kochSegment(C,B,n-1,arr);kochSegment(B,p2,n-1,arr)}
+function drawKoch(svg,x,y,s,n){let h=s*Math.sqrt(3)/2,pts=[[x,y],[x+s,y],[x+s/2,y-h]],segs=[];kochSegment(pts[0],pts[1],n,segs);kochSegment(pts[1],pts[2],n,segs);kochSegment(pts[2],pts[0],n,segs);for(let seg of segs){svg.innerHTML+=`<line x1="${seg[0][0]}" y1="${seg[0][1]}" x2="${seg[1][0]}" y2="${seg[1][1]}" stroke="#159947" stroke-width="3"/>`}}
+function fractalCounter(){let t=document.getElementById('counterType').value,n=+document.getElementById('counterStep').value||0,box=document.getElementById('counterFeedback');if(t==='carpet'){let R=8**n,H=(8**n-1)/7;box.innerHTML=`Sierpinski Carpet Step ${n}: remaining squares Rₙ = 8^${n} = ${R}; holes Hₙ = 1+8+...+8^${n-1} = ${H}.`;}else if(t==='triangle'){box.innerHTML=`Sierpinski Triangle Step ${n}: remaining triangles = 3^${n} = ${3**n}; remaining area if starting area is 1 = (3/4)^${n} ≈ ${((3/4)**n).toFixed(4)}.`;}else{box.innerHTML=`Koch Snowflake Step ${n}: number of sides = 3×4^${n} = ${3*(4**n)}; perimeter for starting side 1 = 3×(4/3)^${n} ≈ ${(3*((4/3)**n)).toFixed(4)}.`;}}
+function solidCounter(){let n=Math.max(3,+document.getElementById('nSides').value||3);document.getElementById('solidFeedback').innerHTML=`For an ${n}-sided base: prism has ${n+2} faces, ${3*n} edges, ${2*n} vertices. Pyramid has ${n+1} faces, ${2*n} edges, ${n+1} vertices.`}
+function square(svg,x,y,s){svg.innerHTML+=`<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="rgba(75,194,196,.18)" stroke="#272b6a" stroke-width="3"/>`}
+function drawNet(){let svg=document.getElementById('netSvg'),v=document.getElementById('netSelect').value,s=45,x=120,y=75;svg.innerHTML='';let coords={valid1:[[1,0],[1,1],[0,2],[1,2],[2,2],[1,3]],valid2:[[0,0],[1,0],[1,1],[2,1],[2,2],[3,2]],invalid1:[[0,0],[1,0],[2,0],[3,0],[4,0],[2,1]],invalid2:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]]}[v];coords.forEach(c=>square(svg,x+c[0]*s,y+c[1]*s,s));document.getElementById('netFeedback').classList.add('hidden')}
+function checkNet(){let v=document.getElementById('netSelect').value,ok=v==='valid1'||v==='valid2',box=document.getElementById('netFeedback');box.innerHTML=ok?'✅ This can fold into a cube net.':'❌ This pattern creates overlap or cannot fold into a cube.';box.classList.remove('hidden')}
+function newRule(){currentRule=ruleItems[Math.floor(Math.random()*ruleItems.length)];document.getElementById('ruleQuestion').textContent=currentRule.q;document.getElementById('ruleFeedback').classList.add('hidden')}
+function checkRule(choice){let ok=choice===currentRule.a,box=document.getElementById('ruleFeedback');box.innerHTML=ok?'🎉 Correct!':'Try again. Best answer: '+currentRule.a+'.';box.classList.remove('hidden');if(ok){score+=10;streak++}else streak=0;updateScore();}
+function loadRealLifeLab(){document.getElementById('realCase').innerHTML=realCases[realIdx%realCases.length];realIdx++}
+function generateWorksheetPdf(key){let qty=Math.min(50,Math.max(5,parseInt(document.getElementById('pdf-quantity-input').value)||12));let html=`<div style="font-family:Poppins,Arial,sans-serif;padding:30px;color:#272b6a"><h1>Exploring Some Geometric Themes Worksheet</h1><p>Name: __________________ Date: __________________</p><ol>`;for(let i=0;i<qty;i++){let q=pool[i%pool.length];html+=`<li style="margin-bottom:24px"><b>${q.q}</b>${key?`<p><b>Answer:</b> ${q.a}<br><b>Reason:</b> ${q.steps}</p>`:'<div style="height:44px;border-bottom:1px dashed #aaa"></div>'}</li>`}html+='</ol></div>';let el=document.getElementById('pdf-printing-canvas');el.innerHTML=html;html2pdf().from(el).set({margin:12,filename:key?'Geometric-Themes-Answer-Key.pdf':'Geometric-Themes-Worksheet.pdf',html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4'}}).save()}
+</script>
+</body>
+</html>
