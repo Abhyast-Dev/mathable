@@ -70,7 +70,14 @@
 <section id="panel-generator" class="tab-content"><h3>Worksheet Generator</h3><div class="info-box"><p>Generate practice on mean, median, unknown values, frequency tables, and graph interpretation.</p><label>Number of problems:</label><input type="number" id="pdf-qty" min="5" max="40" value="12"><br><br><button class="action-btn" onclick="generatePDF(false)">Download Worksheet PDF</button><button class="action-btn secondary-btn" onclick="generatePDF(true)">Download Answer Key PDF</button></div><div id="pdf-canvas" style="display:none"></div></section>
 <section id="panel-real" class="tab-content"><h3>Real-World Use</h3><div class="info-box"><div class="highlight-card"><strong>Weather:</strong> Line graphs show how temperatures change month by month.</div><div class="highlight-card aqua-card"><strong>Class records:</strong> Spreadsheets quickly calculate totals and subject averages.</div><div class="highlight-card pink-card"><strong>Sports:</strong> Mean and median help compare performance, consistency, and unusual values.</div><div class="activity-card"><h4>🌍 Real-Life Case Generator</h4><div id="realCase"></div><button class="action-btn" onclick="loadRealCase()">Next Case</button></div></div></section>
 <section id="panel-teacher" class="tab-content"><h3>Teacher Tools</h3><div class="info-box"><h4>Learning Outcomes</h4><ul><li>Interpret mean as a balancing point on dot plots.</li><li>Predict how mean and median change when data changes.</li><li>Calculate mean and median from raw data and frequency tables.</li><li>Find missing data values using a given mean.</li><li>Interpret line graphs using “identify → infer” steps.</li><li>Use spreadsheet formula language such as SUM and AVERAGE.</li></ul><h4>Exit Ticket Prompts</h4><ul><li>What happens to the mean if every value increases by 5?</li><li>Find a data set where mean and median are different.</li><li>Explain why the mean is not always the midpoint of the smallest and largest values.</li></ul></div></section>
-</main><footer><div class="footer-links"><span>📧 contact@abhyast.in</span><span>💬 WhatsApp Support</span></div><div>© 2026 Abhyast Private Limited. ABLE™ and TAKECARE™ Frameworks.</div></footer>
+</main>
+  <footer>
+    <p>
+        📧 <a href="mailto:contact@abhyast.in" style="color: #ffffff; text-decoration: underline;">contact@abhyast.in</a> | 
+        💬 <a href="https://wa.me/919910686080" style="color: #ffffff; text-decoration: underline;">WhatsApp Support</a>
+    </p>
+    <p>© 2026 Abhyast Private Limited. ABLE™ (Autonomy Building Learning Environment) and TAKECARE™ are registered cognitive frameworks.</p>
+</footer>
 <script>
 const qPool=[
 {q:'Find the mean of 3, 7.',a:'5',accepted:['5'],hint:'Add the values and divide by 2.',steps:'(3 + 7) ÷ 2 = 10 ÷ 2 = 5.'},
