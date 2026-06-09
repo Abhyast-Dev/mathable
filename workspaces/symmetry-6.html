@@ -38,7 +38,13 @@
 <section id="panel-generator" class="tab-content"><h3>Worksheet Generator</h3><div class="info-box"><p>Create a printable worksheet for practice on lines of symmetry, reflection, rotational symmetry and paper folding.</p><label>Number of questions <input id="pdf-qty" type="number" min="5" max="30" value="12"></label><button class="action-btn" onclick="generatePDF(false)">Download Worksheet</button><button class="action-btn green-btn" onclick="generatePDF(true)">Download Answer Key</button></div><div id="pdf-canvas" class="hidden"></div></section>
 <section id="panel-teacher" class="tab-content"><h3>Teacher Tools</h3><div class="formula-grid"><div class="formula-tile"><h4>Learning Goals</h4><ul><li>Identify lines of symmetry by folding or visual reasoning.</li><li>Complete mirror images on grid paper.</li><li>Distinguish reflection symmetry from rotational symmetry.</li><li>Find angles of rotational symmetry for radial patterns.</li></ul></div><div class="formula-tile"><h4>Misconceptions to watch</h4><ul><li>Thinking every balanced-looking figure has a line of symmetry.</li><li>Counting 360° alone as “rotational symmetry”.</li><li>Missing diagonal symmetry in a square.</li><li>Assuming a rectangle’s diagonal is a line of symmetry.</li></ul></div><div class="formula-tile"><h4>Hands-on materials</h4><ul><li>Square paper, scissors, hole punch.</li><li>Transparent sheet for reflection checks.</li><li>Cut-out windmills or radial arms.</li><li>Dot grid and squared paper.</li></ul></div><div class="formula-tile"><h4>Exit ticket</h4><p>Ask students to draw one figure with exactly two lines of symmetry and another with rotational symmetry but no line of symmetry.</p></div></div></section>
 </main>
-<footer><div class="footer-links"><strong>Mathable Smart Lab</strong><span>Symmetry</span><span>Class VI</span></div><p>Use with teacher guidance for classroom exploration and printable practice.</p></footer>
+<footer>
+    <p>
+        📧 <a href="mailto:contact@abhyast.in" style="color: #ffffff; text-decoration: underline;">contact@abhyast.in</a> | 
+        💬 <a href="https://wa.me/919910686080" style="color: #ffffff; text-decoration: underline;">WhatsApp Support</a>
+    </p>
+    <p>© 2026 Abhyast Private Limited. ABLE™ (Autonomy Building Learning Environment) and TAKECARE™ are registered cognitive frameworks.</p>
+</footer>
 <script>
 function switchTab(id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(p=>p.classList.remove('active'));document.getElementById('btn-'+id).classList.add('active');document.getElementById('panel-'+id).classList.add('active');}
 function grid(svg){let s='';for(let x=40;x<=440;x+=20)s+=`<line x1="${x}" y1="20" x2="${x}" y2="340" stroke="#eee"/>`;for(let y=20;y<=340;y+=20)s+=`<line x1="40" y1="${y}" x2="440" y2="${y}" stroke="#eee"/>`;return s;}
